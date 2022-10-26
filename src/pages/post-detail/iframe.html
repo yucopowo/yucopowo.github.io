@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react",
+        "react-dom": "https://esm.sh/react-dom",
+        "react-router-dom": "https://esm.sh/react-router-dom",
+        "react-router": "https://esm.sh/react-router",
+        "marked": "https://esm.sh/marked",
+        "highlight.js": "https://esm.sh/highlight.js"
+      }
+    }
+    </script>
+
+    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/highlight.js/11.6.0/styles/base16/darcula.min.css">
+    <link rel="stylesheet" href="/src/pages/post-detail/iframe.css">
+</head>
+<body>
+<div class="posts-expand">
+    <div class="post-body" id="content">
+
+    </div>
+</div>
+
+<script src="//cdn.bootcdn.net/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+<script src="//cdn.bootcdn.net/ajax/libs/highlight.js/11.6.0/languages/javascript.min.js"></script>
+<script type="module" src="/src/pages/post-detail/iframe.js"></script>
+</body>
+</html>
