@@ -1,0 +1,5 @@
+node_modules
+bak
+pnpm-lock.yaml
+.DS_Store
+.idea
