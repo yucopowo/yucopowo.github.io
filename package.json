@@ -1,4 +1,7 @@
 {
+	"scripts": {
+		"dev": "node server.js"
+	},
 	"dependencies": {
 		"dayjs": "^1.11.6",
 		"deep-list-dir": "^1.4.4",

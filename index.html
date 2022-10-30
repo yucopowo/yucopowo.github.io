@@ -2,38 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>blog</title>
-    <link rel="stylesheet" href="/index.css">
-    <script type="importmap">
-    {
-      "imports": {
-        "react": "https://esm.sh/react",
-        "react-dom": "https://esm.sh/react-dom",
-        "react-router-dom": "https://esm.sh/react-router-dom",
-        "react-router": "https://esm.sh/react-router",
-        "marked": "https://esm.sh/marked"
-      }
-    }
-    </script>
+    <link rel="icon" href="data:;base64,=">
     <style>
+        body {
+            background: #151617;
+            color: #555;
+        }
         #update {
             position: fixed;
             right: 10px;
             top: 10px;
             z-index: 9;
+            display: none;
         }
-
-    </style>
-    <style>
-
-        #spinners {
+        #spinners, .spinners {
             display: inline-block;
             position: fixed;
             top: 50%;
             left: 50%;
             margin-top: -50px;
+            margin-left: -30px;
         }
-        #spinners li {
+        #spinners li, .spinners li  {
             height: 60px;
             width: 60px;
             right: 0;
@@ -166,14 +158,8 @@
                 opacity: 0
             }
         }
-
-        .sk-chase {
-            width: 60px;
-            height: 60px;
-            position: relative;
-            animation: sk-chase 2.5s infinite linear both
-        }
     </style>
+
     <!-- Start Single Page Apps for GitHub Pages -->
     <script type="text/javascript">
         // Single Page Apps for GitHub Pages
@@ -186,9 +172,9 @@
         // When the single page app is loaded further down in this file,
         // the correct url will be waiting in the browser's history for
         // the single page app to route accordingly.
-        (function(l) {
-            if (l.search[1] === '/' ) {
-                var decoded = l.search.slice(1).split('&').map(function(s) {
+        window.location.host.includes('.github.io') && (function(l) {
+            if (l.search[1] === '/') {
+                const decoded = l.search.slice(1).split('&').map(function(s) {
                     return s.replace(/~and~/g, '&')
                 }).join('?');
                 window.history.replaceState(null, null,
@@ -198,6 +184,19 @@
         }(window.location))
     </script>
     <!-- End Single Page Apps for GitHub Pages -->
+<!--    <script src="/libs/iframeResizer.js"></script>-->
+    <script>
+        window.__LIBS__ = {
+            "react": "https://esm.sh/react?dev",
+            "react-dom": "https://esm.sh/react-dom",
+            "react-dom/client": "https://esm.sh/react-dom/client?dev",
+            "react-router-dom": "https://esm.sh/react-router-dom?dev",
+            "react-router": "https://esm.sh/react-router?dev",
+            "hashids": "https://esm.sh/hashids",
+            "js-base64": "https://esm.sh/js-base64",
+            "marked": "https://esm.sh/marked"
+        };
+    </script>
 </head>
 <body>
 <button id="update">update</button>
@@ -213,6 +212,17 @@
     </div>
 
 </div>
-<script src="/index.js"></script>
+
+<script>
+    const importMap = {
+        "imports": window.__LIBS__
+    };
+    const im = document.createElement('script');
+    im.type = 'importmap';
+    im.textContent = JSON.stringify(importMap, null, 2);
+    // document.currentScript.after(im);
+    document.head.appendChild(im);
+</script>
+<script type="module" src="/index.js"></script>
 </body>
 </html>

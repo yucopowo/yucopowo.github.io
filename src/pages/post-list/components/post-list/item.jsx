@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '/src/pages/home/components/post-list/item.less';
+import './item.less';
 
 const PostItem = (props) => {
     const { post } = props;
@@ -9,7 +9,7 @@ const PostItem = (props) => {
 
             <div className="list-content">
                 <div className="list-body">
-                    <Link className="list-title" to={`/post/${post.path}`}>{post.title}</Link>
+                    <Link className="list-title" to={`/page/post/${post.path}`}>{post.title}</Link>
                     <div className="list-desc">
                         <p>
                             {post.summary}
