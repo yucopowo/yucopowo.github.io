@@ -1,39 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <script type="importmap">
-    {
-      "imports": {
-        "react": "https://esm.sh/react",
-        "react-dom": "https://esm.sh/react-dom",
-        "react-router-dom": "https://esm.sh/react-router-dom",
-        "react-router": "https://esm.sh/react-router",
-        "marked": "https://esm.sh/marked",
-        "antd": "https://esm.sh/antd",
-        "highlight.js": "https://esm.sh/highlight.js"
-      }
-    }
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script src="/libs/babel.js"></script>
+    <script>
+
+        (() => {
+            const script = document.createElement('script');
+            script.type = 'importmap';
+            script.textContent = JSON.stringify({"imports": top.window.__LIBS__}, null, 2);
+            console.log(document);
+            document.currentScript.after(script);
+        })();
+
+        (() => {
+
+            // console.log(window.frameElement.previousElementSibling);
+            const textarea = window.frameElement.previousElementSibling;
+
+            const code = textarea.value;
+            const template = textarea.getAttribute('data-template');
+
+
+            const script = document.createElement('script');
+            script.type = 'text/babel';
+            script.setAttribute('data-type', 'module');
+            script.setAttribute('data-presets', 'react');
+
+            console.log(template);
+            if(template !== 'undefined') {
+                if(template === 'react') {
+
+                    const { code: source } = Babel.transform(code, {
+                        // 'env',
+                        presets: ['react'],
+                        plugins: [],
+                    });
+                    const blob = new Blob([source], {
+                        type: 'application/javascript'
+                    });
+                    const url = URL.createObjectURL(blob);
+                    const newCode = `
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import App from '${url}';
+const container = document.createElement('div');
+document.body.appendChild(container);
+const root = createRoot(container);
+root.render(React.createElement(App));
+                        // console.log(App);
+                    `;
+                    script.innerHTML = newCode;
+                }
+            } else {
+                script.innerHTML = code;
+            }
+            document.currentScript.after(script);
+        })();
     </script>
 
-    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/highlight.js/11.6.0/styles/base16/darcula.min.css">
-    <link rel="stylesheet" href="/src/pages/post-detail/iframe.css">
-    <style>
-    </style>
-    <script src="/libs/iframeResizer.contentWindow.js"></script>
 
 </head>
 <body>
-<div class="posts-expand">
-    <div class="post-body" id="content">
+<!--<script type="text/babel" data-type="module" data-presets="react">-->
+<!--</script>-->
 
-    </div>
-</div>
+<script>
+    (() => {
+        function debounce(fn, wait = 50) {
+            let timer = null
+            return function (...args) {
+                if (timer) clearTimeout(timer)
+                timer = setTimeout(() => {
+                    fn.apply(this, args)
+                }, wait)
+            }
+        }
 
-<div style="height: 200px;"></div>
+        const topFrame = window.frameElement;
+        if (topFrame) {
+            const debouncedHandler = debounce(() => {
+                const height = document.documentElement.offsetHeight;
+                topFrame.style.height = (height + 100) + 'px';
+            }, 100);
+            const observe = new ResizeObserver(debouncedHandler);
+            observe.observe(document.documentElement);
+        }
+    })();
+</script>
 
-<script src="//cdn.bootcdn.net/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
-<script src="//cdn.bootcdn.net/ajax/libs/highlight.js/11.6.0/languages/javascript.min.js"></script>
-<script type="module" src="/src/pages/post-detail/iframe.js"></script>
+
+
 </body>
+
+
 </html>

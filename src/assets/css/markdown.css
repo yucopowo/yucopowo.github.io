@@ -3053,6 +3053,7 @@ a.gitment-editor-footer-tip:hover {
 }
 .markdown-body table thead th {
     background-color: #fff;
+    border: 1px solid #171717;
 }
 .markdown-body table tr {
     /*background-color: #fff;*/
