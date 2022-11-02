@@ -22,34 +22,6 @@
     <script type="text/javascript">
         window.IS_GITHUB_ENV = window.location.host.includes('.github.io');
     </script>
-    <!-- Start Single Page Apps for GitHub Pages -->
-<!--    <script type="text/javascript">-->
-<!--        // Single Page Apps for GitHub Pages-->
-<!--        // MIT License-->
-<!--        // https://github.com/rafgraph/spa-github-pages-->
-<!--        // This script checks to see if a redirect is present in the query string,-->
-<!--        // converts it back into the correct url and adds it to the-->
-<!--        // browser's history using window.history.replaceState(...),-->
-<!--        // which won't cause the browser to attempt to load the new url.-->
-<!--        // When the single page app is loaded further down in this file,-->
-<!--        // the correct url will be waiting in the browser's history for-->
-<!--        // the single page app to route accordingly.-->
-<!--        (function(l) {-->
-<!--            if (l.pathname === '/' && l.search === '') {-->
-<!--                return;-->
-<!--            }-->
-<!--            if (l.search[1] === '/') {-->
-<!--                const decoded = l.search.slice(1).split('&').map(function(s) {-->
-<!--                    return s.replace(/~and~/g, '&')-->
-<!--                }).join('?');-->
-<!--                window.history.replaceState(null, null,-->
-<!--                    l.pathname.slice(0, -1) + decoded + l.hash-->
-<!--                );-->
-<!--            }-->
-<!--        }(window.location))-->
-<!--    </script>-->
-    <!-- End Single Page Apps for GitHub Pages -->
-<!--    <script src="/libs/iframeResizer.js"></script>-->
     <script>
         window.__LIBS__ = {
             "react": "https://esm.sh/react?dev",
@@ -70,8 +42,8 @@
             const im = document.createElement('script');
             im.type = 'importmap';
             im.textContent = JSON.stringify(importMap, null, 2);
-            document.currentScript.after(im);
-            // document.head.appendChild(im);
+            // document.currentScript.after(im);
+            document.head.appendChild(im);
         })();
     </script>
     <template id="blog-loading-template">
@@ -238,14 +210,6 @@
     <blog-loading></blog-loading>
 </div>
 
-
-<!--<script>-->
-<!--    console.log(new Date());-->
-<!--    navigator.serviceWorker.addEventListener("message", function(event) {-->
-<!--        console.log('event.data===========================================================');-->
-<!--        console.log(event.data);-->
-<!--    });-->
-<!--</script>-->
-<script type="module" src="/index.js"></script>
+<script type="module" src="/src/index.js"></script>
 </body>
 </html>

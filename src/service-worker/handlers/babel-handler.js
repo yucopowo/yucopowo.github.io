@@ -1,5 +1,5 @@
-importScripts('/libs/babel-standalone/babel.min.js');
-// importScripts('/service-worker/modules.js');
+importScripts('/src/assets/libs/babel-standalone/babel.min.js');
+// importScripts('/src/service-worker/modules.js');
 
 ((Babel) => {
     async function babelHandler({ request }) {

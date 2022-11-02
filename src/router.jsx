@@ -1,10 +1,26 @@
-import React,{ Suspense } from 'react';
+import React,{ Suspense, useState, useEffect } from 'react';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 import Loading from "./components/loading/index.jsx";
 
+
+const SuspenseLoading = () => {
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 300);
+        return () => {
+
+        };
+    }, []);
+    if(loading) {
+        return null;
+    }
+    return <Loading />
+}
 const Layout = () => {
     return (
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<SuspenseLoading />}>
             <Outlet />
         </Suspense>
     );
@@ -12,6 +28,15 @@ const Layout = () => {
 
 function lazy(loader) {
     return React.createElement(React.lazy(() => import(loader)));
+    // return React.createElement(React.lazy(() => {
+    //     return new Promise((resolve) => {
+    //         import(loader).then((m) => {
+    //             setTimeout(() => {
+    //                 resolve(m || m.default);
+    //             }, Math.random() * 5000);
+    //         });
+    //     });
+    // }));
 }
 
 const router = createBrowserRouter([

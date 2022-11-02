@@ -54,7 +54,8 @@ class BlogMarkdownPreviewer extends HTMLElement {
 
         const style0 = document.createElement('link');
         style0.rel="stylesheet";
-        style0.href = '/libs/darcula.min.css';
+        // style0.href = '/src/assets/libs/darcula.min.css';
+        style0.href = '/src/assets/libs/highlight.js/styles/github-dark.min.css';
         shadowRoot.appendChild(style0);
 
         const style1 = document.createElement('link');

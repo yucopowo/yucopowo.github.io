@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html, body {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            display: flex;
+        }
+        .panel {
+            width: 50%;
+        }
+
+        .editor-panel {
+
+        }
+        .previewer-panel {
+
+        }
+    </style>
+
+    <script src="//cdn.bootcdn.net/ajax/libs/EventEmitter/5.2.8/EventEmitter.js"></script>
+    <script src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.js"></script>
+    <script src="//cdn.bootcdn.net/ajax/libs/jquery-scrollTo/2.1.3/jquery.scrollTo.js"></script>
+    <script src="//cdn.bootcdn.net/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="//cdn.bootcdn.net/ajax/libs/lodash.js/4.17.21/lodash.js"></script>
+    <script src="common.js"></script>
+
+    <script>
+        const colors = new Array(1000).fill(0).map(x=>`rgb(${random(1, 255)},${random(1, 255)},${random(1, 255)})`);
+
+        window.colors = colors;
+    </script>
+
+</head>
+<body>
+
+
+
+<iframe id="editor" class="panel editor-panel" src="editor.html" frameborder="0"></iframe>
+<iframe id="previewer" class="panel previewer-panel" src="previewer.html" frameborder="0"></iframe>
+
+<script src="index.js"></script>
+
+</body>
+</html>

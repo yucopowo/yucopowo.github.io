@@ -1,8 +1,10 @@
-importScripts('/service-worker/modules.js');
-importScripts('/libs/marked/marked.min.js');
-importScripts('/libs/highlight.min.js');
-importScripts('/libs/javascript.min.js');
-importScripts('/libs/handlebars/handlebars.js');
+importScripts('/src/assets/libs/marked/marked.min.js');
+importScripts('/src/assets/libs/highlight.min.js');
+importScripts('/src/assets/libs/javascript.min.js');
+importScripts('/src/assets/libs/highlight.js/languages/xml.min.js');
+
+
+importScripts('/src/assets/libs/handlebars/handlebars.js');
 
 
 
@@ -43,9 +45,21 @@ importScripts('/libs/handlebars/handlebars.js');
                 if(!(config.preview && !config.demo)) {
                     const language = hljs.getLanguage(lang) ? lang : 'plaintext';
                     templates.push(`
-<pre><code class="hljs language-${lang}">${
-                            hljs.highlight(code, { language }).value
-                        }</code></pre>`
+<pre>
+<div style="background-color: #f6f8fa;
+    color: #333;
+    font-weight: bold;
+    font-size: 14px;
+    margin: -15px;
+    padding: 10px 15px;
+    border-radius: 5px 5px 0 0;
+    ${!config.title?'display: none;':''}
+    ">${config.title}</div>
+<code class="hljs language-${lang}">
+${hljs.highlight(code, { language }).value}
+</code>
+</pre>
+`
                     );
                 }
 

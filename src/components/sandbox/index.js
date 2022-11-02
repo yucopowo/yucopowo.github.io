@@ -156,7 +156,7 @@ class BlogSandbox extends HTMLElement {
 // //     }
 // // }
 // // </script>
-// // <script src="/libs/babel.js"></script>
+// // <script src="/src/assets/libs/babel.js"></script>
 // // <script type="text/babel" data-type="module" data-presets="react">
 // // ${code}
 // // </script>
@@ -202,7 +202,7 @@ class BlogSandbox extends HTMLElement {
 // //     }
 // // }
 // // </script>
-// // <script src="/libs/babel.js"></script>
+// // <script src="/src/assets/libs/babel.js"></script>
 // // <script>
 // // // window.addEventListener('resize', () => {
 // // //

@@ -1,8 +1,8 @@
-importScripts('/service-worker/modules.js');
-importScripts('/service-worker/router.js');
+importScripts('/src/service-worker/modules.js');
+importScripts('/src/service-worker/router.js');
 
 ((window) => {
-    const { router } = self.modules;
+    const { router } = window.modules;
 
     function sendMessage(msg) {
         window.clients.matchAll().then(function(clients) {
@@ -22,7 +22,7 @@ importScripts('/service-worker/router.js');
 
 
         // 用来强制更新的 Service Worker 跳过等待时间
-        event.waitUntil(self.skipWaiting());
+        event.waitUntil(window.skipWaiting());
 
     });
     window.addEventListener("activate", (event) => {
@@ -30,7 +30,7 @@ importScripts('/service-worker/router.js');
         // sendMessage();
 
         // 保证 激活之后能够马上作用于所有的终端
-        event.waitUntil(self.clients.claim());
+        event.waitUntil(window.clients.claim());
     });
     window.addEventListener('fetch', event => {
         const result = router.handleRequest(event.request);

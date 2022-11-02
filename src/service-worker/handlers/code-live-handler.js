@@ -1,5 +1,5 @@
-// importScripts('/service-worker/modules.js');
-importScripts('/libs/handlebars/handlebars.js');
+// importScripts('/src/service-worker/modules.js');
+importScripts('/src/assets/libs/handlebars/handlebars.js');
 
 (() => {
 

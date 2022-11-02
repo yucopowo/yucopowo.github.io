@@ -6,10 +6,10 @@
     <style>
         html, body {
             margin: 0;
-            padding: 0;
+            padding: 5px;
         }
     </style>
-    <script src="/libs/babel.js"></script>
+    <script src="/src/assets/libs/babel-standalone/babel.min.js"></script>
     <script>
 
         (() => {
@@ -38,26 +38,50 @@
             if(template !== 'undefined') {
                 if(template === 'react') {
 
-                    const { code: source } = Babel.transform(code, {
+                    const newCode = code.replace(/^(\s*)export\s+default\s+/m, (s, before) => {
+                        return `${before}\n ;const __MODULE__ = `;
+                    });
+
+                    const newCode2 = `
+import { createRoot as __createRoot__  } from 'react-dom/client';
+
+
+${newCode}
+
+
+(() => {
+const container = document.createElement('div');
+document.body.appendChild(container);
+const root = __createRoot__(container);
+root.render(React.createElement(__MODULE__));
+})();
+
+                    `;
+
+                    const { code: source } = Babel.transform(newCode2, {
                         // 'env',
                         presets: ['react'],
                         plugins: [],
                     });
-                    const blob = new Blob([source], {
-                        type: 'application/javascript'
-                    });
-                    const url = URL.createObjectURL(blob);
-                    const newCode = `
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import App from '${url}';
-const container = document.createElement('div');
-document.body.appendChild(container);
-const root = createRoot(container);
-root.render(React.createElement(App));
-                        // console.log(App);
-                    `;
-                    script.innerHTML = newCode;
+                    console.log(source);
+
+
+//                     const blob = new Blob([source], {
+//                         type: 'application/javascript'
+//                     });
+//                     const url = URL.createObjectURL(blob);
+// import App from '${url}';
+// console.log(App);
+
+//                     const newCode2 = `
+// import React from 'react';
+// import { createRoot } from 'react-dom/client';
+// const container = document.createElement('div');
+// document.body.appendChild(container);
+// const root = createRoot(container);
+// root.render(React.createElement(__MODULE__));
+//                     `;
+                    script.innerHTML = source;
                 }
             } else {
                 script.innerHTML = code;
@@ -88,8 +112,8 @@ root.render(React.createElement(App));
         if (topFrame) {
             const debouncedHandler = debounce(() => {
                 const height = document.documentElement.offsetHeight;
-                topFrame.style.height = (height + 100) + 'px';
-            }, 100);
+                topFrame.style.height = (height + 10) + 'px';
+            }, 0);
             const observe = new ResizeObserver(debouncedHandler);
             observe.observe(document.documentElement);
         }

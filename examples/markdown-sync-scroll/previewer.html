@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        body {
+            background: lightgrey;
+        }
+        .scroll-container {
+            height: 100vh;
+            overflow: auto;
+        }
+        .scroll-container p:first-child{
+            margin-top: 0;
+        }
+        .scroll-container:after {
+            content: '';
+            display: block;
+            height: 100vh;
+        }
+        .p-line span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            height: 100%;
+        }
+
+        #scrollingFromMessage{
+            position: absolute;
+            top: 0;
+            left: 10px;
+        }
+    </style>
+    <script>
+        window.__env__ = 'previewer';
+    </script>
+
+</head>
+<body>
+<div id="scroll-container" class="scroll-container"></div>
+
+<script src="common.js"></script>
+
+<script>
+    (() => {
+        const colors = window.parent.colors;
+        const container = document.getElementById('scroll-container');
+        for (let i=0;i<200;i++) {
+            const p = document.createElement('p');
+            p.id = 'id_'+i;
+            p.classList.add('p-line');
+            p.style.height = `${random(16, 800)}px`;
+            p.style.backgroundColor = colors[i];
+            p.innerHTML = '<span>'+i+'</span>';
+            container.appendChild(p);
+        }
+
+    })();
+</script>
+
+<script src="previewer.js"></script>
+
+</body>
+</html>

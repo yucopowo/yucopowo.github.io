@@ -1,5 +1,3 @@
-// importScripts('/service-worker/modules.js');
-
 (()=> {
 
     function hashCode(keyString){

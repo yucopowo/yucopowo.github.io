@@ -1,6 +1,6 @@
-// importScripts('/service-worker/modules.js');
-importScripts('/libs/less.js');
-importScripts('/service-worker/utils.js');
+// importScripts('/src/service-worker/modules.js');
+importScripts('/src/assets/libs/less.js');
+importScripts('/src/service-worker/utils.js');
 
 
 ((less, utils) => {
@@ -16,7 +16,7 @@ importScripts('/service-worker/utils.js');
             less.render(source, function (e, output) {
                 const css = output.css;
                 const id = utils.hashCode(request.url);
-                const body = `import css from '/libs/css.js';\ncss(\`\n\n${css}\n\n\`, '${id}');`;
+                const body = `import css from '/src/assets/libs/css.js';\ncss(\`\n\n${css}\n\n\`, '${id}');`;
                 resolve(new Response(body, {
                     headers
                 }));

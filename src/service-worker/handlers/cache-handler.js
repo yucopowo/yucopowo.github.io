@@ -1,4 +1,4 @@
-// importScripts('/service-worker/modules.js');
+// importScripts('/src/service-worker/modules.js');
 
 (() => {
     const CACHE_NAME = 'blog';
