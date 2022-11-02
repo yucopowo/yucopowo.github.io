@@ -17,172 +17,37 @@
             z-index: 9;
             display: none;
         }
-        #spinners, .spinners {
-            display: inline-block;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            margin-top: -50px;
-            margin-left: -30px;
-        }
-        #spinners li, .spinners li  {
-            height: 60px;
-            width: 60px;
-            right: 0;
-            left: 0;
-            z-index: 10;
-            margin-right: 40px;
-            display: inline-block;
-            position: relative;
-            -webkit-transition: all 0.3s ease-in-out 0;
-            transition: all 0.3s ease-in-out 0
-        }
-
-        @-webkit-keyframes sk-circleFadeDelay {
-            0%, 39%, 100% {
-                opacity: 0
-            }
-
-            40% {
-                opacity: 1
-            }
-        }
-
-        @keyframes sk-circleFadeDelay {
-            0%, 39%, 100% {
-                opacity: 0
-            }
-
-            40% {
-                opacity: 1
-            }
-        }
-
-        .sk-folding-cube {
-            position: relative;
-            -webkit-transform: rotateZ(45deg);
-            transform: rotateZ(45deg)
-        }
-
-        .sk-folding-cube .sk-cube {
-            float: left;
-            width: 50%;
-            height: 50%;
-            position: relative;
-            -webkit-transform: scale(1.1);
-            -ms-transform: scale(1.1);
-            transform: scale(1.1)
-        }
-
-        .sk-folding-cube .sk-cube:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #fff;
-            -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
-            animation: sk-foldCubeAngle 2.4s infinite linear both;
-            -webkit-transform-origin: 100% 100%;
-            -ms-transform-origin: 100% 100%;
-            transform-origin: 100% 100%
-        }
-
-        .sk-folding-cube .sk-cube2 {
-            -webkit-transform: scale(1.1) rotateZ(90deg);
-            transform: scale(1.1) rotateZ(90deg)
-        }
-
-        .sk-folding-cube .sk-cube3 {
-            -webkit-transform: scale(1.1) rotateZ(180deg);
-            transform: scale(1.1) rotateZ(180deg)
-        }
-
-        .sk-folding-cube .sk-cube4 {
-            -webkit-transform: scale(1.1) rotateZ(270deg);
-            transform: scale(1.1) rotateZ(270deg)
-        }
-
-        .sk-folding-cube .sk-cube2:before {
-            -webkit-animation-delay: 0.3s;
-            animation-delay: 0.3s
-        }
-
-        .sk-folding-cube .sk-cube3:before {
-            -webkit-animation-delay: 0.6s;
-            animation-delay: 0.6s
-        }
-
-        .sk-folding-cube .sk-cube4:before {
-            -webkit-animation-delay: 0.9s;
-            animation-delay: 0.9s
-        }
-
-        @-webkit-keyframes sk-foldCubeAngle {
-            0%, 10% {
-                -webkit-transform: perspective(140px) rotateX(-180deg);
-                transform: perspective(140px) rotateX(-180deg);
-                opacity: 0
-            }
-
-            25%, 75% {
-                -webkit-transform: perspective(140px) rotateX(0deg);
-                transform: perspective(140px) rotateX(0deg);
-                opacity: 1
-            }
-
-            90%, 100% {
-                -webkit-transform: perspective(140px) rotateY(180deg);
-                transform: perspective(140px) rotateY(180deg);
-                opacity: 0
-            }
-        }
-
-        @keyframes sk-foldCubeAngle {
-            0%, 10% {
-                -webkit-transform: perspective(140px) rotateX(-180deg);
-                transform: perspective(140px) rotateX(-180deg);
-                opacity: 0
-            }
-
-            25%, 75% {
-                -webkit-transform: perspective(140px) rotateX(0deg);
-                transform: perspective(140px) rotateX(0deg);
-                opacity: 1
-            }
-
-            90%, 100% {
-                -webkit-transform: perspective(140px) rotateY(180deg);
-                transform: perspective(140px) rotateY(180deg);
-                opacity: 0
-            }
-        }
     </style>
 
-    <!-- Start Single Page Apps for GitHub Pages -->
     <script type="text/javascript">
-        // Single Page Apps for GitHub Pages
-        // MIT License
-        // https://github.com/rafgraph/spa-github-pages
-        // This script checks to see if a redirect is present in the query string,
-        // converts it back into the correct url and adds it to the
-        // browser's history using window.history.replaceState(...),
-        // which won't cause the browser to attempt to load the new url.
-        // When the single page app is loaded further down in this file,
-        // the correct url will be waiting in the browser's history for
-        // the single page app to route accordingly.
-        window.location.host.includes('.github.io') && (function(l) {
-            if (l.search[1] === '/') {
-                const decoded = l.search.slice(1).split('&').map(function(s) {
-                    return s.replace(/~and~/g, '&')
-                }).join('?');
-                window.history.replaceState(null, null,
-                    l.pathname.slice(0, -1) + decoded + l.hash
-                );
-            }
-        }(window.location))
+        window.IS_GITHUB_ENV = window.location.host.includes('.github.io');
     </script>
+    <!-- Start Single Page Apps for GitHub Pages -->
+<!--    <script type="text/javascript">-->
+<!--        // Single Page Apps for GitHub Pages-->
+<!--        // MIT License-->
+<!--        // https://github.com/rafgraph/spa-github-pages-->
+<!--        // This script checks to see if a redirect is present in the query string,-->
+<!--        // converts it back into the correct url and adds it to the-->
+<!--        // browser's history using window.history.replaceState(...),-->
+<!--        // which won't cause the browser to attempt to load the new url.-->
+<!--        // When the single page app is loaded further down in this file,-->
+<!--        // the correct url will be waiting in the browser's history for-->
+<!--        // the single page app to route accordingly.-->
+<!--        (function(l) {-->
+<!--            if (l.pathname === '/' && l.search === '') {-->
+<!--                return;-->
+<!--            }-->
+<!--            if (l.search[1] === '/') {-->
+<!--                const decoded = l.search.slice(1).split('&').map(function(s) {-->
+<!--                    return s.replace(/~and~/g, '&')-->
+<!--                }).join('?');-->
+<!--                window.history.replaceState(null, null,-->
+<!--                    l.pathname.slice(0, -1) + decoded + l.hash-->
+<!--                );-->
+<!--            }-->
+<!--        }(window.location))-->
+<!--    </script>-->
     <!-- End Single Page Apps for GitHub Pages -->
 <!--    <script src="/libs/iframeResizer.js"></script>-->
     <script>
@@ -197,32 +62,190 @@
             "marked": "https://esm.sh/marked"
         };
     </script>
+    <script>
+        (() => {
+            const importMap = {
+                "imports": window.__LIBS__
+            };
+            const im = document.createElement('script');
+            im.type = 'importmap';
+            im.textContent = JSON.stringify(importMap, null, 2);
+            document.currentScript.after(im);
+            // document.head.appendChild(im);
+        })();
+    </script>
+    <template id="blog-loading-template">
+        <style>
+            .spinners {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                margin-top: -50px;
+                margin-left: -40px;
+            }
+            .lds-spinner {
+                color: official;
+                display: inline-block;
+                position: relative;
+                width: 80px;
+                height: 80px;
+            }
+            .lds-spinner .progress {
+                position: absolute;
+                text-align: center;
+                width: 100%;
+                top: 50%;
+                margin-top: -8px;
+                margin-left: 2px;
+                font-size: 12px;
+                color: rgb(255 255 255 / 62%);
+                transform: scale(0.9);
+            }
+            .lds-spinner .progress .value {
+                margin-right: 2px;
+            }
+
+            .lds-spinner div {
+                transform-origin: 40px 40px;
+                animation: lds-spinner 1.2s linear infinite;
+            }
+            .lds-spinner div:after {
+                content: " ";
+                display: block;
+                position: absolute;
+                top: 3px;
+                left: 37px;
+                width: 6px;
+                height: 18px;
+                border-radius: 20%;
+                background: #fff;
+            }
+            .lds-spinner div:nth-child(1) {
+                transform: rotate(0deg);
+                animation-delay: -1.1s;
+            }
+            .lds-spinner div:nth-child(2) {
+                transform: rotate(30deg);
+                animation-delay: -1s;
+            }
+            .lds-spinner div:nth-child(3) {
+                transform: rotate(60deg);
+                animation-delay: -0.9s;
+            }
+            .lds-spinner div:nth-child(4) {
+                transform: rotate(90deg);
+                animation-delay: -0.8s;
+            }
+            .lds-spinner div:nth-child(5) {
+                transform: rotate(120deg);
+                animation-delay: -0.7s;
+            }
+            .lds-spinner div:nth-child(6) {
+                transform: rotate(150deg);
+                animation-delay: -0.6s;
+            }
+            .lds-spinner div:nth-child(7) {
+                transform: rotate(180deg);
+                animation-delay: -0.5s;
+            }
+            .lds-spinner div:nth-child(8) {
+                transform: rotate(210deg);
+                animation-delay: -0.4s;
+            }
+            .lds-spinner div:nth-child(9) {
+                transform: rotate(240deg);
+                animation-delay: -0.3s;
+            }
+            .lds-spinner div:nth-child(10) {
+                transform: rotate(270deg);
+                animation-delay: -0.2s;
+            }
+            .lds-spinner div:nth-child(11) {
+                transform: rotate(300deg);
+                animation-delay: -0.1s;
+            }
+            .lds-spinner div:nth-child(12) {
+                transform: rotate(330deg);
+                animation-delay: 0s;
+            }
+            @keyframes lds-spinner {
+                0% {
+                    opacity: 1;
+                }
+                100% {
+                    opacity: 0;
+                }
+            }
+        </style>
+        <div class="spinners">
+            <div class="lds-spinner">
+                <span class="progress"><span class="value">1</span>%</span>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </template>
+    <script>
+        class BlogLoading extends HTMLElement {
+            stop() {
+                if(this.interval) {
+                    clearInterval(this.interval);
+                    this.interval = undefined;
+                }
+            }
+            connectedCallback() {
+                const shadowRoot = this.attachShadow({mode: 'open'});
+
+                const templateElem = document.getElementById('blog-loading-template');
+                const content = templateElem.content.cloneNode(true);
+                shadowRoot.appendChild(content);
+
+                let n = 1;
+                function nextValue() {
+                    n = Math.floor(n + Math.random()*10);
+                    n = n>100?100:n;
+                    return n;
+                }
+                const valueElem = shadowRoot.querySelector('.progress .value');
+                this.interval = setInterval(() => {
+                    if(n>=100) {
+                        this.stop();
+                    } else {
+                        valueElem.innerText = nextValue();
+                    }
+                }, 100);
+            }
+            disconnectedCallback() {
+                this.stop();
+            }
+        }
+        customElements.define('blog-loading', BlogLoading);
+    </script>
 </head>
 <body>
 <button id="update">update</button>
 <div id="root">
-
-    <div id="spinners">
-        <li class="sk-folding-cube">
-            <div class="sk-cube1 sk-cube"></div>
-            <div class="sk-cube2 sk-cube"></div>
-            <div class="sk-cube4 sk-cube"></div>
-            <div class="sk-cube3 sk-cube"></div>
-        </li>
-    </div>
-
+    <blog-loading></blog-loading>
 </div>
 
-<script>
-    const importMap = {
-        "imports": window.__LIBS__
-    };
-    const im = document.createElement('script');
-    im.type = 'importmap';
-    im.textContent = JSON.stringify(importMap, null, 2);
-    // document.currentScript.after(im);
-    document.head.appendChild(im);
-</script>
+
+<!--<script>-->
+<!--    console.log(new Date());-->
+<!--    navigator.serviceWorker.addEventListener("message", function(event) {-->
+<!--        console.log('event.data===========================================================');-->
+<!--        console.log(event.data);-->
+<!--    });-->
+<!--</script>-->
 <script type="module" src="/index.js"></script>
 </body>
 </html>

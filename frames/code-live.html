@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script>
+        (() => {
+            const script = document.createElement('script');
+            script.type = 'importmap';
+            script.textContent = JSON.stringify({"imports": top.window.__LIBS__}, null, 2);
+            console.log(document);
+            document.currentScript.after(script);
+        })();
+    </script>
+</head>
+<body>
+markdown-previewer.html
+
+<script type="module">
+    {{script}}
+</script>
+</body>
+
+
+</html>

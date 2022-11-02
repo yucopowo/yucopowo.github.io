@@ -1,5 +1,5 @@
 import React,{ Suspense } from 'react';
-import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
+import { createBrowserRouter, Outlet } from 'react-router-dom';
 import Loading from "./components/loading/index.jsx";
 
 const Layout = () => {
@@ -9,8 +9,10 @@ const Layout = () => {
         </Suspense>
     );
 }
-const PostListPage = React.lazy(() => import('/src/pages/post-list/index.jsx'));
-const PostDetailPage = React.lazy(() => import('/src/pages/post-detail/index.jsx'));
+
+function lazy(loader) {
+    return React.createElement(React.lazy(() => import(loader)));
+}
 
 const router = createBrowserRouter([
     {
@@ -19,15 +21,15 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <PostListPage />,
+                element: lazy('/src/pages/post-list/index.jsx'),
             },
             {
                 path: "/page/posts",
-                element: <PostListPage />,
+                element: lazy('/src/pages/post-list/index.jsx')
             },
             {
                 path: "/page/post/*",
-                element: <PostDetailPage />,
+                element: lazy('/src/pages/post-detail/index.jsx')
             },
         ]
     },

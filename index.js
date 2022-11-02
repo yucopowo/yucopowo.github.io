@@ -9,6 +9,9 @@ function main() {
 }
 
 async function unregisterAllServiceWorker() {
+    if (!navigator.serviceWorker) {
+        return;
+    }
     const registrations = await navigator.serviceWorker.getRegistrations();
     // console.log('registrations', registrations);
     for(let registration of registrations) {
@@ -25,27 +28,29 @@ async function registerServiceWorker() {
     // console.log('开始注册ServiceWorker');
 
     try {
-        const registration = await navigator.serviceWorker
-            .register('/sw.js', {scope: "/"});
-        // console.log('ServiceWorker register success: ', registration.waiting, registration);
 
-        // setInterval(() => {
-        //     registration.update();
-        // }, 5000);
-        if(!window.location.host.includes('.github.io')) {
-            document.getElementById('update').style.display = 'inline-block';
-            document.getElementById('update').addEventListener('click', () => {
-                // console.log('ServiceWorker register unregister', registration);
-                registration.unregister();
-                unregisterAllServiceWorker();
-            }, false);
-        }
+
+        const registration = await navigator.serviceWorker.register('/sw.js', {scope: "/"});
+        console.log('ServiceWorker register success: ', registration.waiting, registration);
+
+        // if(!window.IS_GITHUB_ENV) {
+        //     document.getElementById('update').style.display = 'inline-block';
+        //     document.getElementById('update').addEventListener('click', () => {
+        //         // console.log('ServiceWorker register unregister', registration);
+        //         registration.unregister();
+        //         unregisterAllServiceWorker();
+        //     }, false);
+        // }
+
+
 
     } catch (err) {
         console.log('ServiceWorker register failed: ', err);
     }
 }
 
+// await unregisterAllServiceWorker();
+// await unregisterAllServiceWorker();
 await registerServiceWorker();
 
 main();

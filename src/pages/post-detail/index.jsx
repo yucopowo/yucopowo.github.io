@@ -11,8 +11,8 @@ class BlogCodePreviewer extends HTMLElement {
     connectedCallback() {
 
 
-        // const code = this.firstElementChild.value;
-        // const template = this.firstElementChild.getAttribute('data-template');
+        const code = this.firstElementChild.value;
+        const template = this.firstElementChild.getAttribute('data-template');
 
 
 
@@ -23,6 +23,8 @@ class BlogCodePreviewer extends HTMLElement {
         iframe.frameBorder = 'no';
         iframe.style.backgroundColor = '#fff';
         iframe.src = '/src/pages/post-detail/iframe.html';
+        // iframe.src = '/frames/code-live.html';
+        // iframe.innerHTML = code;
         // iframe.srcdoc = (() => {
         //     const html = `
         //
@@ -89,8 +91,8 @@ customElements.define("blog-markdown-previewer", BlogMarkdownPreviewer);
 const PostDetail = () => {
     const location = useLocation();
     const postPath = decodeURIComponent(location.pathname.substring(11));
-    console.log('decodeURIComponent(postPath)====');
-    console.log((postPath));
+    // console.log('decodeURIComponent(postPath)====');
+    // console.log((postPath));
     const [loading, setLoading] = useState(true);
     const [content, setContent] = useState('');
 
