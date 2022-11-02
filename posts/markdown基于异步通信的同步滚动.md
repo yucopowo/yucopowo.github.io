@@ -1,8 +1,7 @@
-# markdown同步滚动
+# markdown基于异步通信的同步滚动
 markdown同步滚动
 
-
-<iframe parent width="100%" height="600" src="/examples/markdown-sync-scroll/" frameBorder="no"></iframe>
+<blog-example-previewer src="/examples/markdown-sync-scroll/index.html"></blog-example-previewer>
 
 ## 主页面
 ```html | title=index.html
