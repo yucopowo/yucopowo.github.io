@@ -11,19 +11,23 @@
     </style>
     <script src="/src/assets/libs/babel-standalone/babel.min.js"></script>
     <script>
-
         (() => {
             const script = document.createElement('script');
             script.type = 'importmap';
             script.textContent = JSON.stringify({"imports": top.window.__LIBS__}, null, 2);
-            console.log(document);
+            // console.log(document);
             document.currentScript.after(script);
         })();
+    </script>
+    <script>
+
+
 
         (() => {
 
             // console.log(window.frameElement.previousElementSibling);
-            const textarea = window.frameElement.previousElementSibling;
+            // const textarea = window.frameElement.previousElementSibling;
+            const textarea = window.frameElement.parentElement.previousElementSibling;
 
             const code = textarea.value;
             const template = textarea.getAttribute('data-template');
@@ -34,7 +38,7 @@
             script.setAttribute('data-type', 'module');
             script.setAttribute('data-presets', 'react');
 
-            console.log(template);
+            // console.log(template);
             if(template !== 'undefined') {
                 if(template === 'react') {
 
@@ -63,7 +67,7 @@ root.render(React.createElement(__MODULE__));
                         presets: ['react'],
                         plugins: [],
                     });
-                    console.log(source);
+                    // console.log(source);
 
 
 //                     const blob = new Blob([source], {

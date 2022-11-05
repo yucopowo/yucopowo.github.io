@@ -3101,14 +3101,16 @@ a.gitment-editor-footer-tip:hover {
 }
 .markdown-body .highlight pre,
 .markdown-body pre {
-    padding: 16px;
+    /*padding: 16px;*/
+    padding: 0 24px;
     overflow: auto;
     font-size: 85%;
     line-height: 1.45;
     border-radius: 3px;
 }
 .markdown-body pre code {
-    display: inline;
+
+    /*display: inline;*/
     max-width: auto;
     padding: 0;
     margin: 0;
@@ -3118,6 +3120,10 @@ a.gitment-editor-footer-tip:hover {
     word-wrap: break-word;
     background-color: transparent;
     border: 0;
+
+    margin-top: -2px;
+    display: block;
+    margin-bottom: -3px;
 }
 .markdown-body pre code::before,
 .markdown-body pre code::after {
@@ -4750,4 +4756,54 @@ a.adsense {
     color: #fff;
     margin-top: 50px;
     margin-bottom: 100px;
+}
+
+
+
+.markdown-toc {
+    width: 200px;
+    position: fixed;
+    /*position: sticky;*/
+    right: 20px;
+    top: 60px;
+    border: 1px solid rgb(255 255 255 / 19%);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+.markdown-toc .toc {
+    padding: 10px 10px 2px 15px;
+}
+.markdown-toc .toc > ul {
+    padding: 0;
+    margin: 0;
+}
+/* <=1200 */
+@media (max-width: 1100px) {
+    .markdown-toc {
+        display: none;
+    }
+}
+.markdown-toc ul {
+    padding-inline-start: 23px;
+}
+.markdown-toc ul li {
+    line-height: 1.5;
+    list-style-type: none;
+}
+.markdown-toc ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    border-bottom: none;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+
+.markdown-code-previewer {
+    background-color: white;
+    margin-top: 20px;
 }

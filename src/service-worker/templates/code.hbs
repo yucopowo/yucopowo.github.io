@@ -1,0 +1,49 @@
+{{#if showPreview }}
+
+
+
+
+    {{#eq config.template 'javascript'}}
+        <iframe width="100%" srcdoc="{{javascript code config.type}}" class="markdown-code-previewer" frameborder="0"></iframe>
+    {{/eq}}
+
+    {{#eq config.template 'typescript'}}
+        <iframe width="100%" srcdoc="{{typescript code}}" class="markdown-code-previewer" frameborder="0"></iframe>
+    {{/eq}}
+
+    {{#eq config.template 'html'}}
+        <iframe width="100%" srcdoc="{{code}}" class="markdown-code-previewer" frameborder="0"></iframe>
+    {{/eq}}
+
+    {{#eq config.template 'react'}}
+        <iframe width="100%" srcdoc="{{react code}}" class="markdown-code-previewer" frameborder="0"></iframe>
+    {{/eq}}
+
+{{/if}}
+
+{{#if showCode }}
+
+<div class="markdown-code-browser-window">
+    <div class="markdown-code-browser-window-header">
+        <div class="markdown-code-browser-window-buttons">
+            <span class="markdown-code-browser-window-button dot_giz1 dot_giz_a"></span>
+            <span class="markdown-code-browser-window-button dot_giz1 dot_giz_b"></span>
+            <span class="markdown-code-browser-window-button dot_giz1 dot_giz_c"></span>
+        </div>
+        <div class="markdown-code-browser-window-title text--truncate">
+            {{lang}}
+        </div>
+        <div class="markdown-code-browser-window-menu-icon">
+            <div>
+                <span class="bar_rrRL"></span>
+                <span class="bar_rrRL"></span>
+                <span class="bar_rrRL"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<pre>
+    <code class="hljs language-{{lang}}">{{{highlight code lang}}}</code>
+</pre>
+{{/if}}

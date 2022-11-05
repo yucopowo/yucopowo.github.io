@@ -1,24 +1,30 @@
 import React from 'react';
-import './index.less';
+import css from './index.less?raw';
 
-const Loading = () => {
+const Loading = (props) => {
+    const { fullscreen = false } = props;
     return (
-        <div className="spinners">
-            <div className="lds-spinner">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+        <>
+            <style>
+                {css}
+            </style>
+            <div className={"spinners loading-component"+(fullscreen?' fullscreen':'')}>
+                <div className="lds-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

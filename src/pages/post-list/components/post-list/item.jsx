@@ -9,7 +9,7 @@ const PostItem = (props) => {
 
             <div className="list-content">
                 <div className="list-body">
-                    <Link className="list-title" to={`/page/post/${post.path}`}>{post.title}</Link>
+                    <Link className="list-title" to={`/page/post/${post.path}`} target="_blank">{post.title}</Link>
                     <div className="list-desc">
                         <p>
                             {post.summary}

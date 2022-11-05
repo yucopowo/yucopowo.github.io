@@ -14,8 +14,8 @@ const root = path.resolve(__dirname, '../');
 
 const postsPath = path.resolve(root, 'posts');
 
-watch(postsPath, { recursive: true }, function(evt, name) {
-//     const filepath
+function update() {
+    //     const filepath
 //     console.log('%s changed.', name);
     const l = postsPath.length + 1;
     deepListDir(postsPath,
@@ -42,11 +42,18 @@ watch(postsPath, { recursive: true }, function(evt, name) {
                 ctime: dayjs(stat.ctime).tz('Asia/Shanghai').format('YYYY-MM-DD HH:mm:ss'),
                 summary
             };
+        }).sort((a, b) => {
+            return dayjs(b.mtime).diff(dayjs(a.mtime), 'seconds');
         });
         console.log(posts);
         fs.writeFile(path.resolve(root, 'posts.json'), JSON.stringify(posts,null, 2), () => {});
-    })
+    });
+}
+watch(postsPath, { recursive: true }, function(evt, name) {
+    update();
 });
+
+update();
 
 function hashCode(keyString){
     // return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);

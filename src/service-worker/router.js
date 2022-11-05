@@ -15,6 +15,8 @@ importScripts('/src/service-worker/handlers/markdown-handler.js');
 
     router.get('*.jsx', handlers.babelHandler);
     router.get('*.less', handlers.lessHandler);
+    router.get('*.less?raw', handlers.lessHandler);
+
 
     // router.get('/frames/code-live.html', handlers.codeLiveHandler);
 

@@ -8,7 +8,7 @@ const SuspenseLoading = () => {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-        }, 300);
+        }, 500);
         return () => {
 
         };
@@ -16,7 +16,7 @@ const SuspenseLoading = () => {
     if(loading) {
         return null;
     }
-    return <Loading />
+    return <Loading fullscreen />
 }
 const Layout = () => {
     return (
@@ -33,7 +33,7 @@ function lazy(loader) {
     //         import(loader).then((m) => {
     //             setTimeout(() => {
     //                 resolve(m || m.default);
-    //             }, Math.random() * 5000);
+    //             },  100005000);
     //         });
     //     });
     // }));
