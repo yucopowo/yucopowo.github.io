@@ -1,7 +1,5 @@
 // importScripts('/src/service-worker/modules.js');
 importScripts('/src/assets/libs/less.js');
-importScripts('/src/service-worker/utils.js');
-
 
 ((less, utils) => {
     async function lessHandler({ request }) {

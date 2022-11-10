@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>blog</title>
     <link rel="icon" href="data:;base64,=">
+    <link rel="stylesheet" href="/src/assets/libs/antd/reset.css" >
     <style>
         body {
             background: #151617;
-            color: #555;
+            color: #fff;
         }
         #update {
             position: fixed;
@@ -24,18 +25,34 @@
     </script>
     <script>
         window.__LIBS__ = {
+            // "antd": "https://esm.sh/antd?dev",
+            "antd": "/src/assets/libs/antd/antd.esm.js?dev",
+            // "antd-es": "/src/assets/libs/antd/antd-es.js",
             "react": "https://esm.sh/react?dev",
             "react-dom": "https://esm.sh/react-dom?dev",
             "react-dom/client": "https://esm.sh/react-dom/client?dev",
             "react-router-dom": "https://esm.sh/react-router-dom?dev",
             "react-router": "https://esm.sh/react-router?dev",
-            "hashids": "https://esm.sh/hashids",
-            "js-base64": "https://esm.sh/js-base64",
-            "marked": "https://esm.sh/marked",
+            "react-split-pane": "https://esm.sh/react-split-pane",
+            "marked": "https://esm.sh/marked?dev",
+            "dayjs": "https://esm.sh/dayjs?dev",
             "styled-components": "https://esm.sh/styled-components?dev",
             "react-shadow": "https://esm.sh/react-shadow?dev",
             "lodash": "https://esm.sh/lodash?dev",
+            "hashids": "https://esm.sh/hashids",
+            "js-base64": "https://esm.sh/js-base64",
         };
+        if(window.IS_GITHUB_ENV) {
+            for (let k in window.__LIBS__) {
+                const v = window.__LIBS__[k];
+                if(v.endsWith('?dev')) {
+                    window.__LIBS__[k] = v.replace('?dev', '');
+                }
+                if(v.endsWith('.esm.js?dev')) {
+                    window.__LIBS__[k] = v.replace('.esm.js?dev', '.esm.min.js');
+                }
+            }
+        }
     </script>
     <script>
         (() => {
@@ -45,11 +62,15 @@
             const im = document.createElement('script');
             im.type = 'importmap';
             im.textContent = JSON.stringify(importMap, null, 2);
-            // document.currentScript.after(im);
-            document.head.appendChild(im);
+            document.currentScript.after(im);
+            // document.head.appendChild(im);
         })();
     </script>
-    <template id="blog-loading-template">
+</head>
+<body>
+<button id="update">update</button>
+<div id="root">
+    <div>
         <style>
             .spinners {
                 position: fixed;
@@ -70,14 +91,14 @@
                 text-align: center;
                 width: 100%;
                 top: 50%;
-                margin-top: -8px;
+                margin-top: -7px;
                 margin-left: 2px;
                 font-size: 12px;
                 color: rgb(255 255 255 / 62%);
                 transform: scale(0.9);
             }
             .lds-spinner .progress .value {
-                margin-right: 2px;
+                margin-right: 0px;
             }
 
             .lds-spinner div {
@@ -154,7 +175,6 @@
         </style>
         <div class="spinners">
             <div class="lds-spinner">
-                <span class="progress"><span class="value">1</span>%</span>
                 <div></div>
                 <div></div>
                 <div></div>
@@ -169,50 +189,8 @@
                 <div></div>
             </div>
         </div>
-    </template>
-    <script>
-        class BlogLoading extends HTMLElement {
-            stop() {
-                if(this.interval) {
-                    clearInterval(this.interval);
-                    this.interval = undefined;
-                }
-            }
-            connectedCallback() {
-                const shadowRoot = this.attachShadow({mode: 'open'});
-
-                const templateElem = document.getElementById('blog-loading-template');
-                const content = templateElem.content.cloneNode(true);
-                shadowRoot.appendChild(content);
-
-                let n = 1;
-                function nextValue() {
-                    n = Math.floor(n + Math.random()*10);
-                    n = n>100?100:n;
-                    return n;
-                }
-                const valueElem = shadowRoot.querySelector('.progress .value');
-                this.interval = setInterval(() => {
-                    if(n>=100) {
-                        this.stop();
-                    } else {
-                        valueElem.innerText = nextValue();
-                    }
-                }, 100);
-            }
-            disconnectedCallback() {
-                this.stop();
-            }
-        }
-        customElements.define('blog-loading', BlogLoading);
-    </script>
-</head>
-<body>
-<button id="update">update</button>
-<div id="root">
-    <blog-loading></blog-loading>
+    </div>
 </div>
-
 <script type="module" src="/src/index.js"></script>
 </body>
 </html>

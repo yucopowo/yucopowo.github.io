@@ -1,8 +1,67 @@
 importScripts('/src/service-worker/modules.js');
+importScripts('/src/service-worker/db.js');
 importScripts('/src/service-worker/router.js');
 
+
 ((window) => {
-    const { router } = window.modules;
+    // console.log('service worker start....');
+    const { router, db } = window.modules;
+    // console.log(db);
+
+    // setTimeout(() => {
+    //     const posts = db.getCollection("posts");
+    //
+    //     console.log('posts=======');
+    //     console.log(posts);
+    // }, 5000);
+
+    // function onReady() {
+    //
+    // }
+
+
+    // db.on('loaded', () => {
+    //     console.log('loadedloadedloadedloadedloadedloaded=======');
+    //     onReady();
+    // });
+// console.log(loki.prototype);
+
+
+
+
+    window.addEventListener('fetch', event => {
+
+        try {
+            const result = router.handleRequest(event.request);
+            if (result) {
+                event.respondWith(result.handlerPromise);
+                // console.log('result===========');
+                // console.log(result);
+            } else {
+                // console.log('No route matched.===========');
+                // console.log(event.request);
+            }
+        } catch (e) {
+            console.log('=============error============');
+            console.error(e);
+        }
+
+
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     function sendMessage(msg) {
         window.clients.matchAll().then(function(clients) {
@@ -18,6 +77,7 @@ importScripts('/src/service-worker/router.js');
     }
 
     window.addEventListener('install', function(event) {
+        // console.log('sw install============================')
         // 用来强制更新的 Service Worker 跳过等待时间
         event.waitUntil(window.skipWaiting());
     });
@@ -27,16 +87,6 @@ importScripts('/src/service-worker/router.js');
         // 保证 激活之后能够马上作用于所有的终端
         event.waitUntil(window.clients.claim());
     });
-    window.addEventListener('fetch', event => {
-        const result = router.handleRequest(event.request);
-        if (result) {
-            event.respondWith(result.handlerPromise);
-            // console.log('result===========');
-            // console.log(result);
-        } else {
-            // console.log('No route matched.===========');
-            // console.log(event.request);
-        }
-    })
+
 
 })(self);

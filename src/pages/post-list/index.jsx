@@ -6,7 +6,7 @@ import './index.less';
 const PostListPage = () => {
     const [posts, setPosts] = useState([]);
 
-    console.log(posts);
+    // console.log(posts);
     useEffect(() => {
         getPostsService().then((data) => {
             setPosts(data);

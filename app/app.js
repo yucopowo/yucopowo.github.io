@@ -14,7 +14,21 @@ app.use(express.static(root));
 // });
 
 app.use((req, res) => {
-    res.sendFile(path.resolve(root, '404.html'));
+    if(req.url.startsWith('/api')){
+        res.status(404);
+        res.send('Not Found');
+        return;
+    }
+
+    if(req.accepts('text/html')){
+        // console.log("accepts('text/html')");
+        res.sendFile(path.resolve(root, '404.html'));
+        return;
+    }
+
+    res.status(404);
+    res.send('Not Found');
+    // res.sendFile(path.resolve(root, '404.html'));
     // if(req.url.includes('/page')) {
     //     console.log('req=========');
     //     console.log(req);

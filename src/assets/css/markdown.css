@@ -1,13 +1,13 @@
-html {
-    line-height: 1.15; /* 1 */
-    -webkit-text-size-adjust: 100%; /* 2 */
-}
-body {
-    margin: 0;
-}
-main {
-    display: block;
-}
+/*html {*/
+/*    line-height: 1.15; !* 1 *!*/
+/*    -webkit-text-size-adjust: 100%; !* 2 *!*/
+/*}*/
+/*body {*/
+/*    margin: 0;*/
+/*}*/
+/*main {*/
+/*    display: block;*/
+/*}*/
 h1 {
     font-size: 2em;
     margin: 0.67em 0;
@@ -150,19 +150,19 @@ template {
     background: #262a30;
     color: #fff;
 }
-body {
-    background: #151617;
-    color: #555;
-    font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
-    font-size: 1em;
-    line-height: 2;
-    position: relative;
-}
-@media (max-width: 991px) {
-    body {
-        padding-right: 0 !important;
-    }
-}
+/*body {*/
+/*    background: #151617;*/
+/*    color: #555;*/
+/*    font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;*/
+/*    font-size: 1em;*/
+/*    line-height: 2;*/
+/*    position: relative;*/
+/*}*/
+/*@media (max-width: 991px) {*/
+/*    body {*/
+/*        padding-right: 0 !important;*/
+/*    }*/
+/*}*/
 .modal-open {
     overflow: hidden;
 }
@@ -4756,54 +4756,8 @@ a.adsense {
     color: #fff;
     margin-top: 50px;
     margin-bottom: 100px;
+    flex: 1;
 }
 
 
 
-.markdown-toc {
-    width: 200px;
-    position: fixed;
-    /*position: sticky;*/
-    right: 20px;
-    top: 60px;
-    border: 1px solid rgb(255 255 255 / 19%);
-    max-height: 90vh;
-    overflow-y: auto;
-}
-.markdown-toc .toc {
-    padding: 10px 10px 2px 15px;
-}
-.markdown-toc .toc > ul {
-    padding: 0;
-    margin: 0;
-}
-/* <=1200 */
-@media (max-width: 1100px) {
-    .markdown-toc {
-        display: none;
-    }
-}
-.markdown-toc ul {
-    padding-inline-start: 23px;
-}
-.markdown-toc ul li {
-    line-height: 1.5;
-    list-style-type: none;
-}
-.markdown-toc ul li a {
-    color: #ffffff;
-    text-decoration: none;
-    border-bottom: none;
-    font-size: 14px;
-    text-overflow: ellipsis;
-    width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-    display: inline-block;
-}
-
-
-.markdown-code-previewer {
-    background-color: white;
-    margin-top: 20px;
-}

@@ -68,6 +68,40 @@ async function registerServiceWorker() {
 // await unregisterAllServiceWorker();
 // await unregisterAllServiceWorker();
 await registerServiceWorker();
+//
+//
+function sleep() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve();
+        }, 500);
+    });
+}
+async function ready(tryCount = 0) {
+    if(tryCount > 10) {
+        throw new Error('max try count');
+    }
+    try {
+        const res = await (await (fetch(`/api/ok`))).json();
+        if(res.code < 0 ) {
+            return await ready(tryCount + 1);
+        }
+        return res;
+    } catch (e) {
+        await sleep();
+        return await ready(tryCount + 1);
+    }
+}
 
-main();
+setTimeout(() => {
+    ready().then((res) => {
+        // console.log('ok=====');
+        // console.log(res);
+        main();
+    }).catch((e) => {
+        console.log('error=====');
+        console.error(e);
+    });
+});
+
 
