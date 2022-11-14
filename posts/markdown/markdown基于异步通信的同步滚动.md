@@ -4,43 +4,42 @@
 
 ## 案例
 
-<blog-example-previewer src="/examples/markdown-sync-scroll/index.html"></blog-example-previewer>
-
-
-
+::example{url=/examples/markdown-sync-scroll/index.html}
 
 ## 主页面
-```html {path=/examples/markdown-sync-scroll/index.html}
+```html {file=/examples/markdown-sync-scroll/index.html}
 
 ```
 
+`::code{file=/examples/markdown-sync-scroll/index.html}`
 
-```javascript {path=/examples/markdown-sync-scroll/index.js}
+
+```javascript {file=/examples/markdown-sync-scroll/index.js}
 ```
 
 
 ## 编辑器页面
 
-```html {path=/examples/markdown-sync-scroll/editor.html}
+```html {file=/examples/markdown-sync-scroll/editor.html}
 
 ```
 
-```javascript {path=/examples/markdown-sync-scroll/editor.js}
+```javascript {file=/examples/markdown-sync-scroll/editor.js}
 
 ```
 
 
 ## 预览页面
 
-```html {path=/examples/markdown-sync-scroll/previewer.html}
+```html {file=/examples/markdown-sync-scroll/previewer.html}
 ```
 
-```javascript {path=/examples/markdown-sync-scroll/previewer.js}
+```javascript {file=/examples/markdown-sync-scroll/previewer.js}
 
 ```
 
 ## 公共代码
-```javascript {path=/examples/markdown-sync-scroll/common.js}
+```javascript {file=/examples/markdown-sync-scroll/common.js}
 
 ```
 

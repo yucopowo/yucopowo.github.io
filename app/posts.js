@@ -3,6 +3,7 @@ const markdownDescription = require('markdown-description')
 const { deepListDir } = require('deep-list-dir')
 const dirTree = require('dir-tree-scanner');
 const fs = require('fs');
+const crc32 = require('crc/crc32');
 const utc = require('dayjs/plugin/utc')
 const timezone = require('dayjs/plugin/timezone')
 const dayjs = require("dayjs");
@@ -105,6 +106,7 @@ function update() {
                 newNode.ext = nodePath.ext.substring(1);
                 newNode.summary = summary;
                 newNode.path = p;
+                newNode.crc = crc32(content).toString(16);
                 // console.log(node.name);
                 // const id = hashCode(mdPath);
                 // const p = nodePath.dir.substring(rootPathLength+1);

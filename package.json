@@ -3,6 +3,7 @@
 		"dev": "nodemon server.js --watch app"
 	},
 	"dependencies": {
+		"crc": "^4.1.1",
 		"dayjs": "^1.11.6",
 		"deep-list-dir": "^1.4.4",
 		"dir-tree-scanner": "^1.0.13",
@@ -11,6 +12,7 @@
 		"lokijs": "^1.5.12",
 		"markdown-description": "^1.1.0",
 		"markdown-summary": "^1.0.3",
+		"md5": "^2.3.0",
 		"memfs": "^3.4.10",
 		"node-watch": "^0.7.3",
 		"nodemon": "^2.0.20",

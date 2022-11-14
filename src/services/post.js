@@ -7,6 +7,10 @@ export async function getPostContentByIdService(id) {
     return (await (fetch(`/api/post/content/${id}`))).json();
 }
 
+export async function getPostMdastByIdService(id) {
+    return (await (fetch(`/api/post/content/mdast/${id}`))).json();
+}
+
 export async function getPostsService(p) {
     return (await (fetch(`/posts.json`))).json();
 }

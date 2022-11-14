@@ -24,9 +24,13 @@
         window.IS_GITHUB_ENV = window.location.host.includes('.github.io');
     </script>
     <script>
+        window.global = {};
         window.__LIBS__ = {
             // "antd": "https://esm.sh/antd?dev",
             "antd": "/src/assets/libs/antd/antd.esm.js?dev",
+            "babel-standalone": "/src/assets/libs/babel-standalone/babel.esm.js?dev",
+
+            // "babel-standalone": "https://esm.sh/babel-standalone?dev",
             // "antd-es": "/src/assets/libs/antd/antd-es.js",
             "react": "https://esm.sh/react?dev",
             "react-dom": "https://esm.sh/react-dom?dev",
@@ -41,6 +45,14 @@
             "lodash": "https://esm.sh/lodash?dev",
             "hashids": "https://esm.sh/hashids",
             "js-base64": "https://esm.sh/js-base64",
+            "unified": "https://esm.sh/unified?dev",
+            "prism": "https://esm.sh/prism",
+            "prism-react-renderer": "https://esm.sh/prism-react-renderer?dev",
+            "prism-react-renderer/themes/nightOwl": "https://esm.sh/prism-react-renderer/themes/nightOwl",
+            "prism-react-renderer/themes/okaidia": "https://esm.sh/prism-react-renderer/themes/okaidia",
+            "react-in-viewport": "https://esm.sh/react-in-viewport?dev",
+            "handlebars": "https://esm.sh/handlebars?dev",
+
         };
         if(window.IS_GITHUB_ENV) {
             for (let k in window.__LIBS__) {

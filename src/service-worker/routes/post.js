@@ -1,13 +1,17 @@
-((db, marked) => {function route(router) {
+importScripts('/src/assets/libs/mdast/mdast.js');
+
+((db, marked, mdast) => {function route(router) {
 
     router.get('/api/posts', async () => {
         const posts = db.getCollection("posts");
-        //
-        // console.log('posts============================');
-        // console.log(posts);
-        const data = posts.find({
+
+        const data = posts.chain().find({
             type: 'file'
-        });
+        }).sort((a, b) => {
+            const amtime = new Date(a.mtime).getTime();
+            const bmtime = new Date(b.mtime).getTime();
+            return bmtime - amtime;
+        }).data();
 
         const headers = new Headers();
         headers.set("content-type", "application/json; charset=utf-8");
@@ -78,6 +82,37 @@
     });
 
 
+    router.get('/api/post/content/mdast/:id', async ({params}) => {
+
+        const { id } = params;
+        const headers = new Headers();
+        headers.set("content-type", "application/json; charset=utf-8");
+        const posts = db.getCollection("posts");
+        //
+
+        const result = posts.findOne({
+            id
+        });
+        if(!result) {
+            const data = JSON.stringify({code: -1, message: '文章未找到或已删除！'});
+            return new Response(data, {
+                headers
+            });
+        }
+
+        const p = result.path;
+        const response = await fetch(`/posts/${p}`);
+
+        const content = await response.text();
+
+        const ast = mdast(content);
+
+        const source = JSON.stringify({code: 0, message: 'ok', data: ast});
+        return new Response(source, {
+            headers
+        });
+    });
+
     router.get('/api/post/content/:id', async ({params}) => {
 
         const { id } = params;
@@ -110,6 +145,9 @@
             headers
         });
     });
+
+
+
 }
 self.modules.routes = self.modules.routes || [];self.modules.routes.push(route);
-})(self.modules.db, self.marked);
+})(self.modules.db, self.marked, self.mdast);
