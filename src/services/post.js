@@ -11,11 +11,13 @@ export async function getPostMdastByIdService(id) {
     return (await (fetch(`/api/post/content/mdast/${id}`))).json();
 }
 
-export async function getPostsService(p) {
-    return (await (fetch(`/posts.json`))).json();
+export async function getPostsService(pagination) {
+    return (await (fetch(
+        `/api/posts?current=${pagination.current}&pageSize=${pagination.pageSize}`
+    ))).json();
 }
 
-export async function getAllPostsService(p) {
+export async function getAllPostsService() {
     return (await (fetch(`/api/posts`))).json();
 }
 

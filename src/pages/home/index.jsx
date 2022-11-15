@@ -1,32 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Layout, Menu, Tree, Col, Row } from 'antd';
+import { Button, Layout, Menu, Tree, Col, Row, Pagination } from 'antd';
 import PostTreeContainer from "../../containers/post-tree-container/index.jsx";
 import PostList from "../../components/post-list/index.jsx";
-import { getAllPostsService, getPostsByDirectoryService } from "../../services/post.js";
+import { getPostsService, getAllPostsService, getPostsByDirectoryService } from "../../services/post.js";
 import './index.less';
 
 const Home = () => {
-
+    const [category, setCategory] = useState('home-key');
+    const [total, setTotal] = useState(0);
     const [posts, setPosts] = useState([]);
+    const [pagination, setPagination] = useState({
+        current: 1,
+        pageSize: 10,
+    });
 
     useEffect(() => {
-        getAllPostsService().then((res) => {
-            setPosts(res.data);
-        });
-    }, []);
-
-    const onSelect = (keys, info) => {
-        console.log('Trigger Select', keys, info);
-        const pid = keys[0];
-        if(pid === 'home-key' || pid === 'root-key') {
+        if(category === 'home-key') {
             getAllPostsService().then((res) => {
-                setPosts(res.data);
+                // setPosts(res.data);
+                // console.log(res);
+                setTotal(res.data.total)
+                setPosts(res.data.posts);
+            });
+        } else if(category === 'root-key') {
+            getPostsService(pagination).then((res) => {
+                setTotal(res.data.total)
+                setPosts(res.data.posts);
             });
         } else {
-            getPostsByDirectoryService(pid).then((res) => {
+            getPostsByDirectoryService(category).then((res) => {
                 setPosts(res.data);
             });
+        }
+    }, [category, pagination]);
+
+    // useEffect(() => {
+    //     getAllPostsService().then((res) => {
+    //         setPosts(res.data);
+    //     });
+    // }, []);
+
+    const onSelect = (keys, info) => {
+        // console.log('Trigger Select', keys, info);
+        if(keys && keys[0]) {
+            setCategory(keys[0]);
         }
     };
 
@@ -45,7 +63,29 @@ const Home = () => {
                     <div className="home-page-main">
 
                         <PostList posts={posts} />
+
+                        {
+                            category === 'root-key' && (
+                                <Pagination
+                                    onChange={(page)=>{
+                                        setPagination({
+                                            ...pagination,
+                                            current: page
+                                        });
+                                    }}
+                                    onShowSizeChange={(current, size)=>{
+                                        setPagination({
+                                            ...pagination,
+                                            current,
+                                            pageSize: size
+                                        });
+                                    }}
+                                    className="home-page-pagination" {...pagination} total={total}
+                                />
+                            )
+                        }
                     </div>
+
 
                 </Col>
             </Row>

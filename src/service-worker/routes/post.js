@@ -2,16 +2,32 @@ importScripts('/src/assets/libs/mdast/mdast.js');
 
 ((db, marked, mdast) => {function route(router) {
 
-    router.get('/api/posts', async () => {
+    router.get('/api/posts', async ({request}) => {
+
+        const url = new URL(request.url);
+        const current = url.searchParams.get('current') || 1;
+        const pageSize = url.searchParams.get('pageSize') || 20;
+
+        const offset = (current-1) * pageSize;
+        const limit = pageSize;
+
         const posts = db.getCollection("posts");
 
-        const data = posts.chain().find({
+        const total = posts.chain().find({
+            type: 'file'
+        }).count();
+        const result = posts.chain().find({
             type: 'file'
         }).sort((a, b) => {
             const amtime = new Date(a.mtime).getTime();
             const bmtime = new Date(b.mtime).getTime();
             return bmtime - amtime;
-        }).data();
+        }).offset(offset).limit(limit).data();
+
+        const data = {
+            posts: result,
+            total
+        };
 
         const headers = new Headers();
         headers.set("content-type", "application/json; charset=utf-8");
@@ -124,8 +140,6 @@ importScripts('/src/assets/libs/mdast/mdast.js');
         const result = posts.findOne({
             id
         });
-        console.log('result============================');
-        console.log(result);
         if(!result) {
             const data = JSON.stringify({code: -1, message: '文章未找到或已删除！'});
             return new Response(data, {
