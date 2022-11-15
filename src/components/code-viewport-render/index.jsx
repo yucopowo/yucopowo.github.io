@@ -6,12 +6,9 @@ import CodeDemo from "../code-demo/index.jsx";
 const CodeViewportRender = memo((props) => {
 
     const { forwardedRef, hasInViewport, node } = props;
-
-
     const attrs = node.attributes || {};
 
-    console.log(attrs.file);
-
+    // console.log(attrs.file);
 
     if(!hasInViewport) {
         return (

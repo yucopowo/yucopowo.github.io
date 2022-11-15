@@ -1,6 +1,7 @@
 import React, {useRef, useMemo, useState, useEffect} from 'react';
 import CodeHighlight from '/src/components/code-highlight/index.jsx';
 import './handlebars-helper.js';
+import vueTemplate from './templates/vue.template.js';
 import javascriptTemplate from './templates/javascript.template.js';
 import htmlTemplate from './templates/html.template.js';
 import reactTemplate from './templates/react.template.js';
@@ -16,6 +17,10 @@ const CodeDemo = (props) => {
 
     const html = useMemo(() => {
         switch (node.lang) {
+            case 'vue':
+            case 'vue2':
+            case 'vue3':
+                return vueTemplate({node, version: node.lang==='vue2'?2:3});
             case 'jsx':
                 return reactTemplate({node, version: parseInt(attrs.react||'18')});
             case 'js':

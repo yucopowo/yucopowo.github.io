@@ -46,3 +46,49 @@ export default App;
 ```
 
 
+
+
+## Vue 演示
+```vue {demo}
+<template>
+  <span class="example">{{ msg }}</span>
+</template>
+<script>
+  export default {
+    data () {
+      return {
+        msg: 'world!',
+        color: 'blue',
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .example {
+    color: red;
+  }
+</style>
+```
+
+```vue2 {demo}
+<template>
+  <span class="example">{{ msg }}</span>
+</template>
+<script>
+  export default {
+    data () {
+      return {
+        msg: 'world!',
+        color: 'blue',
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .example {
+    color: red;
+  }
+</style>
+```

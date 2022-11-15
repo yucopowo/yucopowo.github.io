@@ -6,8 +6,13 @@ const CodeHighlight = (props) => {
 
     const {node} = props;
 
+    let lang = node.lang;
+    if(lang==='vue' || lang==='vue2' || lang==='vue3'){
+        lang = 'html';
+    }
+
     return (
-        <Highlight {...defaultProps} theme={theme} code={node.value} language={node.lang}>
+        <Highlight {...defaultProps} theme={theme} code={node.value} language={lang}>
             {({className, style, tokens, getLineProps, getTokenProps}) => (
                 <pre className={className} style={style}>
                     {tokens.map((line, i) => (

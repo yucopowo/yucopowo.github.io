@@ -1,17 +1,24 @@
-## 案例
+```vue {demo}
+
+<template>
+  <span class="example">=={{ msg }}==</span>
+</template>
+<script>
+  export default {
+    data () {
+      return {
+        msg: 'world!=====',
+        color: 'blue',
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .example {
+    color: red;
+  }
+</style>
 
 
-::example{url=/examples/markdown-sync-scroll/index.html}
-
-:abbr[HTML]{title="HyperText Markup Language"}
-
-::hr{.red}
-
-:::main{#readme}
-
-Lorem:br
-ipsum.
-
-A :i[lovely] language know as .
-
-:::
+```
