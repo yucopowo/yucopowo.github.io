@@ -1,6 +1,6 @@
-importScripts('/src/assets/libs/mdast/mdast.js');
+importScripts('/src/assets/libs/past/past.js');
 
-((db, marked, mdast) => {function route(router) {
+((db, past) => {function route(router) {
 
     router.get('/api/posts', async ({request}) => {
 
@@ -129,6 +129,39 @@ importScripts('/src/assets/libs/mdast/mdast.js');
         });
     });
 
+    router.get('/api/post/content/hast/:id', async ({params}) => {
+
+        const { id } = params;
+        const headers = new Headers();
+        headers.set("content-type", "application/json; charset=utf-8");
+        const posts = db.getCollection("posts");
+        //
+
+        const result = posts.findOne({
+            id
+        });
+        if(!result) {
+            const data = JSON.stringify({code: -1, message: '文章未找到或已删除！'});
+            return new Response(data, {
+                headers
+            });
+        }
+
+        const p = result.path;
+        const response = await fetch(`/posts/${p}`);
+
+        const content = await response.text();
+
+        const ast = past(content, {
+            html: true
+        });
+
+        const source = JSON.stringify({code: 0, message: 'ok', data: ast});
+        return new Response(source, {
+            headers
+        });
+    });
+
     router.get('/api/post/content/:id', async ({params}) => {
 
         const { id } = params;
@@ -164,4 +197,4 @@ importScripts('/src/assets/libs/mdast/mdast.js');
 
 }
 self.modules.routes = self.modules.routes || [];self.modules.routes.push(route);
-})(self.modules.db, self.marked, self.mdast);
+})(self.modules.db, self.past);

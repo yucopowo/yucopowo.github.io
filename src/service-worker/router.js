@@ -6,6 +6,7 @@ importScripts('/src/service-worker/handlers/less-handler.js');
 importScripts('/src/service-worker/handlers/markdown-handler/markdown-handler.js');
 importScripts('/src/service-worker/routes/ok.js');
 importScripts('/src/service-worker/routes/post.js');
+importScripts('/src/service-worker/routes/demo.js');
 
 // importScripts('/src/service-worker/handlers/code-live-handler.js');
 
