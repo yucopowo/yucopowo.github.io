@@ -129,7 +129,7 @@ importScripts('/src/assets/libs/past/past.js');
         });
     });
 
-    router.get('/api/post/content/hast/:id', async ({params}) => {
+    router.get('/api/post/content/past/:id', async ({params}) => {
 
         const { id } = params;
         const headers = new Headers();

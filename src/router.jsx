@@ -23,7 +23,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "post/:id",
-                element: lazy('/src/pages/hast-post-detail/index.jsx')
+                element: lazy('/src/pages/past-post-detail/index.jsx')
             },
             {
                 path: "notes",

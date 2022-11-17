@@ -1,7 +1,7 @@
 import React, {createElement, useState, useEffect, memo, useRef} from 'react';
-import './index.less';
 import codeRenderer from "./renderers/code-renderer.jsx";
 import { parseStyle } from "../../utils/css.js";
+import './index.less';
 
 const h = React.createElement;
 
@@ -56,14 +56,14 @@ function rootRenderer(root) {
     );
 }
 
-const HastRender = (props) => {
+const PastRender = (props) => {
     const { hast } = props;
 
     return (
-        <div className="hast-render">
+        <div className="past-render">
             {rootRenderer(hast)}
         </div>
     );
 };
 
-export default HastRender;
+export default PastRender;

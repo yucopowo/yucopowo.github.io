@@ -1,159 +1,121 @@
-///**
-// * Darcula theme
-// *
-// * Adapted from a theme based on:
-// * IntelliJ Darcula Theme (https://github.com/bulenkov/Darcula)
-// *
-// * @author Alexandre Paradis <service.paradis@gmail.com>
-// * @version 1.0
-// */
-//
-//code[class*="language-"],
-//pre[class*="language-"] {
-//  color: #a9b7c6;
-//  font-family: Consolas, Monaco, 'Andale Mono', monospace;
-//  direction: ltr;
-//  text-align: left;
-//  white-space: pre;
-//  word-spacing: normal;
-//  word-break: normal;
-//  line-height: 1.5;
-//
-//  -moz-tab-size: 4;
-//  -o-tab-size: 4;
-//  tab-size: 4;
-//
-//  -webkit-hyphens: none;
-//  -moz-hyphens: none;
-//  -ms-hyphens: none;
-//  hyphens: none;
-//}
-//
-//pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
-//code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
-//  color: inherit;
-//  background: rgba(33, 66, 131, .85);
-//}
-//
-//pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
-//code[class*="language-"]::selection, code[class*="language-"] ::selection {
-//  color: inherit;
-//  background: rgba(33, 66, 131, .85);
-//}
-//
-///* Code blocks */
-//pre[class*="language-"] {
-//  padding: 1em;
-//  margin: .5em 0;
-//  overflow: auto;
-//}
-//
-//:not(pre) > code[class*="language-"],
-//pre[class*="language-"] {
-//  background: #2b2b2b;
-//}
-//
-///* Inline code */
-//:not(pre) > code[class*="language-"] {
-//  padding: .1em;
-//  border-radius: .3em;
-//}
-//
-//.token.comment,
-//.token.prolog,
-//.token.cdata {
-//  color: #808080;
-//}
-//
-//.token.delimiter,
-//.token.boolean,
-//.token.keyword,
-//.token.selector,
-//.token.important,
-//.token.atrule {
-//  color: #cc7832;
-//}
-//
-//.token.operator,
-//.token.punctuation,
-//.token.attr-name {
-//  color: #a9b7c6;
-//}
-//
-//.token.tag,
-//.token.tag .punctuation,
-//.token.doctype,
-//.token.builtin {
-//  color: #e8bf6a;
-//}
-//
-//.token.entity,
-//.token.number,
-//.token.symbol {
-//  color: #6897bb;
-//}
-//
-//.token.property,
-//.token.constant,
-//.token.variable {
-//  color: #9876aa;
-//}
-//
-//.token.string,
-//.token.char {
-//  color: #6a8759;
-//}
-//
-//.token.attr-value,
-//.token.attr-value .punctuation {
-//  color: #a5c261;
-//}
-//
-//.token.attr-value .punctuation:first-child {
-//  color: #a9b7c6;
-//}
-//
-//.token.url {
-//  color: #287bde;
-//  text-decoration: underline;
-//}
-//
-//.token.function {
-//  color: #ffc66d;
-//}
-//
-//.token.regex {
-//  background: #364135;
-//}
-//
-//.token.bold {
-//  font-weight: bold;
-//}
-//
-//.token.italic {
-//  font-style: italic;
-//}
-//
-//.token.inserted {
-//  background: #294436;
-//}
-//
-//.token.deleted {
-//  background: #484a4a;
-//}
-//
-//code.language-css .token.property,
-//code.language-css .token.property + .token.punctuation {
-//  color: #a9b7c6;
-//}
-//
-//code.language-css .token.id {
-//  color: #ffc66d;
-//}
-//
-//code.language-css .token.selector > .token.class,
-//code.language-css .token.selector > .token.attribute,
-//code.language-css .token.selector > .token.pseudo-class,
-//code.language-css .token.selector > .token.pseudo-element {
-//  color: #ffc66d;
-//}
+.code-highlight {
+  .markdown-code-browser-window {
+    //border: 3px solid #ebedf0;
+    //border: 3px solid #21252b;
+    //border-radius: 0.4rem 0.4rem 0 0;
+    //border-radius: 0.4rem;
+    //box-shadow: 0 1px 2px 0 rgba(0,0,0,.1);
+    /*margin-bottom: calc(1.25*1rem);*/
+    min-height: 100px;
+    background-color: white;
+    position: relative;
+
+    border-radius: 5px;
+    box-shadow: 0 20px 68px rgb(0 0 0 / 55%);
+
+    color: #CFD2D1!important;
+    background-color: #151718!important;
+  }
+
+  .markdown-code-browser-window-header {
+    align-items: center;
+    //background: #ebedf0;
+    //background: #21252b;
+    display: flex;
+    //padding: 0 1rem;
+    padding: 0.3rem 1rem;
+    //margin-top: 3px;
+    overflow: hidden;
+  }
+
+  .markdown-code-browser-window-buttons {
+    white-space: nowrap;
+    line-height: 1.5;
+  }
+
+  .markdown-code-browser-window-button {
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    height: 12px;
+    margin-right: 6px;
+    margin-top: 4px;
+    width: 12px;
+  }
+  .markdown-code-browser-window-button.dot_giz_a {
+    background: rgb(242, 95, 88)
+  }
+  .markdown-code-browser-window-button.dot_giz_b {
+    background: rgb(251, 190, 60)
+  }
+  .markdown-code-browser-window-button.dot_giz_c {
+    background: rgb(88, 203, 66)
+  }
+
+  .markdown-code-browser-window-menu-icon {
+    margin-left: auto;
+    cursor: pointer;
+  }
+
+  .markdown-code-browser-window-menu-icon .bar_rrRL {
+    background-color: #aaa;
+    display: block;
+    height: 3px;
+    margin: 3px 0;
+    width: 17px;
+  }
+
+  .markdown-code-browser-window-title {
+    border-radius: 12.5px;
+    color: #ffffff;
+    flex: 1 0;
+    font: 400 13px Arial,sans-serif;
+    margin: 0 1rem 0 .5rem;
+    padding: 5px 15px;
+    -webkit-user-select: none;
+    user-select: none;
+    text-align: center;
+  }
+
+  .markdown-code-browser-window-title.text--truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /*text-transform: capitalize;*/
+    font-weight: 700;
+    font-size: 14px
+  }
+
+  .markdown-code-browser-window-address-bar {
+    //background-color: #ffffff;
+    //border-radius: 12.5px;
+    //color: #444950;
+    color: white;
+    flex: 1 0;
+    font: 400 13px Arial,sans-serif;
+    margin: 0 1rem 0 .5rem;
+    padding: 5px 15px;
+    -webkit-user-select: none;
+    user-select: none;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: capitalize;
+  }
+
+  .markdown-code-browser-window-body{
+    padding: 0;
+    background-color: white;
+    position: relative;
+    pre {
+      margin: 0!important;
+      //padding: 0!important;
+      border-radius: 0!important;
+      //background: #151718!important;
+    }
+  }
+
+  pre.prism-code  {
+    margin-bottom: 0;
+  }
+}

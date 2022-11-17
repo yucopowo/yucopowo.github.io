@@ -4,8 +4,8 @@
 
         const posts = db.getCollection("posts");
         //
-        // console.log('posts============================');
-        // console.log(posts);
+        console.log('posts============================');
+        console.log(posts);
         const code = (!posts || posts.length === 0)?-1:0;
 
         const headers = new Headers();
