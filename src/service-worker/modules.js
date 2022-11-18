@@ -1,1 +1,0 @@
-self.modules = (self.modules || {});

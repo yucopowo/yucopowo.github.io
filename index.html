@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>blog</title>
     <link rel="icon" href="data:;base64,=">
-    <link rel="stylesheet" href="/src/assets/libs/antd/reset.css" >
+    <link rel="stylesheet" href="/public/assets/libs/antd/reset.css" >
     <style>
         body {
             background: #151617;
@@ -23,70 +23,23 @@
     <script type="text/javascript">
         window.IS_GITHUB_ENV = window.location.host.includes('.github.io');
     </script>
+
     <script>
-        window.global = {};
-        window.__LIBS__ = {
-            // "antd": "https://esm.sh/antd?dev",
-            "antd": "/src/assets/libs/antd/antd.esm.js?dev",
-            "babel-standalone": "/src/assets/libs/babel-standalone/babel.esm.js?dev",
-
-            // "babel-standalone": "https://esm.sh/babel-standalone?dev",
-            // "antd-es": "/src/assets/libs/antd/antd-es.js",
-            "vue": "https://esm.sh/vue?dev",
-            "vue2-sfc-loader": "/src/assets/libs/vue-sfc-loader/vue2-sfc-loader.esm.js",
-            "vue3-sfc-loader": "/src/assets/libs/vue-sfc-loader/vue3-sfc-loader.esm.js",
-
-            "react": "https://esm.sh/react?dev",
-            "react-dom": "https://esm.sh/react-dom?dev",
-            "react-dom/client": "https://esm.sh/react-dom/client?dev",
-            "react-router-dom": "https://esm.sh/react-router-dom?dev",
-            "react-router": "https://esm.sh/react-router?dev",
-            "react-split-pane": "https://esm.sh/react-split-pane",
-            "marked": "https://esm.sh/marked?dev",
-            "dayjs": "https://esm.sh/dayjs?dev",
-            "styled-components": "https://esm.sh/styled-components?dev",
-            "react-shadow": "https://esm.sh/react-shadow?dev",
-            "lodash": "https://esm.sh/lodash?dev",
-            "hashids": "https://esm.sh/hashids",
-            "js-base64": "https://esm.sh/js-base64",
-            "unified": "https://esm.sh/unified?dev",
-            "prism": "https://esm.sh/prism",
-            "prism-react-renderer": "https://esm.sh/prism-react-renderer?dev",
-            "prism-react-renderer/themes/nightOwl": "https://esm.sh/prism-react-renderer/themes/nightOwl",
-            "prism-react-renderer/themes/okaidia": "https://esm.sh/prism-react-renderer/themes/okaidia",
-            "react-in-viewport": "https://esm.sh/react-in-viewport?dev",
-            "handlebars": "https://esm.sh/handlebars?dev",
-            "hast-to-hyperscript": "https://esm.sh/hast-to-hyperscript?dev",
-            "unist-util-find": "https://esm.sh/unist-util-find?dev",
-            "style-to-object": "https://esm.sh/style-to-object?dev",
-            "refractor": "https://esm.sh/refractor?dev",
-            "react-syntax-highlighter": "https://esm.sh/react-syntax-highlighter?dev",
-            "react-syntax-highlighter/dist/esm/styles/prism": "https://esm.sh/react-syntax-highlighter/dist/esm/styles/prism?dev",
-        };
-        if(window.IS_GITHUB_ENV) {
-            for (let k in window.__LIBS__) {
-                const v = window.__LIBS__[k];
-                if(v.endsWith('?dev')) {
-                    window.__LIBS__[k] = v.replace('?dev', '');
-                }
-                if(v.endsWith('.esm.js?dev')) {
-                    window.__LIBS__[k] = v.replace('.esm.js?dev', '.esm.min.js');
-                }
+        (function(l) {
+            // if (l.pathname === '/' && l.search === '') {
+            //     return;
+            // }
+            if (l.search[1] === '/') {
+                const decoded = l.search.slice(1).split('&').map(function(s) {
+                    return s.replace(/~and~/g, '&')
+                }).join('?');
+                window.history.replaceState(null, null,
+                    l.pathname.slice(0, -1) + decoded + l.hash
+                );
             }
-        }
+        }(window.location));
     </script>
-    <script>
-        (() => {
-            const importMap = {
-                "imports": window.__LIBS__
-            };
-            const im = document.createElement('script');
-            im.type = 'importmap';
-            im.textContent = JSON.stringify(importMap, null, 2);
-            document.currentScript.after(im);
-            // document.head.appendChild(im);
-        })();
-    </script>
+
 </head>
 <body>
 <button id="update">update</button>

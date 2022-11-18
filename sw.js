@@ -1,11 +1,21 @@
-importScripts('/src/service-worker/modules.js');
-importScripts('/src/service-worker/db.js');
-importScripts('/src/service-worker/router.js');
+importScripts('/service-worker/modules.js');
+importScripts('/service-worker/common.js');
+importScripts('/service-worker/db.js');
+importScripts('/service-worker/router.js');
 
-
+// console.log(registerPromiseWorker);
 ((window) => {
     // console.log('service worker start....');
     const { router, db } = window.modules;
+    router.ctx = { db };
+
+
+    registerPromiseWorker(function (message) {
+        // console.log(message); // { hello: 'world', answer: 42, 'this is fun': true }
+        return Promise.resolve().then(function () {
+            return 'much async, very promise';
+        });
+    });
     // console.log(db);
 
     // setTimeout(() => {
@@ -63,18 +73,18 @@ importScripts('/src/service-worker/router.js');
 
 
 
-    function sendMessage(msg) {
-        window.clients.matchAll().then(function(clients) {
-            console.log(clients);
-            clients.forEach(function(client) {
-                // console.log(client);
-                // if (client.url.includes('/a.html')) {
-                    // 首页
-                client.postMessage('hello world' + client.id);
-                // }
-            });
-        });
-    }
+    // function sendMessage(msg) {
+    //     window.clients.matchAll().then(function(clients) {
+    //         console.log(clients);
+    //         clients.forEach(function(client) {
+    //             // console.log(client);
+    //             // if (client.url.includes('/a.html')) {
+    //                 // 首页
+    //             client.postMessage('hello world' + client.id);
+    //             // }
+    //         });
+    //     });
+    // }
 
     window.addEventListener('install', function(event) {
         // console.log('sw install============================')

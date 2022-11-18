@@ -1,0 +1,58 @@
+{{#if showPreview }}
+
+<div class="markdown-code-previewer-container">
+    {{#eq template 'javascript'}}
+        <iframe srcdoc="{{javascript code config}}" frameborder="0" width="100%"></iframe>
+    {{/eq}}
+
+    {{#eq template 'typescript'}}
+        <iframe srcdoc="{{typescript code}}" frameborder="0" width="100%"></iframe>
+    {{/eq}}
+
+    {{#eq template 'html'}}
+        <iframe srcdoc="{{html code}}" frameborder="0" width="100%"></iframe>
+    {{/eq}}
+
+    {{#eq template 'react'}}
+        <iframe srcdoc="{{react code config}}" frameborder="0" width="100%"></iframe>
+    {{/eq}}
+
+    {{#eq template 'vue'}}
+        <iframe srcdoc="{{vue code config}}" frameborder="0" width="100%"></iframe>
+    {{/eq}}
+</div>
+
+
+{{/if}}
+
+{{#if showCode }}
+
+<div class="markdown-code-browser-window">
+    <div class="markdown-code-browser-window-header">
+        <div class="markdown-code-browser-window-buttons">
+            <span class="markdown-code-browser-window-button dot_giz1 dot_giz_a"></span>
+            <span class="markdown-code-browser-window-button dot_giz1 dot_giz_b"></span>
+            <span class="markdown-code-browser-window-button dot_giz1 dot_giz_c"></span>
+        </div>
+        <div class="markdown-code-browser-window-title text--truncate">
+            {{#if config.filename}}
+                {{config.filename}}
+            {{else}}
+                {{lang}}
+            {{/if}}
+        </div>
+        <div class="markdown-code-browser-window-menu-icon" onclick="console.log(this.parentElement);">
+            <div>
+                <span class="bar_rrRL"></span>
+                <span class="bar_rrRL"></span>
+                <span class="bar_rrRL"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<pre>
+    <code class="hljs language-{{lang}}">{{{highlight code lang}}}</code>
+</pre>
+
+{{/if}}

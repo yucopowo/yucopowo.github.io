@@ -1,19 +1,3 @@
-(function(l) {
-    // if (l.pathname === '/' && l.search === '') {
-    //     return;
-    // }
-    if (l.search[1] === '/') {
-        const decoded = l.search.slice(1).split('&').map(function(s) {
-            return s.replace(/~and~/g, '&')
-        }).join('?');
-        window.history.replaceState(null, null,
-            l.pathname.slice(0, -1) + decoded + l.hash
-        );
-    }
-}(window.location));
-
-
-
 function main() {
     const s = document.createElement('script');
     s.type = 'module';
@@ -47,7 +31,6 @@ async function registerServiceWorker() {
         const registration = await navigator.serviceWorker.register('/sw.js', {
             scope: "/"
         });
-        // console.log('ServiceWorker register success: ', registration.waiting, registration);
 
         if(!window.IS_GITHUB_ENV) {
             document.getElementById('update').style.display = 'inline-block';
@@ -58,6 +41,53 @@ async function registerServiceWorker() {
             }, false);
         }
 
+        if (navigator.serviceWorker.controller) {
+            // already active and controlling this page
+            return navigator.serviceWorker;
+        }
+
+        return new Promise(function (resolve) {
+            function onControllerChange() {
+                navigator.serviceWorker.removeEventListener('controllerchange', onControllerChange);
+                resolve(navigator.serviceWorker);
+            }
+            navigator.serviceWorker.addEventListener('controllerchange', onControllerChange);
+        });
+
+        // console.log('ServiceWorker register success: ', navigator.serviceWorker.controller);
+
+
+        // console.log('ServiceWorker register success: ', registration.waiting, registration);
+
+
+
+
+        // function sendMessage(id, type, data) {
+        //     navigator.serviceWorker.controller.postMessage((JSON.stringify({
+        //         id,
+        //         type,
+        //         data
+        //     })));
+        // }
+        //
+        //
+        // navigator.serviceWorker.addEventListener("message", function(event) {
+        //     console.log('event.data======');
+        //     // console.log(event.data);
+        //     const message = JSON.parse(event.data);
+        //
+        //
+        //     if(message.type === 'code') {
+        //         console.log(message);
+        //         const codeKey = message.data.code;
+        //         const code = localStorage.getItem(codeKey);
+        //         localStorage.removeItem(codeKey);
+        //         console.log(code);
+        //         sendMessage(message.id, message.type, {
+        //             code
+        //         });
+        //     }
+        // });
 
 
     } catch (err) {
@@ -67,7 +97,9 @@ async function registerServiceWorker() {
 
 // await unregisterAllServiceWorker();
 // await unregisterAllServiceWorker();
-await registerServiceWorker();
+const worker = await registerServiceWorker();
+
+
 //
 //
 function sleep() {
@@ -93,15 +125,34 @@ async function ready(tryCount = 0) {
     }
 }
 
-setTimeout(() => {
+// setTimeout(() => {
+//     ready().then((res) => {
+//         // console.log('ok=====');
+//         // console.log(res);
+//         main();
+//     }).catch((e) => {
+//         console.log('error=====');
+//         console.error(e);
+//     });
+// });
+
+if(worker) {
+
+    // import('promise-worker').then((m) => {
+    //     console.log(m);
+    // });
+
+    main();
+} else {
     ready().then((res) => {
-        // console.log('ok=====');
-        // console.log(res);
-        main();
+        console.log('ok=====');
+        console.log(res);
+        // main();
+        // window.location.reload();
     }).catch((e) => {
         console.log('error=====');
         console.error(e);
+    }).finally(() => {
+        window.location.reload();
     });
-});
-
-
+}

@@ -100,7 +100,7 @@ function databaseInitialize() {
     // log.insert({ event: 'dbinit', dt: (new Date()).getTime() });
 }
 
-const root = path.resolve(__dirname, '../api');
+const root = path.resolve(__dirname, '../public/db');
 
 db.clear = () => {
     cache = {};

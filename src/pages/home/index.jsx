@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Layout, Menu, Tree, Col, Row, Pagination } from 'antd';
 import PostTreeContainer from "../../containers/post-tree-container/index.jsx";
@@ -35,11 +35,9 @@ const Home = () => {
         }
     }, [category, pagination]);
 
-    // useEffect(() => {
-    //     getAllPostsService().then((res) => {
-    //         setPosts(res.data);
-    //     });
-    // }, []);
+    useEffect(() => {
+        window.scrollTo(0,0);
+    }, [posts]);
 
     const onSelect = (keys, info) => {
         // console.log('Trigger Select', keys, info);

@@ -1,0 +1,38 @@
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script>
+        (() => {
+            const topFrame = window.frameElement;
+            if (topFrame) {
+                const debouncedHandler = () => {
+                    const height = document.documentElement.offsetHeight;
+                    topFrame.style.height = (height) + 'px';
+                };
+                const observe = new ResizeObserver(debouncedHandler);
+                observe.observe(document.documentElement);
+            }
+        })();
+    </script>
+</head>
+
+<body>
+
+
+<script>
+    const topFrame = window.frameElement;
+    const code = topFrame.parentElement.querySelector('textarea').value;
+    document.write(code);
+</script>
+
+
+
+</body>
+</html>

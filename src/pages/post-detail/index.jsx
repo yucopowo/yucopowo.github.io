@@ -1,33 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { createRoot } from 'react-dom';
-import { useParams, useLocation } from 'react-router-dom';
-import { getPostService, getPostContentByIdService } from '/src/services/post.js';
+import { useParams } from 'react-router-dom';
+import { Alert } from 'antd';
+import PastRender from '/src/components/past-render/index.jsx';
+import { getPostPastByIdService } from '/src/services/post.js';
 import './index.less';
+import './github-markdown-dark.less';
 
 const PostDetail = () => {
-    const location = useLocation();
-    const postPath = decodeURIComponent(location.pathname.substring(11));
-
-
     const params = useParams();
-    console.log(params);
-
     const { id } = params;
 
+    const [error, setError] = useState(false);
+    const [message, setMessage] = useState('');
+
     const [loading, setLoading] = useState(true);
-    const [content, setContent] = useState('');
+    const [hast, setHast] = useState({});
 
     useEffect(() => {
-        // getPostService(postPath).then((res) => {
-        //     setContent(res);
-        //     setLoading(false);
-        // }).catch((e) => {
-        //     console.error(e);
-        // });
-
-        getPostContentByIdService(id).then((res) => {
-            console.log(res);
-            setContent(res.data);
+        getPostPastByIdService(id).then((res) => {
+            // console.log(res);
+            const { code } = res;
+            if(code<0) {
+                setMessage(res.message);
+                setError(true);
+                setLoading(false);
+                return;
+            }
+            setHast(res.data);
             setLoading(false);
         }).catch((e) => {
             console.error(e);
@@ -35,14 +34,19 @@ const PostDetail = () => {
     }, [id]);
 
     return (
-        <div className="post-content">
+        <div className="past-post-detail-page post-content">
             {loading && <div>loading...</div>}
-            {!loading && (
-                <blog-markdown-previewer content={content}>
-
-                </blog-markdown-previewer>
+            {!loading && (<PastRender hast={hast}/>)}
+            {error && (
+                <div className="error-container">
+                    <Alert
+                        message="错误"
+                        description={message}
+                        type="error"
+                        closable={false}
+                    />
+                </div>
             )}
-
         </div>
     );
 };

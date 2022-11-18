@@ -1,5 +1,5 @@
 // r = /import[ ]+[a-zA-Z ,{}]*[ ]+from[ ]+['|"]antd['|"];?/g;
-const Babel = require('../src/assets/libs/babel-standalone/babel.min.js');
+const Babel = require('../public/assets/libs/babel-standalone/babel.min.js');
 // console.log(Babel)
 // Simple plugin that converts every identifier to "LOL"
 function lolizer() {

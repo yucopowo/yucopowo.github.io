@@ -1,14 +1,17 @@
 import React, {useRef, useMemo, useState, useEffect} from 'react';
+import queryString from 'query-string';
 import CodeHighlight from '/src/components/code-highlight/index.jsx';
-import './handlebars-helper.js';
-// import vueTemplate from './templates/vue.template.js';
-// import javascriptTemplate from './templates/javascript.template.js';
-// import htmlTemplate from './templates/html.template.js';
-// import reactTemplate from './templates/react.template.js';
 import Loading from "../loading/index.jsx";
-
+import { uuid } from "../../utils/util.js";
 import './index.less';
 
+
+
+
+function getUUID() {
+    return new Date().getTime() + Math.floor((Math.random() * 10000000));
+}
+// const cache = new Map();
 function getDemoUrl(lang) {
     switch (lang) {
         case 'vue':
@@ -35,45 +38,26 @@ const CodeDemo = (props) => {
     const [loading, setLoading] = useState(true);
     const [showCode, setShowCode] = useState(false);
 
+    // console.log('node===');
+    // console.log(node);
     const url = useMemo(() => {
-        return getDemoUrl(node.lang);
-    }, [node.lang]);
-    // const html = useMemo(() => {
-    //     switch (node.lang) {
-    //         case 'vue':
-    //         case 'vue2':
-    //         case 'vue3':
-    //             return vueTemplate({node, version: node.lang==='vue2'?2:3});
-    //         case 'jsx':
-    //             return reactTemplate({node, version: parseInt(attrs.react||'18')});
-    //         case 'js':
-    //         case 'javascript':
-    //             return javascriptTemplate({node});
-    //         case 'html':
-    //             return htmlTemplate({node});
-    //         default:
-    //             return 'error';
-    //     }
-    // }, [node.value]) || '';
+        // const id = uuid();
+        // localStorage.setItem(id, node.value);
+        // return getDemoUrl(node.lang, node.value);
 
-    // useLayoutEffect(() => {
-    //     const contentDocument = iframeRef.current;
-    //     console.log(contentDocument);
-    // }, []);
+        return queryString.stringifyUrl({
+            url: getDemoUrl(node.lang),
+            query: {
+                attributes: JSON.stringify(node.attributes),
+                code: node.value
+            },
+        });
+
+    }, [node.lang, node.value]);
 
     useEffect(() => {
 
         const onLoad = () => {
-            // const iframeDocument = iframeRef.current?.contentDocument;
-            // const script = iframeDocument.createElement('script');
-            // script.innerHTML = ``;
-            // iframeDocument.body.appendChild(script);
-            //
-            // const style = iframeDocument.createElement('style');
-            // style.innerHTML = `
-            //
-            // `;
-            // iframeDocument.head.appendChild(style);
             setLoading(false);
         };
         // console.log();
@@ -115,7 +99,6 @@ const CodeDemo = (props) => {
                     </div>
                 </div>
                 <div className="markdown-code-browser-window-body">
-                    {/*<iframe ref={iframeRef} srcDoc={html} frameBorder="0" width="100%" {...iframeProps}></iframe>*/}
                     <textarea hidden defaultValue={node.value} data-attributes={JSON.stringify(node.attributes)} />
                     <iframe ref={iframeRef} src={url} frameBorder="0" width="100%" {...iframeProps}></iframe>
                 </div>
@@ -126,7 +109,7 @@ const CodeDemo = (props) => {
                 )}
                 {showCode && (
                     <div>
-                        <CodeHighlight node={node} />
+                        <CodeHighlight frameless node={node} />
                     </div>
                 )}
             </div>
