@@ -1,6 +1,6 @@
 {
 	"scripts": {
-		"dev": "nodemon server.js --watch app"
+		"dev": "nodemon app/server.js --watch app"
 	},
 	"dependencies": {
 		"crc": "^4.1.1",

@@ -6,6 +6,7 @@ import { uuid } from "../../utils/util.js";
 import './index.less';
 
 
+// const CodeHighlight = React.lazy(() => import('/src/components/code-highlight/index.jsx'));
 
 
 function getUUID() {

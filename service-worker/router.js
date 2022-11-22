@@ -1,85 +1,33 @@
-importScripts('/service-worker/handlers/esm-handler.js');
-importScripts('/service-worker/handlers/babel-handler.js');
-importScripts('/service-worker/handlers/cache-handler.js');
-importScripts('/service-worker/handlers/less-handler.js');
-// importScripts('/service-worker/handlers/markdown-handler/markdown-handler.js');
-importScripts('/service-worker/routes/ok.js');
-importScripts('/service-worker/routes/post.js');
-importScripts('/service-worker/routes/demo.js');
+import { Router as TinyRequestRouter } from 'https://esm.sh/tiny-request-router@1.2.2?dev';
 
-// importScripts('/service-worker/handlers/code-live-handler.js');
+export default class ServiceWorkerRouter {
 
-((Router, handlers) => {
-    const router = new Router();
+    constructor() {
+        this.router = new TinyRequestRouter();
+    }
 
-    router.get('(http(s)\\://)esm.sh/*', handlers.cacheHandler, {
-        matchUrl: true
-    });
-    router.get('/public/assets/libs/*', handlers.cacheHandler);
+    middleware() {
+        return async (ctx, next) => {
+            const { request } = ctx;
+            const { pathname } = new URL(request.url);
+            const match = this.router.match(request.method, pathname);
+            if (match) {
+                ctx.params = match.params;
+                await match.handler(ctx, next);
+            } else {
+                await next();
+            }
+        }
+    }
 
+    get(pattern, handler, options) {
+        this.router.get(pattern, handler, options);
+        return this;
+    }
 
-    router.get('/src/*.js(x)', handlers.esmHandler);
-    // router.get('/src/*.less', handlers.lessHandler);
-    router.get('/src/*.less(?raw)', handlers.lessHandler);
+    post(pattern, handler, options) {
+        this.router.post(pattern, handler, options);
+        return this;
+    }
 
-    // router.get('*ref*', jsHandler);
-    // router.get('*warning*', jsHandler);
-    // router.get('*dynamicCSS*', jsHandler);
-
-    // router.get('/api/ok', okHandler);
-
-    // router.get('/esm/*', handlers.esmHandler);
-    //
-    //
-    // //资源缓存
-    // router.get('(http(s)\\://)esm.sh/*', handlers.cacheHandler, {
-    //     matchUrl: true
-    // });
-    // router.get('/public/assets/libs/*', handlers.cacheHandler);
-    //
-    //
-    //
-    // //资源拦截编译
-    // router.get('*.jsx', handlers.babelHandler);
-    // router.get('*.less', handlers.lessHandler);
-    // router.get('*.less?raw', handlers.lessHandler);
-    //
-    //
-    // // 新增接口
-    // // api拦截
-    // // router.get('/posts/*.md', handlers.markdownHandler);
-    // router.get('/api/post/html', handlers.markdownHandler);
-
-
-    // router.get('/frames/code-live.html', handlers.codeLiveHandler);
-
-    // async function jsHandler({ request }) {
-    //
-    //     const response = await fetch(request);
-    //     const headers = new Headers(response.headers);
-    //     headers.set("content-type", "application/javascript; charset=utf-8");
-    //     let source = await response.text();
-    //
-    //     source = source.replace('function composeRef', 'export function composeRef');
-    //     source = source.replace('function supportRef', 'export function supportRef');
-    //     source = source.replace('function warning(valid, message)', 'export function warning(valid, message)');
-    //     source = source.replace('function updateCSS(css, key)', 'export function updateCSS(css, key)');
-    //     source = source.replace('function fillRef(ref, node)', 'export function fillRef(ref, node)');
-    //
-    //
-    //
-    //
-    //
-    //     console.log(source);
-    //
-    //     return new Response(source, {
-    //         headers
-    //     });
-    // }
-
-    self.modules.routes.forEach((route) => {
-        route(router);
-    });
-
-    self.modules.router = router;
-})(self.ServiceWorkerRouter.Router, self.modules.handlers);
+}

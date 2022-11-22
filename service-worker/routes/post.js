@@ -1,200 +1,120 @@
-importScripts('/public/assets/libs/past/past.js');
+import { ServiceWorkerRouter } from '../index.js';
+import past from '/public/assets/libs/past/past.esm.js';
 
-((db, past) => {function route(router) {
+const router = new ServiceWorkerRouter();
 
-    router.get('/api/posts', async ({request}) => {
+router.get('/api/posts', async (ctx) => {
+    const { request, response, db } = ctx;
+    const url = new URL(request.url);
+    const current = url.searchParams.get('current') || 1;
+    const pageSize = url.searchParams.get('pageSize') || 20;
 
-        const url = new URL(request.url);
-        const current = url.searchParams.get('current') || 1;
-        const pageSize = url.searchParams.get('pageSize') || 20;
+    const offset = (current-1) * pageSize;
+    const limit = pageSize;
 
-        const offset = (current-1) * pageSize;
-        const limit = pageSize;
+    const posts = db.getCollection("posts");
 
-        const posts = db.getCollection("posts");
+    const total = posts.chain().find({
+        type: 'file'
+    }).count();
+    const result = posts.chain().find({
+        type: 'file'
+    }).sort((a, b) => {
+        const amtime = new Date(a.mtime).getTime();
+        const bmtime = new Date(b.mtime).getTime();
+        return bmtime - amtime;
+    }).offset(offset).limit(limit).data();
 
-        const total = posts.chain().find({
-            type: 'file'
-        }).count();
-        const result = posts.chain().find({
-            type: 'file'
-        }).sort((a, b) => {
-            const amtime = new Date(a.mtime).getTime();
-            const bmtime = new Date(b.mtime).getTime();
-            return bmtime - amtime;
-        }).offset(offset).limit(limit).data();
+    const data = {
+        posts: result,
+        total
+    };
 
-        const data = {
-            posts: result,
-            total
-        };
+    response.body = {code: 0, message: 'ok', data};
+});
 
-        const headers = new Headers();
-        headers.set("content-type", "application/json; charset=utf-8");
-        const source = JSON.stringify({code: 0, message: 'ok', data});
-        return new Response(source, {
-            headers
-        });
+router.get('/api/posts/folders/tree', async (ctx) => {
+    const { request, response, db } = ctx;
+    const posts = db.getCollection("posts");
+    //
+    // console.log('posts============================');
+    // console.log(posts);
+    const data = posts.find({
+        type: 'directory'
     });
 
-    router.get('/api/posts/folders/tree', async () => {
-        const posts = db.getCollection("posts");
-        //
-        // console.log('posts============================');
-        // console.log(posts);
-        const data = posts.find({
+    const root = data.filter((d) => !d.pid);
+
+    function findChildren(parent) {
+        if(!parent) return;
+
+        const children = posts.find({
+            pid: parent.id,
             type: 'directory'
         });
-
-        const root = data.filter((d) => !d.pid);
-
-        function findChildren(parent) {
-            if(!parent) return;
-
-            const children = posts.find({
-                pid: parent.id,
-                type: 'directory'
-            });
-            if(children && children.length > 0) {
-                parent.children = children;
-                children.forEach((p)=>findChildren(p));
-            }
+        if(children && children.length > 0) {
+            parent.children = children;
+            children.forEach((p)=>findChildren(p));
         }
+    }
 
-        findChildren(root);
+    findChildren(root);
 
-        const headers = new Headers();
-        headers.set("content-type", "application/json; charset=utf-8");
-        const source = JSON.stringify({code: 0, message: 'ok', data: root});
-        return new Response(source, {
-            headers
-        });
-    });
+    response.body = {code: 0, message: 'ok', data: root};
 
-    router.get('/api/posts/directory/:id', async ({params}) => {
+});
 
-        const headers = new Headers();
-        headers.set("content-type", "application/json; charset=utf-8");
+router.get('/api/posts/directory/:id', async (ctx) => {
+    const { request, response, db, params } = ctx;
 
-        if(!params || !params.id) {
-            const data = JSON.stringify({code: -1, message: 'id不能为空！'});
-            return new Response(data, {
-                headers
-            });
-        }
-        const { id } = params;
+    const headers = new Headers();
+    headers.set("content-type", "application/json; charset=utf-8");
 
-        const posts = db.getCollection("posts");
-
-        const result = posts.find({
-            type: 'file',
-            pid: params.id,
-        });
-
-        const data = JSON.stringify({code: 0, message: 'ok', data: result});
+    if(!params || !params.id) {
+        const data = JSON.stringify({code: -1, message: 'id不能为空！'});
         return new Response(data, {
             headers
         });
+    }
+    const { id } = params;
+
+    const posts = db.getCollection("posts");
+
+    const result = posts.find({
+        type: 'file',
+        pid: params.id,
     });
 
+    response.body = {code: 0, message: 'ok', data: result};
+});
 
-    router.get('/api/post/content/mdast/:id', async ({params}) => {
 
-        const { id } = params;
-        const headers = new Headers();
-        headers.set("content-type", "application/json; charset=utf-8");
-        const posts = db.getCollection("posts");
-        //
+router.get('/api/post/content/past/:id', async (ctx) => {
+    const { request, response, db, params } = ctx;
 
-        const result = posts.findOne({
-            id
-        });
-        if(!result) {
-            const data = JSON.stringify({code: -1, message: '文章未找到或已删除！'});
-            return new Response(data, {
-                headers
-            });
-        }
+    const { id } = params;
+    const posts = db.getCollection("posts");
 
-        const p = result.path;
-        const response = await fetch(`/posts/${p}`);
+    const result = posts.findOne({
+        id
+    });
+    if(!result) {
+        response.body= {code: -1, message: '文章未找到或已删除！'};
+        return;
+    }
 
-        const content = await response.text();
+    const p = result.path;
+    const _response = await fetch(`/posts/${p}`);
 
-        const ast = mdast(content);
+    const content = await _response.text();
 
-        const source = JSON.stringify({code: 0, message: 'ok', data: ast});
-        return new Response(source, {
-            headers
-        });
+    const ast = past(content, {
+        html: true
     });
 
-    router.get('/api/post/content/past/:id', async ({params}) => {
+    response.body= {code: 0, message: 'ok', data: ast};
 
-        const { id } = params;
-        const headers = new Headers();
-        headers.set("content-type", "application/json; charset=utf-8");
-        const posts = db.getCollection("posts");
-        //
+});
 
-        const result = posts.findOne({
-            id
-        });
-        if(!result) {
-            const data = JSON.stringify({code: -1, message: '文章未找到或已删除！'});
-            return new Response(data, {
-                headers
-            });
-        }
+export default router;
 
-        const p = result.path;
-        const response = await fetch(`/posts/${p}`);
-
-        const content = await response.text();
-
-        const ast = past(content, {
-            html: true
-        });
-
-        const source = JSON.stringify({code: 0, message: 'ok', data: ast});
-        return new Response(source, {
-            headers
-        });
-    });
-
-    router.get('/api/post/content/:id', async ({params}) => {
-
-        const { id } = params;
-        const headers = new Headers();
-        headers.set("content-type", "application/json; charset=utf-8");
-        const posts = db.getCollection("posts");
-        //
-
-        const result = posts.findOne({
-            id
-        });
-        if(!result) {
-            const data = JSON.stringify({code: -1, message: '文章未找到或已删除！'});
-            return new Response(data, {
-                headers
-            });
-        }
-
-        const p = result.path;
-        const response = await fetch(`/posts/${p}`);
-
-        const content = await response.text();
-
-        const html = await marked.parse(content);
-
-        const source = JSON.stringify({code: 0, message: 'ok', data: html});
-        return new Response(source, {
-            headers
-        });
-    });
-
-
-
-}
-self.modules.routes = self.modules.routes || [];self.modules.routes.push(route);
-})(self.modules.db, self.past);

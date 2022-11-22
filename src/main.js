@@ -2,7 +2,7 @@ import React from 'react';
 // import PromiseWorker from 'promise-worker';
 import { createRoot } from 'react-dom/client';
 import App from '/src/App.jsx';
-import './test.js';
+// import './test.js';
 
 // console.log(PromiseWorker);
 // const worker = navigator.serviceWorker;

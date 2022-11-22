@@ -1,0 +1,65 @@
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script src="/public/assets/libs/babel-standalone/babel.min.js"></script>
+    <script>
+        (() => {
+            const script = document.createElement('script');
+            script.type = 'importmap';
+
+            const __LIBS__ = Object.assign({}, top.window.__LIBS__);
+            script.textContent = JSON.stringify({"imports": __LIBS__}, null, 2);
+            document.currentScript.after(script);
+        })();
+    </script>
+
+
+
+
+</head>
+
+<body>
+
+<div id="root"></div>
+
+<script>
+
+    const topFrame = window.frameElement;
+    const code = topFrame.parentElement.querySelector('textarea').value;
+    const { code: source } = Babel.transform(code, {
+        // 'env',
+        presets: ['react'],
+        plugins: [],
+    });
+    const jsx = source.replace(/^(\s*)export\s+default\s+/m, (s, before) => {
+        return before + `\nwindow.__MODULE__ = `;
+    });
+
+    const c = jsx + `
+
+import __React__ from 'react';
+import { createRoot as __createRoot__  } from 'react-dom/client';
+const __container__ = document.getElementById('root');
+document.body.appendChild(__container__);
+const __root__ = __createRoot__(__container__);
+__root__.render(__React__.createElement(window.__MODULE__));
+
+`;
+
+    const script1 = document.createElement('script');
+    script1.type = 'module';
+    script1.innerHTML = c;
+    document.currentScript.after(script1);
+</script>
+
+
+
+</body>
+</html>

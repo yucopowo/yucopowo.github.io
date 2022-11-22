@@ -1,26 +1,11 @@
-(() => {function route(router) {
+import { ServiceWorkerRouter } from '../index.js';
 
-    async function okHandler({ ctx }) {
+const router = new ServiceWorkerRouter();
 
-        const { db } = ctx;
+router.get('/api/ok', async (ctx) => {
+    const { response, db } = ctx;
+    const count = db.collections.length;
+    response.body = {code: 0, message: 'ok', data: count};
+});
 
-        const posts = db.getCollection("posts");
-        //
-        // console.log('posts============================');
-        // console.log(posts);
-        const code = (!posts || posts.length === 0)?-1:0;
-
-        const headers = new Headers();
-        headers.set("content-type", "application/json; charset=utf-8");
-        const source = JSON.stringify({code: code, message: 'ok'});
-        return new Response(source, {
-            headers
-        });
-    }
-
-    router.get('/api/ok', okHandler);
-
-
-}
-self.modules.routes = self.modules.routes || [];self.modules.routes.push(route);
-})();
+export default router;
