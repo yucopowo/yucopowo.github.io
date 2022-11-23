@@ -1,4 +1,4 @@
-import loki from 'https://esm.sh/lokijs@1.5.12?dev';
+import loki from '/public/assets/libs/lokijs/lokijs.esm.js';
 
 function getJson() {
     return fetch('/public/db/blog.json', {

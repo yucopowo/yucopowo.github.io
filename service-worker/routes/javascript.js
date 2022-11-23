@@ -1,6 +1,5 @@
 import {ServiceWorkerResponse, ServiceWorkerRouter} from '../index.js';
 import Babel from '/public/assets/libs/babel-standalone/babel.esm.js';
-// import Babel from 'https://esm.sh/babel-standalone@6.26.0?dev';
 import { isRelative } from '../util.js';
 
 // console.log(Babel);

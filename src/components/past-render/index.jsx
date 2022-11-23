@@ -24,6 +24,20 @@ function elementRenderer(node, key) {
     return h(node.tagName, props, nodesRenderer(node.children))
 }
 
+function leafDirectiveRenderer(node, key) {
+    const attributes = node.attributes;
+    const style = {
+        width: '100%',
+        maxHeight: 1000,
+    };
+    if(attributes.height) {
+        style.height = attributes.height + 'px';
+    }
+    return (
+        <iframe src={attributes.url} frameBorder={0} style={style} key={key} />
+    );
+}
+
 function nodeRenderer(node, key) {
 
     switch (node.type) {
@@ -35,6 +49,9 @@ function nodeRenderer(node, key) {
         }
         case 'code': {
             return codeRenderer(node, key);
+        }
+        case 'leafDirective': {
+            return leafDirectiveRenderer(node, key);
         }
         default: {
             return unknownRenderer(node, key);
@@ -59,6 +76,7 @@ function rootRenderer(root) {
 const PastRender = (props) => {
     const { hast } = props;
 
+    console.log(hast);
     return (
         <div className="past-render">
             {rootRenderer(hast)}

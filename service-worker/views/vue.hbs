@@ -1,0 +1,52 @@
+{{#>layout}}
+
+<div id="app"></div>
+
+<textarea id="code" hidden>
+{{{code}}}
+</textarea>
+
+<script type="module">
+    import * as Vue from 'https://esm.sh/vue';
+    import VueSFCLoader from 'https://esm.sh/vue3-sfc-loader';
+
+    const { loadModule } = VueSFCLoader;
+    const { createApp, defineComponent } = Vue;
+
+    const options = {
+
+        moduleCache: {
+            vue: Vue,
+        },
+
+        getFile() {
+            // const topFrame = window.frameElement;
+            // if (topFrame) {
+            //     const code = topFrame.parentElement.querySelector('textarea').value;
+            //     return code;
+            // }
+            const code = document.getElementById('code').value;
+            return code;
+            // return `<template`;
+            // return `<template>error</template> `;
+        },
+
+        addStyle(styleStr) {
+            const style = document.createElement('style');
+            style.textContent = styleStr;
+            const ref = document.head.getElementsByTagName('style')[0] || null;
+            document.head.insertBefore(style, ref);
+        },
+
+        log(type, ...args) {
+            console.log(type, ...args);
+        }
+    }
+
+    loadModule('/app.vue', options).then((c) => {
+        const app = createApp(c);
+        app.mount('#app');
+    });
+
+</script>
+{{/layout}}

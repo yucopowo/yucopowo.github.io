@@ -38,6 +38,7 @@ const CodeDemo = (props) => {
     const iframeRef = useRef();
     const [loading, setLoading] = useState(true);
     const [showCode, setShowCode] = useState(false);
+    const [showConsole, setShowConsole] = useState(false);
 
     // console.log('node===');
     // console.log(node);
@@ -70,6 +71,16 @@ const CodeDemo = (props) => {
 
     }, []);
 
+    useEffect(() => {
+        const iframeWindow = iframeRef.current?.contentWindow;
+        if(iframeWindow) {
+            iframeWindow.postMessage(JSON.stringify({
+                type: 'console',
+                showConsole,
+            }));
+        }
+    }, [showConsole]);
+
     const iframeProps = {};
     if(attrs.height) {
         iframeProps.height = attrs.height + 'px';
@@ -98,9 +109,17 @@ const CodeDemo = (props) => {
                             <span className="bar_rrRL"></span>
                         </div>
                     </div>
+
+                    {/*<div className="markdown-code-browser-window-menu-icon" onClick={() => {*/}
+                    {/*    setShowConsole(!showConsole);*/}
+                    {/*}}>*/}
+                    {/*    <div>*/}
+                    {/*        <span>c</span>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                 </div>
                 <div className="markdown-code-browser-window-body">
-                    <textarea hidden defaultValue={node.value} data-attributes={JSON.stringify(node.attributes)} />
+                    {/*<textarea hidden defaultValue={node.value} data-attributes={JSON.stringify(node.attributes)} />*/}
                     <iframe ref={iframeRef} src={url} frameBorder="0" width="100%" {...iframeProps}></iframe>
                 </div>
                 {loading && (

@@ -1,5 +1,6 @@
 import compose from './compose.js';
-import { Router as TinyRequestRouter } from 'https://esm.sh/tiny-request-router@1.2.2?dev';
+import { Router as TinyRequestRouter } from '/public/assets/libs/tiny-request-router/tiny-request-router.esm.js';
+
 import ServiceWorkerContext from './context.js';
 
 class ServiceWorkerServer {
@@ -73,6 +74,7 @@ class ServiceWorkerServer {
 
         self.addEventListener('fetch', (event) => {
             try {
+                // console.log(event.request.url);
                 this.handleEvent(event);
             } catch (e) {
                 console.log('=============error============');

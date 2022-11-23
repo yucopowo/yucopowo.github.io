@@ -1,25 +1,91 @@
-// import Handlebars from '';
 import { ServiceWorkerRouter } from '../index.js';
-// import { transformReactDemo } from '../utils/babel.js';
+import Babel from '../utils/babel.js';
 
 const router = new ServiceWorkerRouter();
 
-router.get('/api/html/demo/react', async (ctx) => {
+router.get('/api/html/demo/js', async (ctx) => {
     const { request } = ctx;
-    // const count = db.collections.length;
-    // response.body = {code: 0, message: 'ok', data: count};
-
     const url = new URL(request.url);
     const code = url.searchParams.get('code');
-    // const code = transformReactDemo(source);
+    const attributes = JSON.parse(url.searchParams.get('attributes'));
 
-    await ctx.render('react', {
+    await ctx.render('js', {
+        code,
+        attributes
+    });
+});
+
+router.get('/api/html/demo/react', async (ctx) => {
+    const { request } = ctx;
+
+    const url = new URL(request.url);
+    const source = url.searchParams.get('code');
+
+    const demo = `
+
+import { createRoot as __createRoot__ } from 'react-dom/client';
+function render(App) {
+    const container = document.getElementById('root');
+    const root = __createRoot__(container);
+    root.render(<App />);
+}
+
+${source}
+
+`;
+
+    try {
+        const { code } = Babel.transform(demo, {
+            presets: ['react-demo'],
+        });
+
+        await ctx.render('react', {
+            code
+        });
+
+        // ctx.response.body = code;
+    } catch (e) {
+        // console.log(request);
+        // console.error(e);
+        ctx.response.type = 'html';
+        ctx.response.body = e.message;
+    }
+
+});
+
+
+router.get('/api/html/demo/vue', async (ctx) => {
+    const { request } = ctx;
+    const url = new URL(request.url);
+    const code = url.searchParams.get('code');
+    await ctx.render('vue', {
         code
     });
 });
 
+
 export default router;
 
+
+
+
+
+
+// router.get('/api/html/demo/:demo', async (ctx) => {
+//     const { request, params } = ctx;
+//
+//     const demo = params.demo || 'javascript';
+//
+//     console.log('params', params);
+//
+//     const url = new URL(request.url);
+//     const code = url.searchParams.get('code');
+//     // const code = transformReactDemo(source);
+//
+//     await ctx.render(demo, {
+//         code
+//     });
+// });
 
 // ((Handlebars, Babel) => {function route(router) {
 //

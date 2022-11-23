@@ -3,7 +3,7 @@ import { useInViewport } from 'react-in-viewport';
 import CodeHighlight from '../../code-highlight/index.jsx';
 import CodeDemo from "../../code-demo/index.jsx";
 
-const CodeViewportRenderer = memo((props, ref) => {
+const CodeViewportRenderer = (props, ref) => {
     const { node } = props;
 
     const attributes = node.attributes;
@@ -17,7 +17,7 @@ const CodeViewportRenderer = memo((props, ref) => {
     return (
         <CodeHighlight {...props} />
     );
-});
+};
 
 export default function codeRenderer(node, key) {
     const forwardedRef = useRef();

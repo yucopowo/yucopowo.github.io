@@ -6,9 +6,10 @@ export default () => {
         // console.log('cache match ==================');
         // console.log(url);
 
-        if(!(
-            url.startsWith('https://esm.sh/') || url.includes('/public/assets/libs/')
-        )) {
+        if(
+            !url.startsWith('https://esm.sh/') &&
+            !url.includes('/public/assets/libs/')
+        ) {
             await next();
             return;
         }
@@ -20,13 +21,19 @@ export default () => {
         // console.log(cacheResponse);
 
         if(cacheResponse) {
+            // console.log('cache 命中 ==================');
             ctx.originResponse = cacheResponse;
             return;
         }
+
+        // console.log('cache 未命中 ==================');
+
         const originResponse = await fetch(request);
 
-        const cache = await caches.open(CACHE_NAME);
-        await cache.put(request, originResponse);
+        caches.open(CACHE_NAME).then((cache) => {
+            cache.put(request, originResponse.clone());
+            return originResponse;
+        });
         ctx.originResponse = cacheResponse;
         // console.log('cache end ==================');
 

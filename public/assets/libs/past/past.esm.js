@@ -38219,8 +38219,12 @@ function past(markdown, options = DEFAULT_OPTIONS) {
 
     // rehype**********************************
 
+    //             'leafDirective', 'textDirective', 'containerDirective'
     plugins.push([remarkRehype$1, {
         allowDangerousHtml: o.html,
+        passThrough: [
+            'leafDirective', 'textDirective', 'containerDirective'
+        ],
         // unknownHandler(h, node) {
         //     console.log('node============================================================');
         //     console.log(node);
@@ -38235,7 +38239,16 @@ function past(markdown, options = DEFAULT_OPTIONS) {
             },
             code(h, node) {
                 return u('code', {...node});
-            }
+            },
+            // leafDirective(h, node) {
+            //     return u('leafDirective', {...node});
+            // },
+            // textDirective(h, node) {
+            //     return u('textDirective', {...node});
+            // },
+            // containerDirective(h, node) {
+            //     return u('containerDirective', {...node});
+            // }
             // code(h, node) {
             //     const value = node.value ? node.value + '\n' : '';
             //     const lang = node.lang;
@@ -38284,7 +38297,10 @@ function past(markdown, options = DEFAULT_OPTIONS) {
 
     if(o.html) {
         plugins.push([rehypeRaw, {
-            passThrough: ['code']
+            passThrough: [
+                'code',
+                'leafDirective', 'textDirective', 'containerDirective'
+            ]
         }]);
     }
     plugins.push([stringify]);

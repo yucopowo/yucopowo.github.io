@@ -1,111 +1,14 @@
-<html>
-<head>
-    <script src="/public/assets/libs/babel-standalone/babel.min.js"></script>
-    <script>
-        function isRelative(p) {
-            return !(!p || p[0] === '.' || p[0] === '/' || p[0] === 'h');
-        }
-        function demoBabelPlugin() {
-            return {
-                visitor: {
-                    ImportDeclaration(path){
-                        const { node } = path;
-                        const value = node.source.value;
-                        if(value === 'antd') {
-                            node.source.value = `/public/assets/libs/antd/antd.min.js`;
-                        } else if(isRelative(value)) {
-                            node.source.value = `https://esm.sh/${value}`;
-                        }
-                    },
-                    ExportDefaultDeclaration(path){
-                        const { node, parent } = path;
+{{#>layout}}
 
-                        if(!parent) {
-                            return;
-                        }
+    {{#*inline "head"}}
+    {{/inline}}
 
-                        const index = parent.body.findIndex((x)=>x.type==="ExportDefaultDeclaration");
+    <div id="root"></div>
 
-                        if(index===-1) return;
+    <script type="module">
 
-                        const name = node.declaration.name;
-
-                        // const ast = {
-                        //     "type": "AssignmentExpression",
-                        //     "operator": "=",
-                        //     "left": {
-                        //         "type": "MemberExpression",
-                        //         "object": {
-                        //             "type": "Identifier",
-                        //             "name": "window"
-                        //         },
-                        //         "property": {
-                        //             "type": "Identifier",
-                        //             "name": "__MODULE__"
-                        //         }
-                        //     },
-                        //     "right": {
-                        //         "type": "Identifier",
-                        //         "name": name
-                        //     }
-                        // };
-                        const ast = {
-                            "type": "ExpressionStatement",
-                            "expression": {
-                                "type": "CallExpression",
-                                "callee": {
-                                    "type": "Identifier",
-                                    "name": "render"
-                                },
-                                "arguments": [
-                                    {
-                                        "type": "Identifier",
-                                        "name": name
-                                    }
-                                ]
-                            }
-                        }
-                        // parent.body.push(ast);
-                        parent.body[index] = ast;
-                    },
-                }
-            }
-        }
-
-        Babel.registerPreset("react-demo", {
-            presets: [
-                Babel.availablePresets["react"]
-            ],
-            plugins: [
-                [
-                    demoBabelPlugin, { env: 'dev' },
-                ],
-            ],
-        });
+        {{{code}}}
 
     </script>
-</head>
-<body>
 
-<div id="root"></div>
-
-<script type="text/babel" data-type="module" data-presets="react-demo">
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-
-function render(App) {
-    const container = document.getElementById('root');
-    const root = createRoot(container);
-    root.render(React.createElement(App));
-}
-window.render = render;
-</script>
-
-<script type="text/babel" data-type="module" data-presets="react-demo">
-
-{{{code}}}
-
-</script>
-
-</body>
-</html>
+{{/layout}}

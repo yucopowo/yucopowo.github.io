@@ -1,5 +1,5 @@
 import React, {memo, useRef, useState} from 'react';
-import Highlight from './highlight.jsx';
+import Highlight from './highlight-lazy-viewport.jsx';
 import './index.less';
 
 const CodeHighlight = (props) => {
