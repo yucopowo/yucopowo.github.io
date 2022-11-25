@@ -53,32 +53,32 @@ Handlebars.registerPartial(
 
 
     
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            min-height: 100px;
-        }
-    </style>
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        min-height: 100px;
+    }
+</style>
     
-    <script>
-        (() => {
-            const topFrame = window.frameElement;
-            if (topFrame) {
-                const debouncedHandler = () => {
-                    const height = document.documentElement.offsetHeight;
-                    topFrame.style.height = (Math.ceil(height) + 1) + 'px';
-                };
-                const observe = new ResizeObserver(debouncedHandler);
-                observe.observe(document.documentElement);
-            }
-        })();
-    </script>
+<script>
+    (() => {
+        const topFrame = window.frameElement;
+        if (topFrame) {
+            const debouncedHandler = () => {
+                const height = document.documentElement.offsetHeight;
+                topFrame.style.height = (Math.ceil(height) + 1) + 'px';
+            };
+            const observe = new ResizeObserver(debouncedHandler);
+            observe.observe(document.documentElement);
+        }
+    })();
+</script>
 
-    {{#> head}}
-    {{/head}}
+{{#> head}}
+{{/head}}
 </head>
 <body>
 

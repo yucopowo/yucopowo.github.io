@@ -306,10 +306,19 @@ var Console = (function () {
         this.output.setSize(null, 'auto');
         var doc = this.output.getDoc();
         var range;
+        const textString = (() => {
+          if (text instanceof Date){
+            return text.toString();
+          }
+          if (typeof text === 'object'){
+            return JSON.stringify(text);
+          }
+          return text;
+        })();
         if (doc.getLine(doc.lastLine()).match(/^\s*$/)) {
-          range = append(this.output, text.toString());
+          range = append(this.output, textString);
         } else {
-          range = append(this.output, '\n' + text.toString());
+          range = append(this.output, '\n' + textString);
           range[0].line = range[0].line + 1;
         }
         //this.output.markText(range[0], range[1], {className : 'output'});

@@ -4,7 +4,7 @@
 
 ## 案例
 
-::example{url=/examples/markdown-sync-scroll/index.html}
+::example{url=/public/examples/markdown-sync-scroll/index.html height=800}
 
 ## 主页面
 ```html {file=/examples/markdown-sync-scroll/index.html}

@@ -14,9 +14,9 @@ function esmBabelPlugin(babel, params){
                 const value = node.source.value;
                 if(value === 'antd') {
                     if(env === 'dev') {
-                        node.source.value = `/public/assets/libs/antd/antd.js`;
+                        node.source.value = `/public/assets/libs/antd/antd.esm.js`;
                     } else {
-                        node.source.value = `/public/assets/libs/antd/antd.min.js`;
+                        node.source.value = `/public/assets/libs/antd/antd.esm.min.js`;
                     }
                 } else if(isRelative(value)) {
                     if(env === 'dev') {

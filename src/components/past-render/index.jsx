@@ -76,7 +76,6 @@ function rootRenderer(root) {
 const PastRender = (props) => {
     const { hast } = props;
 
-    console.log(hast);
     return (
         <div className="past-render">
             {rootRenderer(hast)}

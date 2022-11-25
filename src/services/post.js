@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export async function getPostService(p) {
     const _p = encodeURIComponent(encodeURIComponent(p));
     return (await (fetch(`/api/post/html?path=`+_p))).text();
@@ -15,13 +17,16 @@ export async function getPostPastByIdService(id) {
     return (await (fetch(`/api/post/content/past/${id}`))).json();
 }
 
-export async function getPostsService(pagination) {
-    return (await (fetch(
-        `/api/posts?current=${pagination.current}&pageSize=${pagination.pageSize}`
-    ))).json();
+export async function getPostsService(params) {
+    // return (await (fetch(
+    //     `/api/posts?current=${pagination.current}&pageSize=${pagination.pageSize}`
+    // ))).json();
+    return axios.get('/api/posts', {
+        params
+    });
 }
 
-export async function getAllPostsService() {
+export async function getAllPostsService(keyword) {
     return (await (fetch(`/api/posts`))).json();
 }
 

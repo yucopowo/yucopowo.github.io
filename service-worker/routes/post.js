@@ -6,26 +6,46 @@ const router = new ServiceWorkerRouter();
 router.get('/api/posts', async (ctx) => {
     const { request, response, db } = ctx;
     const url = new URL(request.url);
+
+    const keyword = url.searchParams.get('keyword');
     const current = url.searchParams.get('current') || 1;
-    const pageSize = url.searchParams.get('pageSize') || 20;
+    let pageSize = url.searchParams.get('pageSize') || 20;
+
+    if(keyword && keyword.length >= 2) {
+        pageSize = 999;
+    }
 
     const offset = (current-1) * pageSize;
     const limit = pageSize;
 
     const posts = db.getCollection("posts");
 
-    const total = posts.chain().find({
+    // const total = posts.chain().find({
+    //     type: 'file'
+    // }).count();
+    let chain = posts.chain().find({
         type: 'file'
-    }).count();
-    const result = posts.chain().find({
-        type: 'file'
-    }).sort((a, b) => {
+    });
+
+
+    const total = chain.count();
+
+    if(keyword) {
+        chain = chain.where((post) => {
+            return post.title.includes(keyword);
+        });
+    }
+
+    chain = chain.sort((a, b) => {
         const amtime = new Date(a.mtime).getTime();
         const bmtime = new Date(b.mtime).getTime();
         return bmtime - amtime;
-    }).offset(offset).limit(limit).data();
+    }).offset(offset).limit(limit)
 
+    const result = chain.data();
     const data = {
+        current,
+        pageSize,
         posts: result,
         total
     };

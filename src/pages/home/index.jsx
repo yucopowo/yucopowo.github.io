@@ -1,39 +1,39 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Layout, Menu, Tree, Col, Row, Pagination } from 'antd';
+import { Col, Row, Pagination, Input } from 'antd';
 import PostTreeContainer from "../../containers/post-tree-container/index.jsx";
 import PostList from "../../components/post-list/index.jsx";
 import { getPostsService, getAllPostsService, getPostsByDirectoryService } from "../../services/post.js";
 import './index.less';
 
 const Home = () => {
+    const [keyword, setKeyword] = useState('');
     const [category, setCategory] = useState('home-key');
     const [total, setTotal] = useState(0);
     const [posts, setPosts] = useState([]);
     const [pagination, setPagination] = useState({
         current: 1,
-        pageSize: 10,
+        pageSize: 20,
     });
 
     useEffect(() => {
-        if(category === 'home-key') {
-            getAllPostsService().then((res) => {
-                // setPosts(res.data);
-                // console.log(res);
-                setTotal(res.data.total)
-                setPosts(res.data.posts);
-            });
-        } else if(category === 'root-key') {
-            getPostsService(pagination).then((res) => {
-                setTotal(res.data.total)
-                setPosts(res.data.posts);
+        if(category === 'home-key' || category === 'root-key') {
+            getPostsService({
+                ...pagination,
+                keyword,
+            }).then(({data: res}) => {
+                if(res.code < 0) {
+
+                } else {
+                    setTotal(res.data.total)
+                    setPosts(res.data.posts);
+                }
             });
         } else {
             getPostsByDirectoryService(category).then((res) => {
                 setPosts(res.data);
             });
         }
-    }, [category, pagination]);
+    }, [category, pagination, keyword]);
 
     useEffect(() => {
         window.scrollTo(0,0);
@@ -44,6 +44,7 @@ const Home = () => {
         if(keys && keys[0]) {
             setCategory(keys[0]);
         }
+        setKeyword('');
     };
 
     return (
@@ -60,10 +61,18 @@ const Home = () => {
 
                     <div className="home-page-main">
 
+                        {category === 'root-key' && (
+                            <div className="home-page-search">
+                                <Input placeholder="搜索博客" bordered={false} onChange={(e)=>{
+                                    setKeyword(e.target.value);
+                                }}/>
+                            </div>
+                        )}
+
                         <PostList posts={posts} />
 
                         {
-                            category === 'root-key' && (
+                            category === 'root-key' && posts.length > 0 && (
                                 <Pagination
                                     onChange={(page)=>{
                                         setPagination({

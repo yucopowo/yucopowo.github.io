@@ -1,10 +1,27 @@
+```html {demo}
+<html>
+    
+<head>
+    <style>
+        body {
+            height: 100px;
+            background-color: blue;
+        }
+    </style> 
+</head>
 
-```js {demo console type=module}
-// setInterval(() => {
-// }, 1000);
-console.log(1);
-for(let i=0;i<100;i++) {
-    console.log(new Date().toString());
-}
+<body>
+    <div id="root">"html模板"</div> 
+    
+    <script type="module">
+        import _ from 'https://esm.sh/lodash';
+        const root = document.getElementById('root');
+        setTimeout(() => {
+            document.body.style.backgroundColor = 'yellow';
+            root.innerHTML = _.camelCase('hello html模板');
+        }, 3000);
+    </script>
+</body>
 
+</html>
 ```

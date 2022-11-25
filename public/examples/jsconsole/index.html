@@ -1,47 +1,69 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>jsconsole</title>
+<head>
+    <title>jsconsole</title>
 
-        <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/codemirror/6.65.7/codemirror.css">
-        <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/codemirror/6.65.7/theme/eclipse.css">
-        <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/codemirror/6.65.7/theme/base16-dark.css">
-        <link rel="stylesheet" href="/public/assets/libs/jsconsole/styles/console.css">
+    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/codemirror/6.65.7/codemirror.css">
+    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/codemirror/6.65.7/theme/eclipse.css">
+    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/codemirror/6.65.7/theme/base16-dark.css">
+    <link rel="stylesheet" href="/public/assets/libs/jsconsole/styles/console.css">
 
-        <script src="//cdn.bootcdn.net/ajax/libs/codemirror/6.65.7/codemirror.js"></script>
-        <script src="//cdn.bootcdn.net/ajax/libs/codemirror/6.65.7/mode/javascript/javascript.js"></script>
-        <script src="/public/assets/libs/jsconsole/console.js"></script>
+    <script src="//cdn.bootcdn.net/ajax/libs/codemirror/6.65.7/codemirror.js"></script>
+    <script src="//cdn.bootcdn.net/ajax/libs/codemirror/6.65.7/mode/javascript/javascript.js"></script>
+    <script src="/public/assets/libs/jsconsole/console.js"></script>
 
-        <style>
-            html, body {
-                /*height: 100%;*/
-                margin: 0;
-                /*font-size: 12px;*/
-            }
-            body{
-                -webkit-text-size-adjust:none
-            }
-            #console-container {
-                border: 1px solid lightgray;
-                max-width: 600px;
-                margin: 0 auto;
-                margin-top: 40px;
-                height: 300px;
-            }
-            #console {
-                /*height: 100%;*/
-                width: 100%;
-                /*background-color: lightgray;*/
-                position: relative;
-                overflow-y: auto;
-            }
+    <style>
+        html, body {
+            /*height: 100%;*/
+            margin: 0;
+            /*font-size: 12px;*/
+        }
 
-        </style>
-    </head>
-    <body>
-        <div id="console-container">
-            <div id="console"></div>
-        </div>
-        <script src="index.js"></script>
-    </body>
+        body {
+            -webkit-text-size-adjust: none
+        }
+
+        #console-container {
+            border: 1px solid lightgray;
+            max-width: 600px;
+            margin: 0 auto;
+            margin-top: 40px;
+            height: 300px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        #console {
+            /*height: 100%;*/
+            width: 100%;
+            /*background-color: lightgray;*/
+            position: relative;
+
+        }
+
+        .buttons-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="console-container">
+    <div id="console"></div>
+</div>
+
+<div class="buttons-container">
+    <button id="print_string">打印字符串</button>
+    <button id="print_number">打印数字</button>
+    <button id="print_boolean">打印布尔值</button>
+
+    <button id="print_array">打印数组</button>
+
+    <button id="print_object">打印对象</button>
+    <button id="print_date">打印时间</button>
+</div>
+<script src="index.js"></script>
+
+
+</body>
 </html>

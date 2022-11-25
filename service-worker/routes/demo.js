@@ -3,6 +3,16 @@ import Babel from '../utils/babel.js';
 
 const router = new ServiceWorkerRouter();
 
+router.get('/api/html/demo/html', async (ctx) => {
+    const { request } = ctx;
+    const url = new URL(request.url);
+    const code = url.searchParams.get('code');
+
+    await ctx.render('html', {
+        code,
+    });
+});
+
 router.get('/api/html/demo/js', async (ctx) => {
     const { request } = ctx;
     const url = new URL(request.url);
