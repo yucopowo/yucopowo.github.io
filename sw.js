@@ -5,7 +5,7 @@ import routes from '/service-worker/routes/index.js';
 
 const app = new ServiceWorkerServer();
 
-app.use(cache());
+// app.use(cache());
 app.use(db());
 
 routes.forEach((route) => {

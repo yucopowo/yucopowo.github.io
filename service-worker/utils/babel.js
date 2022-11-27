@@ -4,15 +4,19 @@ import { isRelative } from "../util.js";
 function reactDemoBabelPlugin() {
     return {
         visitor: {
-            ImportDeclaration(path){
-                const { node } = path;
-                const value = node.source.value;
-                if(value === 'antd') {
-                    node.source.value = `/public/assets/libs/antd/antd.min.js`;
-                } else if(isRelative(value)) {
-                    node.source.value = `https://esm.sh/${value}`;
-                }
-            },
+            // ImportDeclaration(path){
+            //     const { node } = path;
+            //     const value = node.source.value;
+            //     // if(value === 'antd') {
+            //     //     node.source.value = `/public/assets/libs/antd/antd.min.js`;
+            //     // } else if(isRelative(value)) {
+            //     //     // node.source.value = `https://esm.sh/${value}`;
+            //     //     node.source.value = `https://esm.run/${value}`;
+            //     // }
+            //     if(isRelative(value)) {
+            //         node.source.value = `https://esm.run/${value}`;
+            //     }
+            // },
             ExportDefaultDeclaration(path){
                 const { node, parent } = path;
 

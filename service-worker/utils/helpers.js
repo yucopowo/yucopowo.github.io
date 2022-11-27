@@ -11,6 +11,8 @@ Handlebars.registerPartial(
     {{#if title}}
     <title>{{title}}</title>
     {{/if}}
+    
+    <script src="/public/cdn.js"></script>
 
     {{#console}}
     <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/codemirror/6.65.7/codemirror.css">

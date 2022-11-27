@@ -1,5 +1,7 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+// import { createRoot } from 'react-dom/client';
+import { createRoot } from 'react-dom';
+
 import Component from './component.jsx';
 
 class BlogLoading extends HTMLElement {

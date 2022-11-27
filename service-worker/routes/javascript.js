@@ -30,16 +30,17 @@ function esmBabelPlugin(babel, params){
     }
 }
 
-router.get('/src/(.*).(jsx?)', async (ctx) => {
+// '/src/(.*).(jsx?)'
+router.get('/src/(.*).jsx', async (ctx) => {
     const source = ctx.response.body;
 
     const { request } = ctx;
 
     try {
         const { code } = Babel.transform(source, {
-            presets: request.url.endsWith('.jsx')?['react']:[],
+            presets: ['react'],
             plugins: [
-                [esmBabelPlugin, {env: 'dev'}]
+                // [esmBabelPlugin, {env: 'dev'}]
             ],
         });
 

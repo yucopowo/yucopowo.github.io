@@ -1,37 +1,69 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import handleLazyViewport from "./components/react-in-lazy-viewport/index.jsx";
-// import A from './a.jsx';
+import {
+    createBrowserRouter,
+    RouterProvider,
+    Route,
+} from "react-router-dom";
+import { Button } from 'antd';
 
-const LazyLoading = handleLazyViewport(
-    React.lazy(() => import('/src/components/loading/index.jsx'))
-);
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <div>Hello world!</div>,
+    },
+]);
 
 const App = () => {
-    const style1 = {
-        height: 1500,
-        backgroundColor: 'blue',
-    };
-    const style2 = {
-        height: 1500,
-        backgroundColor: '#575736',
-    };
+
     return (
         <div>
-            <div style={style1}>{'-'.repeat(10000)}</div>
-            <div style={style2}>
-                {/*<ReactInViewportComponent*/}
-                {/*    fallback={<div>fallback</div>}*/}
-                {/*    loader={() => import('/src/components/loading/index.jsx')}*/}
-                {/*/>*/}
-                <LazyLoading />
-            </div>
+            <div>==app==</div>
+            <RouterProvider router={router} />
+            <Button>===Button==</Button>
         </div>
     );
+
 };
 
-const root = createRoot(document.getElementById('root'));
-root.render(React.createElement(App));
+
+export default App;
+
+
+
+// import React from 'react';
+// import { createRoot } from 'react-dom/client';
+// import handleLazyViewport from "./components/react-in-lazy-viewport/index.jsx";
+// // import A from './a.jsx';
+//
+// const LazyLoading = handleLazyViewport(
+//     React.lazy(() => import('/src/components/loading/index.jsx'))
+// );
+//
+// const App = () => {
+//     const style1 = {
+//         height: 1500,
+//         backgroundColor: 'blue',
+//     };
+//     const style2 = {
+//         height: 1500,
+//         backgroundColor: '#575736',
+//     };
+//     return (
+//         <div>
+//             <div style={style1}>{'-'.repeat(10000)}</div>
+//             <div style={style2}>
+//                 {/*<ReactInViewportComponent*/}
+//                 {/*    fallback={<div>fallback</div>}*/}
+//                 {/*    loader={() => import('/src/components/loading/index.jsx')}*/}
+//                 {/*/>*/}
+//                 <LazyLoading />
+//             </div>
+//         </div>
+//     );
+// };
+//
+// const root = createRoot(document.getElementById('root'));
+// root.render(React.createElement(App));
 
 
 

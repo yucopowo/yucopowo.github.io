@@ -73,27 +73,27 @@ async function buildDev() {
     // 或者将bundle写入磁盘
     await bundle.write(merge(outputCommonOptions, outputOptions));
 
-    replace({
-        regex: /['|"]react['|"]/g,
-        replacement: "'https://esm.sh/react?dev'",
-        paths: [path.resolve(__dirname, 'dist/')],
-        recursive: true,
-        silent: false,
-    });
-    replace({
-        regex: /['|"]react-dom['|"]/g,
-        replacement: "'https://esm.sh/react-dom?dev'",
-        paths: [path.resolve(__dirname, 'dist/')],
-        recursive: true,
-        silent: false,
-    });
-    replace({
-        regex: /['|"]dayjs['|"]/g,
-        replacement: "'https://esm.sh/dayjs?dev'",
-        paths: [path.resolve(__dirname, 'dist/')],
-        recursive: true,
-        silent: false,
-    });
+    // replace({
+    //     regex: /['|"]react['|"]/g,
+    //     replacement: "'https://esm.sh/react?dev'",
+    //     paths: [path.resolve(__dirname, 'dist/')],
+    //     recursive: true,
+    //     silent: false,
+    // });
+    // replace({
+    //     regex: /['|"]react-dom['|"]/g,
+    //     replacement: "'https://esm.sh/react-dom?dev'",
+    //     paths: [path.resolve(__dirname, 'dist/')],
+    //     recursive: true,
+    //     silent: false,
+    // });
+    // replace({
+    //     regex: /['|"]dayjs['|"]/g,
+    //     replacement: "'https://esm.sh/dayjs?dev'",
+    //     paths: [path.resolve(__dirname, 'dist/')],
+    //     recursive: true,
+    //     silent: false,
+    // });
 }
 
 async function buildPrd() {
@@ -124,27 +124,27 @@ async function buildPrd() {
     await bundle.write(merge(outputCommonOptions, outputOptions));
 
 
-    replace({
-        regex: /['|"]react['|"]/g,
-        replacement: "'https://esm.sh/react'",
-        paths: [path.resolve(__dirname, 'dist/')],
-        recursive: true,
-        silent: false,
-    });
-    replace({
-        regex: /['|"]react-dom['|"]/g,
-        replacement: "'https://esm.sh/react-dom'",
-        paths: [path.resolve(__dirname, 'dist/')],
-        recursive: true,
-        silent: false,
-    });
-    replace({
-        regex: /['|"]dayjs['|"]/g,
-        replacement: "'https://esm.sh/dayjs'",
-        paths: [path.resolve(__dirname, 'dist/')],
-        recursive: true,
-        silent: false,
-    });
+    // replace({
+    //     regex: /['|"]react['|"]/g,
+    //     replacement: "'https://esm.sh/react'",
+    //     paths: [path.resolve(__dirname, 'dist/')],
+    //     recursive: true,
+    //     silent: false,
+    // });
+    // replace({
+    //     regex: /['|"]react-dom['|"]/g,
+    //     replacement: "'https://esm.sh/react-dom'",
+    //     paths: [path.resolve(__dirname, 'dist/')],
+    //     recursive: true,
+    //     silent: false,
+    // });
+    // replace({
+    //     regex: /['|"]dayjs['|"]/g,
+    //     replacement: "'https://esm.sh/dayjs'",
+    //     paths: [path.resolve(__dirname, 'dist/')],
+    //     recursive: true,
+    //     silent: false,
+    // });
 
 }
 

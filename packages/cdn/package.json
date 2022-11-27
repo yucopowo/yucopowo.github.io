@@ -1,0 +1,8 @@
+{
+	"scripts": {},
+	"dependencies": {
+		"mkdirp": "^1.0.4",
+		"moduloze": "^0.9.1",
+		"request": "^2.88.2"
+	}
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ConfigProvider, theme } from 'antd';
+import { ConfigProvider, theme as AntdTheme } from 'antd';
 import { RouterProvider } from 'react-router-dom';
 import router from '/src/router.jsx';
 
@@ -9,10 +9,10 @@ import router from '/src/router.jsx';
 
 import '/src/App.less';
 
-const { darkAlgorithm } = theme;
+const { darkAlgorithm } = AntdTheme;
 
 
-const _theme = {
+const theme = {
     algorithm: [darkAlgorithm],
     token: {
         "colorPrimary": "#1677FF"
@@ -21,7 +21,7 @@ const _theme = {
 
 const App = () => {
     return (
-        <ConfigProvider theme={_theme}>
+        <ConfigProvider theme={theme}>
             <RouterProvider router={router} />
         </ConfigProvider>
     );
