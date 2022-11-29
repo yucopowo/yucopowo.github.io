@@ -18,7 +18,7 @@ import * as React from '/cdn/stable/react@18.2.0/es2022/react.development.js';
 import canUseDom from '/cdn/v99/rc-util@5.24.6/es2022/es/Dom/canUseDom.development.js';
 var useLayoutEffect2 = canUseDom() ? React.useLayoutEffect : React.useEffect;
 var useLayoutEffect_default = useLayoutEffect2;
-export var useLayoutUpdateEffect = function useLayoutUpdateEffect2(callback, deps) {
+var useLayoutUpdateEffect = function useLayoutUpdateEffect2(callback, deps) {
   var firstMountRef = React.useRef(true);
   useLayoutEffect2(function() {
     if (!firstMountRef.current) {
@@ -37,3 +37,5 @@ export var useLayoutUpdateEffect = function useLayoutUpdateEffect2(callback, dep
 var { default: __default, ...__rest } = useLayoutEffect_exports;
 var mod_default = __default !== void 0 ? __default : __rest;
 export { mod_default as default };
+
+export {useLayoutUpdateEffect};

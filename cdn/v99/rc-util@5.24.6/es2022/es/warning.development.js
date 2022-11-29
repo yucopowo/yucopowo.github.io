@@ -20,7 +20,7 @@ __export(warning_exports, {
   warningOnce: () => warningOnce
 });
 var warned = {};
-export function warning(valid, message) {
+function warning(valid, message) {
   if (!valid && console !== void 0) {
     console.error('Warning: '.concat(message));
   }
@@ -30,7 +30,7 @@ function note(valid, message) {
     console.warn('Note: '.concat(message));
   }
 }
-export function resetWarned() {
+function resetWarned() {
   warned = {};
 }
 function call(method, valid, message) {
@@ -42,7 +42,7 @@ function call(method, valid, message) {
 function warningOnce(valid, message) {
   call(warning, valid, message);
 }
-export function noteOnce(valid, message) {
+function noteOnce(valid, message) {
   call(note, valid, message);
 }
 var warning_default = warningOnce;
@@ -51,3 +51,6 @@ var warning_default = warningOnce;
 var { default: __default, ...__rest } = warning_exports;
 var mod_default = __default !== void 0 ? __default : __rest;
 export { mod_default as default };
+
+
+export {warning, resetWarned, noteOnce};

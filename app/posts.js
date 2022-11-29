@@ -49,8 +49,9 @@ function save(tree) {
             posts.insert(n);
         }
         if(node.type === "file") {
-            // console.log(node);
-            posts.insert(node);
+            if(node.ext === 'md' || node.ext === 'mdx') {
+                posts.insert(node);
+            }
         }
     }
     travelNodes(tree);
@@ -104,6 +105,7 @@ function update() {
                 newNode.type = 'file';
                 newNode.name = nodePath.base;
                 newNode.ext = nodePath.ext.substring(1);
+                newNode.format = newNode.ext;
                 newNode.summary = summary;
                 newNode.path = p;
                 newNode.crc = crc32(content).toString(16);

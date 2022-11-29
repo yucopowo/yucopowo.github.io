@@ -1,0 +1,70 @@
+# makrdown引入mdx
+
+
+
+
+
+
+
+# Hello, *world*!
+
+以下是一个 Markdown 中嵌入 JSX 的示例。 <br /> **试着改变
+背景色吧！**
+
+<div style={{ padding: '20px', backgroundColor: 'tomato' }}>
+    <h3>This is JSX</h3>
+</div>
+
+
+```markdown
+# Hello, *world*!
+
+以下是一个 Markdown 中嵌入 JSX 的示例。 <br /> **试着改变
+背景色吧！**
+
+<div style={{ padding: '20px', backgroundColor: 'tomato' }}>
+    <h3>This is JSX</h3>
+</div>
+
+```
+
+
+## 官网首页示例
+
+import {Chart} from '/public/examples/blog/snowfall.jsx';
+
+
+export const year = 2018
+
+<div>
+    It gets compiled to JavaScript that you can use in any framework that
+    supports JSX:
+
+    {/* lint disable */}
+
+    <div className="home-preview">
+        # Last year’s snowfall
+
+        In {year}, the snowfall was above average.
+        It was followed by a warm spring which caused flood conditions in many of
+        the nearby rivers.
+
+        <Chart year={year} color="#fcb32c" />
+    </div>
+
+    {/* lint enable */}
+</div>
+
+
+
+-------
+
+
+
+参考资料
+
+https://mdxjs.com/playground/
+
+https://www.mdxjs.cn/playground#undefined
+
+

@@ -74,11 +74,11 @@ function rootRenderer(root) {
 }
 
 const PastRender = (props) => {
-    const { hast } = props;
+    const { past } = props;
 
     return (
         <div className="past-render">
-            {rootRenderer(hast)}
+            {rootRenderer(past)}
         </div>
     );
 };

@@ -6,7 +6,7 @@ export async function getPostService(p) {
 }
 
 export async function getPostContentByIdService(id) {
-    return (await (fetch(`/api/post/content/${id}`))).json();
+    return axios.get(`/api/post/content/${id}`);
 }
 
 export async function getPostMdastByIdService(id) {
@@ -18,9 +18,6 @@ export async function getPostPastByIdService(id) {
 }
 
 export async function getPostsService(params) {
-    // return (await (fetch(
-    //     `/api/posts?current=${pagination.current}&pageSize=${pagination.pageSize}`
-    // ))).json();
     return axios.get('/api/posts', {
         params
     });

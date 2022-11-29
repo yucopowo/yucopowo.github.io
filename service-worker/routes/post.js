@@ -7,6 +7,8 @@ router.get('/api/posts', async (ctx) => {
     const { request, response, db } = ctx;
     const url = new URL(request.url);
 
+
+    const pid = url.searchParams.get('pid');
     const keyword = url.searchParams.get('keyword');
     const current = url.searchParams.get('current') || 1;
     let pageSize = url.searchParams.get('pageSize') || 20;
@@ -24,17 +26,17 @@ router.get('/api/posts', async (ctx) => {
     //     type: 'file'
     // }).count();
     let chain = posts.chain().find({
-        type: 'file'
+        type: 'file',
+        ...(pid?{pid}:{})
     });
-
-
-    const total = chain.count();
 
     if(keyword) {
         chain = chain.where((post) => {
             return post.title.includes(keyword);
         });
     }
+
+    const total = chain.count();
 
     chain = chain.sort((a, b) => {
         const amtime = new Date(a.mtime).getTime();
@@ -84,30 +86,55 @@ router.get('/api/posts/folders/tree', async (ctx) => {
 
 });
 
-router.get('/api/posts/directory/:id', async (ctx) => {
-    const { request, response, db, params } = ctx;
+// router.get('/api/posts/directory/:id', async (ctx) => {
+//     const { request, response, db, params } = ctx;
+//
+//     const headers = new Headers();
+//     headers.set("content-type", "application/json; charset=utf-8");
+//
+//     if(!params || !params.id) {
+//         const data = JSON.stringify({code: -1, message: 'id不能为空！'});
+//         return new Response(data, {
+//             headers
+//         });
+//     }
+//     const { id } = params;
+//
+//     const posts = db.getCollection("posts");
+//
+//     const result = posts.find({
+//         type: 'file',
+//         pid: params.id,
+//     });
+//
+//     response.body = {code: 0, message: 'ok', data: result};
+// });
 
-    const headers = new Headers();
-    headers.set("content-type", "application/json; charset=utf-8");
 
-    if(!params || !params.id) {
-        const data = JSON.stringify({code: -1, message: 'id不能为空！'});
-        return new Response(data, {
-            headers
-        });
-    }
+//
+
+router.get('/api/post/content/:id', async (ctx) => {
+    const { response, db, params } = ctx;
+
     const { id } = params;
-
     const posts = db.getCollection("posts");
 
-    const result = posts.find({
-        type: 'file',
-        pid: params.id,
+    const result = posts.findOne({
+        id
     });
+    if(!result) {
+        response.body= {code: -1, message: '文章未找到或已删除！'};
+        return;
+    }
 
-    response.body = {code: 0, message: 'ok', data: result};
+    const p = result.path;
+    const _response = await fetch(`/posts/${p}`);
+
+    const content = await _response.text();
+
+    response.body= {code: 0, message: 'ok', data: { content }};
+
 });
-
 
 router.get('/api/post/content/past/:id', async (ctx) => {
     const { request, response, db, params } = ctx;
@@ -129,10 +156,15 @@ router.get('/api/post/content/past/:id', async (ctx) => {
     const content = await _response.text();
 
     const ast = past(content, {
-        html: true
+        html: true,
+        mdx: result.ext === 'mdx',
     });
 
-    response.body= {code: 0, message: 'ok', data: ast};
+    response.body= {code: 0, message: 'ok', data: {
+        type: result.ext,
+        past: ast,
+    }};
+
 
 });
 

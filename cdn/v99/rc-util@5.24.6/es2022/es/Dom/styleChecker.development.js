@@ -14,7 +14,7 @@ __export(styleChecker_exports, {
   isStyleSupport: () => isStyleSupport
 });
 import canUseDom from '/cdn/v99/rc-util@5.24.6/es2022/es/Dom/canUseDom.development.js';
-export var isStyleNameSupport = function isStyleNameSupport2(styleName) {
+var isStyleNameSupport = function isStyleNameSupport2(styleName) {
   if (canUseDom() && window.document.documentElement) {
     var styleNameList = Array.isArray(styleName) ? styleName : [styleName];
     var documentElement = window.document.documentElement;
@@ -33,7 +33,7 @@ var isStyleValueSupport = function isStyleValueSupport2(styleName, value) {
   ele.style[styleName] = value;
   return ele.style[styleName] !== origin;
 };
-export function isStyleSupport(styleName, styleValue) {
+function isStyleSupport(styleName, styleValue) {
   if (!Array.isArray(styleName) && styleValue !== void 0) {
     return isStyleValueSupport(styleName, styleValue);
   }
@@ -44,3 +44,5 @@ export function isStyleSupport(styleName, styleValue) {
 var { default: __default, ...__rest } = styleChecker_exports;
 var mod_default = __default !== void 0 ? __default : __rest;
 export { mod_default as default };
+
+export {isStyleSupport};

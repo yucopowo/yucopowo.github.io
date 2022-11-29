@@ -31,7 +31,7 @@ function esmBabelPlugin(babel, params){
 }
 
 // '/src/(.*).(jsx?)'
-router.get('/src/(.*).jsx', async (ctx) => {
+router.get('/(src|public)/(.*).jsx', async (ctx) => {
     const source = ctx.response.body;
 
     const { request } = ctx;

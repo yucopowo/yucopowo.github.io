@@ -1,50 +1,27 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Col, Row, Pagination, Input } from 'antd';
 import PostTreeContainer from "../../containers/post-tree-container/index.jsx";
 import PostList from "../../components/post-list/index.jsx";
-import { getPostsService, getAllPostsService, getPostsByDirectoryService } from "../../services/post.js";
+import { usePosts } from '/src/hooks/usePostService.js';
 import './index.less';
 
 const Home = () => {
-    const [keyword, setKeyword] = useState('');
+    const { filter, posts, total, updateFilter } = usePosts();
     const [category, setCategory] = useState('home-key');
-    const [total, setTotal] = useState(0);
-    const [posts, setPosts] = useState([]);
-    const [pagination, setPagination] = useState({
-        current: 1,
-        pageSize: 20,
-    });
-
-    useEffect(() => {
-        if(category === 'home-key' || category === 'root-key') {
-            getPostsService({
-                ...pagination,
-                keyword,
-            }).then(({data: res}) => {
-                if(res.code < 0) {
-
-                } else {
-                    setTotal(res.data.total)
-                    setPosts(res.data.posts);
-                }
-            });
-        } else {
-            getPostsByDirectoryService(category).then((res) => {
-                setPosts(res.data);
-            });
-        }
-    }, [category, pagination, keyword]);
 
     useEffect(() => {
         window.scrollTo(0,0);
     }, [posts]);
 
-    const onSelect = (keys, info) => {
-        // console.log('Trigger Select', keys, info);
+    const onSelect = (keys) => {
         if(keys && keys[0]) {
             setCategory(keys[0]);
+            const pid = (category === 'home-key' || category === 'root-key')?'':category;
+            updateFilter({
+                pid,
+                keyword: ''
+            });
         }
-        setKeyword('');
     };
 
     return (
@@ -64,7 +41,9 @@ const Home = () => {
                         {category === 'root-key' && (
                             <div className="home-page-search">
                                 <Input placeholder="搜索博客" bordered={false} onChange={(e)=>{
-                                    setKeyword(e.target.value);
+                                    updateFilter({
+                                        keyword: e.target.value
+                                    });
                                 }}/>
                             </div>
                         )}
@@ -75,19 +54,20 @@ const Home = () => {
                             category === 'root-key' && posts.length > 0 && (
                                 <Pagination
                                     onChange={(page)=>{
-                                        setPagination({
-                                            ...pagination,
+                                        updateFilter({
                                             current: page
                                         });
                                     }}
                                     onShowSizeChange={(current, size)=>{
-                                        setPagination({
-                                            ...pagination,
+                                        updateFilter({
                                             current,
                                             pageSize: size
                                         });
                                     }}
-                                    className="home-page-pagination" {...pagination} total={total}
+                                    className="home-page-pagination"
+                                    current={filter.current}
+                                    pageSize={filter.pageSize}
+                                    total={total}
                                 />
                             )
                         }

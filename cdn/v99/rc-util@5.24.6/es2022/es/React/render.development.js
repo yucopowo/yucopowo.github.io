@@ -58,7 +58,7 @@ function _r(node, container) {
     return legacyRender(node, container);
   }
 }
-export function render(node, container) {
+function render(node, container) {
   if (createRoot) {
     modernRender(node, container);
     return;
@@ -103,7 +103,7 @@ function _u(container) {
     return legacyUnmount(container);
   }
 }
-export function unmount(_x2) {
+function unmount(_x2) {
   return _unmount.apply(this, arguments);
 }
 function _unmount() {
@@ -135,3 +135,6 @@ function _unmount() {
 var { default: __default, ...__rest } = render_exports;
 var mod_default = __default !== void 0 ? __default : __rest;
 export { mod_default as default };
+
+
+export {render, unmount};

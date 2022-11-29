@@ -42,7 +42,7 @@ function focusable(node) {
   }
   return false;
 }
-export function getFocusNodeList(node) {
+function getFocusNodeList(node) {
   var includePositive = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : false;
   var res = _toConsumableArray(node.querySelectorAll('*')).filter(function(child) {
     return focusable(child, includePositive);
@@ -83,3 +83,5 @@ function limitTabRange(node, e) {
 var { default: __default, ...__rest } = focus_exports;
 var mod_default = __default !== void 0 ? __default : __rest;
 export { mod_default as default };
+
+export {getFocusNodeList};

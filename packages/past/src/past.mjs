@@ -5,37 +5,48 @@ import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import remarkBreaks from 'remark-breaks';
 import remarkFrontmatter from 'remark-frontmatter';
-import remarkYamlExtract from 'remark-extract-frontmatter';
+// import remarkYamlExtract from 'remark-extract-frontmatter';
 import YAML from 'yaml';
 import remarkRehype from 'remark-rehype';
 import rehypeRaw from 'rehype-raw';
 import rehypeStringify from './plugins/rehype-stringify.mjs';
 import remarkAttr from "./plugins/remark-attr.mjs";
-import {u} from 'unist-builder';
-import { parseAttrs } from './utils.mjs';
+import remarkMdx from 'remark-mdx';
+import { u } from 'unist-builder';
+// import { parseAttrs } from './utils.mjs';
 
 const DEFAULT_OPTIONS = {
     gfm: true,
     math: false,
     html: false,
+    mdx: false,
     plugins: []
 };
 
 function past(markdown, options = DEFAULT_OPTIONS) {
     const o = {...DEFAULT_OPTIONS, ...options};
+    const passThrough = [
+        'leafDirective', 'textDirective', 'containerDirective'
+    ];
 
     const plugins = [];
 
     // remark==================================
     plugins.push([remarkParse]);
 
-    // plugins.push([() => {
-    //     return (tree) => {
-    //         console.log('tree1 start=============');
-    //         console.log(JSON.stringify(tree, null, 2));
-    //         console.log('tree1 end=============');
-    //     };
-    // }]);
+
+
+    if (o.mdx) {
+        plugins.push([remarkMdx, []]);
+        const nodeTypes = [
+            'mdxFlowExpression',
+            'mdxJsxFlowElement',
+            'mdxJsxTextElement',
+            'mdxTextExpression',
+            'mdxjsEsm'
+        ];
+        passThrough.push(...nodeTypes);
+    }
 
     plugins.push([remarkFrontmatter, ['yaml']]);
     plugins.push([remarkBreaks]);
@@ -56,18 +67,23 @@ function past(markdown, options = DEFAULT_OPTIONS) {
     }
 
 
-
+    // plugins.push([() => {
+    //     return (tree) => {
+    //         console.log('tree1 start=============');
+    //         console.log(JSON.stringify(tree, null, 2));
+    //         console.log('tree1 end=============');
+    //     };
+    // }]);
     // remark==================================
 
 
     // rehype**********************************
 
     //             'leafDirective', 'textDirective', 'containerDirective'
+
     plugins.push([remarkRehype, {
         allowDangerousHtml: o.html,
-        passThrough: [
-            'leafDirective', 'textDirective', 'containerDirective'
-        ],
+        passThrough,
         // unknownHandler(h, node) {
         //     console.log('node============================================================');
         //     console.log(node);
@@ -83,50 +99,6 @@ function past(markdown, options = DEFAULT_OPTIONS) {
             code(h, node) {
                 return u('code', {...node});
             },
-            // leafDirective(h, node) {
-            //     return u('leafDirective', {...node});
-            // },
-            // textDirective(h, node) {
-            //     return u('textDirective', {...node});
-            // },
-            // containerDirective(h, node) {
-            //     return u('containerDirective', {...node});
-            // }
-            // code(h, node) {
-            //     const value = node.value ? node.value + '\n' : '';
-            //     const lang = node.lang;
-            //     const props = {};
-            //     props.lang = lang;
-            //     props.attributes = parseAttrs(node.meta);
-            //
-            //
-            //     const code = h(node.position, 'code');
-            //     // code.type = 'code';
-            //     code.value = value;
-            //     code.props = props;
-            //     return code;
-            //     // const value = node.value ? node.value + '\n' : ''
-            //     // // To do: next major, use `node.lang` w/o regex, the splitting’s been going
-            //     // // on for years in remark now.
-            //     // const lang = node.lang && node.lang.match(/^[^ \t]+(?=[ \t]|$)/)
-            //     /** @type {Properties} */
-            //     // const props = {
-            //     //     lang,
-            //     //     meta: node.meta
-            //     // };
-            //     //
-            //     // if (lang) {
-            //     //     props.className = ['language-' + lang]
-            //     // }
-            //     //
-            //     // const code = h(node, 'code', props, [u('text', value)])
-            //     //
-            //     // if (node.meta) {
-            //     //     code.data = {meta: node.meta}
-            //     // }
-            //     //
-            //     // return h(node.position, 'pre', [code])
-            // }
         }
     }]);
 
@@ -142,7 +114,7 @@ function past(markdown, options = DEFAULT_OPTIONS) {
         plugins.push([rehypeRaw, {
             passThrough: [
                 'code',
-                'leafDirective', 'textDirective', 'containerDirective'
+                ...passThrough
             ]
         }]);
     }

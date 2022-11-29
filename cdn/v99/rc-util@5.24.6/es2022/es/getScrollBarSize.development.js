@@ -15,7 +15,7 @@ __export(getScrollBarSize_exports, {
   getTargetScrollBarSize: () => getTargetScrollBarSize
 });
 var cached;
-export function getScrollBarSize(fresh) {
+function getScrollBarSize(fresh) {
   if (typeof document === 'undefined') {
     return 0;
   }
@@ -51,7 +51,7 @@ function ensureSize(str) {
   var value = Number(match === null || match === void 0 ? void 0 : match[1]);
   return Number.isNaN(value) ? getScrollBarSize() : value;
 }
-export function getTargetScrollBarSize(target) {
+function getTargetScrollBarSize(target) {
   if (typeof document === 'undefined' || !target || !(target instanceof Element)) {
     return {
       width: 0,
@@ -71,3 +71,7 @@ export function getTargetScrollBarSize(target) {
 var { default: __default, ...__rest } = getScrollBarSize_exports;
 var mod_default = __default !== void 0 ? __default : __rest;
 export { mod_default as default };
+
+export {getScrollBarSize};
+
+export {getTargetScrollBarSize};

@@ -1,13 +1,14 @@
 import React from 'react';
 import PostItem from './item.jsx';
 
+const style = {fontSize: 18};
 const Empty = () => (
     <div className="post-item">
 
         <div className="list-content">
             <div className="list-body">
                 <div className="list-desc">
-                    <p style={{fontSize: 18}}>
+                    <p style={style}>
                         该分类下暂无博客
                     </p>
                 </div>

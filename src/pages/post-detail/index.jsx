@@ -14,11 +14,11 @@ const PostDetail = () => {
     const [message, setMessage] = useState('');
 
     const [loading, setLoading] = useState(true);
-    const [hast, setHast] = useState({});
+    const [past, setPast] = useState({});
 
     useEffect(() => {
         getPostPastByIdService(id).then((res) => {
-            console.log(res);
+            console.log(res.data);
             const { code } = res;
             if(code<0) {
                 setMessage(res.message);
@@ -26,7 +26,7 @@ const PostDetail = () => {
                 setLoading(false);
                 return;
             }
-            setHast(res.data);
+            setPast(res.data.past);
             setLoading(false);
         }).catch((e) => {
             console.error(e);
@@ -36,7 +36,7 @@ const PostDetail = () => {
     return (
         <div className="past-post-detail-page post-content">
             {loading && <div>loading...</div>}
-            {!loading && (<PastRender hast={hast}/>)}
+            {!loading && (<PastRender past={past}/>)}
             {error && (
                 <div className="error-container">
                     <Alert

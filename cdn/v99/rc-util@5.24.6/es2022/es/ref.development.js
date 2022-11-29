@@ -19,14 +19,14 @@ __export(ref_exports, {
 import _typeof from '/cdn/v99/@babel/runtime@7.20.1/es2022/helpers/esm/typeof.development.js';
 import { isMemo } from '/cdn/v99/react-is@16.13.1/es2022/react-is.development.js';
 import useMemo from '/cdn/v99/rc-util@5.24.6/es2022/es/hooks/useMemo.development.js';
-export function fillRef(ref, node) {
+function fillRef(ref, node) {
   if (typeof ref === 'function') {
     ref(node);
   } else if (_typeof(ref) === 'object' && ref && 'current' in ref) {
     ref.current = node;
   }
 }
-export function composeRef() {
+function composeRef() {
   for (var _len = arguments.length, refs = new Array(_len), _key = 0; _key < _len; _key++) {
     refs[_key] = arguments[_key];
   }
@@ -42,7 +42,7 @@ export function composeRef() {
     });
   };
 }
-export function useComposeRef() {
+function useComposeRef() {
   for (var _len2 = arguments.length, refs = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
     refs[_key2] = arguments[_key2];
   }
@@ -61,7 +61,7 @@ export function useComposeRef() {
     }
   );
 }
-export function supportRef(nodeOrComponent) {
+function supportRef(nodeOrComponent) {
   var _type$prototype, _nodeOrComponent$prot;
   var type = isMemo(nodeOrComponent) ? nodeOrComponent.type.type : nodeOrComponent.type;
   if (
@@ -85,3 +85,5 @@ export function supportRef(nodeOrComponent) {
 var { default: __default, ...__rest } = ref_exports;
 var mod_default = __default !== void 0 ? __default : __rest;
 export { mod_default as default };
+
+export {composeRef, supportRef, useComposeRef, fillRef};

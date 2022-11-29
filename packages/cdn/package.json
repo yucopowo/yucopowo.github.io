@@ -1,8 +1,17 @@
 {
-	"scripts": {},
 	"dependencies": {
+		"@babel/core": "^7.20.2",
+		"@babel/parser": "^7.20.3",
+		"@babel/standalone": "^7.20.4",
+		"@babel/traverse": "^7.20.1",
+		"babel-plugin-generator-prettier": "^1.2.0",
+		"babel-traverse": "^6.26.0",
+		"lokijs": "^1.5.12",
 		"mkdirp": "^1.0.4",
-		"moduloze": "^0.9.1",
-		"request": "^2.88.2"
+		"replace": "^1.2.2",
+		"request": "^2.88.2",
+		"requests": "^0.3.0",
+		"string-hash": "^1.1.3",
+		"url": "^0.11.0"
 	}
 }

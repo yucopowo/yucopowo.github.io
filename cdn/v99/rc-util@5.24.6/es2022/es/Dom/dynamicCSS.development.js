@@ -85,7 +85,7 @@ function findExistNode(key) {
     return node.getAttribute(getMark(option)) === key;
   });
 }
-export function removeCSS(key) {
+function removeCSS(key) {
   var option = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
   var existNode = findExistNode(key, option);
   if (existNode) {
@@ -105,7 +105,7 @@ function syncRealContainer(container, option) {
 function clearContainerCache() {
   containerCache.clear();
 }
-export function updateCSS(css, key) {
+function updateCSS(css, key) {
   var option = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
   var container = getContainer(option);
   syncRealContainer(container, option);
@@ -134,3 +134,6 @@ export function updateCSS(css, key) {
 var { default: __default, ...__rest } = dynamicCSS_exports;
 var mod_default = __default !== void 0 ? __default : __rest;
 export { mod_default as default };
+
+
+export {removeCSS, updateCSS, injectCSS};

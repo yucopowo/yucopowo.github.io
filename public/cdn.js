@@ -10,6 +10,14 @@ const imports = {
     'query-string': '/cdn/query-string.js',
     'style-to-object': '/cdn/style-to-object.js',
     '@antv/g2': '/cdn/@antv/g2.js',
+    '@mdx-js/runtime': '/cdn/@mdx-js/runtime.js',
+    'rebass': '/cdn/rebass.js',
+    '@rebass/preset': '/cdn/@rebass/preset.js',
+    'styled-components': '/cdn/styled-components.js',
+    '@emotion/react': '/cdn/@emotion/react.js',
+    'react/jsx-runtime': '/cdn/react/jsx-runtime.js',
+    '@mdx-js/react': '/cdn/@mdx-js/react.js',
+    '@mdx-js/mdx': '/cdn/@mdx-js/mdx.js',
 };
 
 const script = document.createElement('script');

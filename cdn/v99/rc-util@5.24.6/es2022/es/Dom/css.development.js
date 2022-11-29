@@ -91,7 +91,7 @@ function getDocSize() {
     height
   };
 }
-export function getClientSize() {
+function getClientSize() {
   var width = document.documentElement.clientWidth;
   var height = window.innerHeight || document.documentElement.clientHeight;
   return {
@@ -105,7 +105,7 @@ function getScroll() {
     scrollTop: Math.max(document.documentElement.scrollTop, document.body.scrollTop)
   };
 }
-export function getOffset(node) {
+function getOffset(node) {
   var box = node.getBoundingClientRect();
   var docElem = document.documentElement;
   return {
@@ -118,3 +118,5 @@ export function getOffset(node) {
 var { default: __default, ...__rest } = css_exports;
 var mod_default = __default !== void 0 ? __default : __rest;
 export { mod_default as default };
+
+export {getClientSize, getOffset};
