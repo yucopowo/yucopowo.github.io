@@ -1,4 +1,4 @@
-import Babel from '/public/assets/libs/babel-standalone/babel.esm.js';
+import Babel from '/cdn/babel-standalone.js';
 import { isRelative } from "../util.js";
 
 function reactDemoBabelPlugin() {

@@ -6,9 +6,16 @@ export default () => {
         // console.log('cache match ==================');
         // console.log(url);
 
+        // if(
+        //     !url.startsWith('https://esm.sh/') &&
+        //     !url.includes('/public/assets/libs/')
+        // ) {
+        //     await next();
+        //     return;
+        // }
+
         if(
-            !url.startsWith('https://esm.sh/') &&
-            !url.includes('/public/assets/libs/')
+            !url.startsWith('/cdn/')
         ) {
             await next();
             return;

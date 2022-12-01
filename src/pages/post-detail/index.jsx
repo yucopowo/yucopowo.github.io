@@ -1,43 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Alert } from 'antd';
-import PastRender from '/src/components/past-render/index.jsx';
-import { getPostPastByIdService } from '/src/services/post.js';
-import './index.less';
-import './github-markdown-dark.less';
+// import * as antd from 'antd';
 
+import MarkdownModuleRender from '/src/components/markdown-module-render/index.jsx';
+import { useMarkdownModule } from '/src/hooks/usePostService.js';
+import Loading from '/src/components/loading/index.jsx';
+
+import './index.less';
+import '/public/assets/css/github-markdown-dark.css';
+
+// const mdx = `
+//
+// # Hello, world!
+//
+// <div>Here is the scope variable: </div>
+//
+// <Rate value={4} />
+//
+// `;
+// function code({className, ...props}) {
+//     const match = /language-(\w+)/.exec(className || '')
+//     return match
+//         ? <SyntaxHighlighter language={match[1]} PreTag="div" {...props} />
+//         : <code className={className} {...props} />
+// }
+//
+// const components = {
+//     ...antd,
+//     code,
+//
+// };
+
+// let MDXContent = null;
 const PostDetail = () => {
     const params = useParams();
     const { id } = params;
 
-    const [error, setError] = useState(false);
-    const [message, setMessage] = useState('');
+    const { loading, module, error, message } = useMarkdownModule(id);
 
-    const [loading, setLoading] = useState(true);
-    const [past, setPast] = useState({});
-
-    useEffect(() => {
-        getPostPastByIdService(id).then((res) => {
-            console.log(res.data);
-            const { code } = res;
-            if(code<0) {
-                setMessage(res.message);
-                setError(true);
-                setLoading(false);
-                return;
-            }
-            setPast(res.data.past);
-            setLoading(false);
-        }).catch((e) => {
-            console.error(e);
-        });
-    }, [id]);
-
-    return (
-        <div className="past-post-detail-page post-content">
-            {loading && <div>loading...</div>}
-            {!loading && (<PastRender past={past}/>)}
-            {error && (
+    if(loading) {
+        return (
+            <div>
+                <Loading fullscreen />
+            </div>
+        );
+    }
+    if(error) {
+        return (
+            <div className="mdx-detail-page">
                 <div className="error-container">
                     <Alert
                         message="错误"
@@ -46,7 +57,12 @@ const PostDetail = () => {
                         closable={false}
                     />
                 </div>
-            )}
+            </div>
+        );
+    }
+    return (
+        <div className="mdx-detail-page">
+            {module && <MarkdownModuleRender module={module} />}
         </div>
     );
 };

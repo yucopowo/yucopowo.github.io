@@ -15,8 +15,9 @@ const Home = () => {
 
     const onSelect = (keys) => {
         if(keys && keys[0]) {
-            setCategory(keys[0]);
+            const category = keys[0];
             const pid = (category === 'home-key' || category === 'root-key')?'':category;
+            setCategory(category);
             updateFilter({
                 pid,
                 keyword: ''

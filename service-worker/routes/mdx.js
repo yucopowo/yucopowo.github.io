@@ -1,7 +1,6 @@
 import { ServiceWorkerRouter } from '../index.js';
 import {compile} from '/cdn/@mdx-js/mdx.js';
 
-console.log(compile);
 const router = new ServiceWorkerRouter();
 
 router.get('/api/post/content/mdx/:id', async (ctx) => {

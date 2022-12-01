@@ -82,15 +82,42 @@ function runLibTask(lib){
 }
 
 
+await runLibTask('@babel/core');
 
+
+
+
+
+// await runLibTask('lokijs');
+// await runLibTask('babel-standalone');
+// await runLibTask('handlebars');
+// await runLibTask('tiny-request-router');
+// await runLibTask('unist-util-visit-children');
+// await runLibTask('unist-util-find-all-after');
+// await runLibTask('unist-util-size');
+// await runLibTask('unist-util-remove-position');
+// await runLibTask('unist-builder');
+// await runLibTask('unist-util-visit');
+
+// await runLibTask('remark-breaks');
+
+// await runLibTask('remark-gfm');
+
+// await runLibTask('vue@2.7.14');
+
+// await runLibTask('@vespaiach/axios-fetch-adapter');
+
+
+// await runLibTask('react-syntax-highlighter');
+// await runLibTask('react-syntax-highlighter/dist/esm/styles/prism');
 
 // await runLibTask('react/jsx-runtime');
 // await runLibTask('@mdx-js/react');
 // await runLibTask('@mdx-js/mdx');
 
-await runLibTask('rebass');
-await runLibTask('@emotion/react');
-await runLibTask('@rebass/preset');
+// await runLibTask('rebass');
+// await runLibTask('@emotion/react');
+// await runLibTask('@rebass/preset');
 // await runLibTask('styled-components');
 // await runLibTask('@mdx-js/runtime');
 // await runLibTask('vue');

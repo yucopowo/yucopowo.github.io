@@ -1,4 +1,4 @@
-import { Router as TinyRequestRouter } from '/public/assets/libs/tiny-request-router/tiny-request-router.esm.js';
+import { Router as TinyRequestRouter } from '/cdn/tiny-request-router.js';
 
 export default class ServiceWorkerRouter {
 

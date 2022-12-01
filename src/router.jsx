@@ -22,12 +22,8 @@ const router = createBrowserRouter([
                 element: lazy('/src/pages/post-list/index.jsx')
             },
             {
-                path: "post/md/:id",
+                path: "post/:id/*",
                 element: lazy('/src/pages/post-detail/index.jsx')
-            },
-            {
-                path: "post/mdx/:id",
-                element: lazy('/src/pages/mdx-detail/index.jsx')
             },
             {
                 path: "notes",

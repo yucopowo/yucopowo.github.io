@@ -1,4 +1,4 @@
-/* esm.sh - esbuild bundle(@antv/scale@0.4.11) es2022 development */
+/* esm.sh - esbuild bundle(@antv/scale@0.3.18) es2022 development */
 // esm-build-bab16a510b469df5da6c669d3a61def0a7682302-7ea9bbf1/node_modules/@antv/scale/esm/utils/compose.js
 function compose(fn, ...rest) {
   return rest.reduce((pre, cur) => x => pre(cur(x)), fn);
@@ -1819,3 +1819,4 @@ export {
   rPretty,
   wilkinsonExtended
 };
+

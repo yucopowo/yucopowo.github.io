@@ -12,10 +12,10 @@ const customStyle = {
 };
 
 const Highlight = (props) => {
-    const { lang, code } = props;
+    const { lang, code, showLineNumbers = false } = props;
 
     return (
-        <SyntaxHighlighter language={lang} style={style} showLineNumbers wrapLongLines customStyle={customStyle}>
+        <SyntaxHighlighter language={lang} style={style} showLineNumbers={showLineNumbers} wrapLongLines customStyle={customStyle}>
             {code}
         </SyntaxHighlighter>
     );

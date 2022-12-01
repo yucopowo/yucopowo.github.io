@@ -1,5 +1,5 @@
 import compose from './compose.js';
-import { Router as TinyRequestRouter } from '/public/assets/libs/tiny-request-router/tiny-request-router.esm.js';
+import { Router as TinyRequestRouter } from '/cdn/tiny-request-router.js';
 
 import ServiceWorkerContext from './context.js';
 
@@ -17,6 +17,9 @@ class ServiceWorkerServer {
     }
     handleEvent(event) {
         const request = event.request;
+        if(/.(png|jpe?g|gif|bmp)$/.test(request.url)) {
+            return;
+        }
 
         const fn = compose(this.middleware);
         const ctx = this.createContext(request);

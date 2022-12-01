@@ -34,7 +34,7 @@ function getDemoUrl(lang) {
 const CodeDemo = (props) => {
 
     const { node } = props;
-    const attrs = node.attrs || {};
+    const attributes = node.attributes || {};
     const iframeRef = useRef();
     const [loading, setLoading] = useState(true);
     const [showCode, setShowCode] = useState(false);
@@ -58,12 +58,11 @@ const CodeDemo = (props) => {
     }, [node.lang, node.value]);
 
     useEffect(() => {
-
         const onLoad = () => {
             setLoading(false);
         };
         // console.log();
-        const iframeWindow = iframeRef.current?.contentWindow;
+        const iframeWindow = iframeRef?.current?.contentWindow;
         iframeWindow.addEventListener('load', onLoad);
         return () => {
             iframeWindow.removeEventListener('load', onLoad);
@@ -72,7 +71,7 @@ const CodeDemo = (props) => {
     }, []);
 
     useEffect(() => {
-        const iframeWindow = iframeRef.current?.contentWindow;
+        const iframeWindow = iframeRef?.current?.contentWindow;
         if(iframeWindow) {
             iframeWindow.postMessage(JSON.stringify({
                 type: 'console',
@@ -82,8 +81,8 @@ const CodeDemo = (props) => {
     }, [showConsole]);
 
     const iframeProps = {};
-    if(attrs.height) {
-        iframeProps.height = attrs.height + 'px';
+    if(attributes.height) {
+        iframeProps.height = attributes.height + 'px';
     }
 
     return (
@@ -138,5 +137,15 @@ const CodeDemo = (props) => {
 
 };
 
-export default CodeDemo;
+export default (props) => {
+    const { node } = props;
+    const attributes = node.attributes || {};
+    const demo = attributes['demo'] || 'demo' in attributes;
+    if(!demo) {
+        return <CodeHighlight node={node} />;
+    }
+    return (
+        <CodeDemo {...props} />
+    )
+};
 

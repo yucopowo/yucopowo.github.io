@@ -1,4 +1,5 @@
 import path from "path";
+import replace from 'replace';
 import fs from "fs";
 const rootPath = path.resolve('../../');
 
@@ -51,6 +52,41 @@ export {isStyleSupport};
 append('/cdn/v99/rc-util@5.24.6/es2022/es/React/render.development.js', `
 export {render, unmount};
 `);
+
+append('/cdn/v99/axios@1.2.0/es2022/lib/utils.development.js', `
+var isStandardBrowserEnv = (() => {
+  let product;
+  if (typeof navigator !== "undefined" && ((product = navigator.product) === "ReactNative" || product === "NativeScript" || product === "NS")) {
+    return false;
+  }
+  return typeof window !== "undefined" && typeof document !== "undefined";
+})();
+export {isUndefined, isStandardBrowserEnv, isFormData};
+`);
+
+replace({
+    regex: "scale@0\.4\.11",
+    replacement: "scale@0.3.18",
+    paths: [resolve('/cdn/v99/@antv/attr@0.3.3/es2022/attr.development.js')],
+    recursive: false,
+    silent: false,
+});
+
+replace({
+    regex: `exports2\.Buffer = Buffer2;`,
+    replacement: `
+    
+    global = global || {};
+    global.TYPED_ARRAY_SUPPORT = false;
+    exports2.Buffer  =  Buffer2;
+    
+    `,
+    paths: [resolve('/cdn/v99/babel-standalone@6.26.0/es2022/babel-standalone.development.js')],
+    recursive: false,
+    silent: false,
+});
+// (function(global = {TYPED_ARRAY_SUPPORT: 'DEFAULT'}) {
+
 
 // append('/cdn/v99/decode-named-character-reference@1.0.2/es2022/decode-named-character-reference.development.js', `
 // export {render, unmount};

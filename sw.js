@@ -1,12 +1,15 @@
 import { ServiceWorkerServer } from '/service-worker/index.js';
 import cache from '/service-worker/middlewares/cache.js';
 import db from '/service-worker/middlewares/db.js';
+import views from '/service-worker/middlewares/views/handlebars/index.js';
+
 import routes from '/service-worker/routes/index.js';
 
 const app = new ServiceWorkerServer();
 
 // app.use(cache());
 app.use(db());
+app.use(views());
 
 routes.forEach((route) => {
    app.use(route.middleware());
@@ -14,9 +17,8 @@ routes.forEach((route) => {
 
 app.listen();
 
-
-
-
+// import Babel from '/cdn/babel-standalone.js';
+// console.log(Babel);
 
 
 

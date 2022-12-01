@@ -3,3 +3,5 @@ bak
 pnpm-lock.yaml
 .DS_Store
 .idea
+/packages/cdn/cdn/
+/packages/cdn/origin/

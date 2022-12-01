@@ -224,7 +224,7 @@ var Size = (function(_super) {
 var size_default = Size;
 
 // esm-build-4e889c5516a4eaf7e6ac9d90a7b4c6efb957203a-a3483908/node_modules/@antv/attr/esm/interface.js
-import { Scale } from '/cdn/v99/@antv/scale@0.4.11/es2022/scale.development.js';
+import { Scale } from '/cdn/v99/@antv/scale@0.3.18/es2022/scale.development.js';
 
 // esm-build-4e889c5516a4eaf7e6ac9d90a7b4c6efb957203a-a3483908/node_modules/@antv/attr/esm/factory.js
 var ATTRIBUTE_MAP = {};

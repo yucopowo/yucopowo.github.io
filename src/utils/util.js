@@ -4,3 +4,13 @@ export function uuid() {
     URL.revokeObjectURL(temp_url);
     return uuid.substr(uuid.lastIndexOf("/") + 1);
 }
+
+export function safeJSONParse(s) {
+    if(!s) return s;
+    try {
+        return JSON.parse(s);
+    } catch (e) {
+
+    }
+    return {};
+}

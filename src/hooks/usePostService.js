@@ -59,49 +59,27 @@ export function usePostContent(id) {
 }
 
 
-export function useMDXContent(id) {
-    const [mdxContent, setMDXContent] = useState({
-        loading: true,
-        content: null
+export function useMarkdownModule(id) {
+    const [mdx, setMDX] = useState({
+        module: null
     });
-    const loading = mdxContent.loading;
-
-    // const [MDXContent, setMDXContent] = useState(null);
-
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [message, setMessage] = useState('');
 
-    // const [loading, setLoading] = useState(false);
-    //
-    // const [content, setContent] = useState('');
-
     useEffect(() => {
-        // setLoading(true);
-        // getPostContentByIdService(id).then(({data: res}) => {
-        //     // console.log(res);
-        //     if(res.code >= 0) {
-        //         setContent(res.data.content);
-        //     }
-        // }).finally(() => {
-        //     setLoading(false);
-        // });
-        import('/api/post/content/mdx/'+id).then(({default: m}) => {
-            // console.log('========');
-            // console.log(m);
-            setMDXContent({
-                content: m,
-                loading: false,
+        setLoading(true);
+        import('/api/markdown/module/'+id).then(({default: m}) => {
+            setMDX({
+                module: m,
             });
-            // setMDXContent(m);
-            // MDXContent = m;
-            // setLoading(false);
         }).catch((e) => {
             setError(e);
             setMessage(e.message);
         }).finally(() => {
-
+            setLoading(false);
         });
     }, [id]);
 
-    return { loading, MDXContent: mdxContent.content, error, message };
+    return { loading, module: mdx.module, error, message };
 }

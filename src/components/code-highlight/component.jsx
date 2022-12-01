@@ -5,6 +5,9 @@ import './index.less';
 const CodeHighlight = (props) => {
 
     const { node, frameless } = props;
+    const attributes = node.attributes || {};
+    const showLineNumbers = 'showLineNumbers' in attributes;
+
 
     let lang = props.lang || node.lang;
     if(lang==='vue' || lang==='vue2' || lang==='vue3'){
@@ -14,7 +17,7 @@ const CodeHighlight = (props) => {
     let code = props.code || node.value;
 
     if(frameless) {
-        return <Highlight lang={lang} code={code} />;
+        return <Highlight lang={lang} code={code} showLineNumbers={showLineNumbers} />;
     }
 
     return (
@@ -39,7 +42,7 @@ const CodeHighlight = (props) => {
                     </div>
                 </div>
                 <div className="markdown-code-browser-window-body">
-                    <Highlight lang={lang} code={code} />
+                    <Highlight lang={lang} code={code} showLineNumbers={showLineNumbers} />
                 </div>
 
             </div>

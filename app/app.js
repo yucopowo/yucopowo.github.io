@@ -14,9 +14,19 @@ app.use(express.static(root));
 // });
 
 app.use((req, res) => {
+    if(req.url.startsWith('/page')) {
+        res.sendFile(path.resolve(root, 'index.html'));
+        return;
+    }
     if(req.url.startsWith('/api')){
         res.status(404);
         res.send('Not Found');
+        return;
+    }
+
+    if(/.(jsx?|css|less|hbs|html|mdx?)$/.test(req.url)){
+        res.status(404);
+        res.send(null);
         return;
     }
 

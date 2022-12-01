@@ -19,7 +19,9 @@ export function getContentType(type) {
 }
 
 export function getType(type) {
-    // console.log(type);
+    if(!type) {
+        return 'text';
+    }
     if(type.includes('json')) return 'json';
     if(type.includes('jsx')) return 'js';
     if(type.includes('javascript')) return 'js';

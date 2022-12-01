@@ -146,6 +146,9 @@ if(worker) {
 
     main();
 } else {
+    console.log('======worker======');
+    console.log(worker);
+
     // ready().then((res) => {
     //     console.log('ok=====');
     //     console.log(res);

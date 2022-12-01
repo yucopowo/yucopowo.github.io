@@ -1,4 +1,5 @@
-import loki from '/public/assets/libs/lokijs/lokijs.esm.js';
+// import loki from '/public/assets/libs/lokijs/lokijs.esm.js';
+import loki from '/cdn/lokijs.js';
 
 function getJson() {
     return fetch('/public/db/blog.json', {

@@ -1,32 +1,34 @@
-import React from 'react';
-import {
-    createBrowserRouter,
-    RouterProvider,
-    Route,
-} from "react-router-dom";
-import { Button } from 'antd';
-
-const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <div>Hello world!</div>,
-    },
-]);
-
-const App = () => {
-
-    return (
-        <div>
-            <div>==app==</div>
-            <RouterProvider router={router} />
-            <Button>===Button==</Button>
-        </div>
-    );
-
-};
-
-
-export default App;
+import a from './a.js';
+console.log(a);
+// import React from 'react';
+// import {
+//     createBrowserRouter,
+//     RouterProvider,
+//     Route,
+// } from "react-router-dom";
+// import { Button } from 'antd';
+//
+// const router = createBrowserRouter([
+//     {
+//         path: "/",
+//         element: <div>Hello world!</div>,
+//     },
+// ]);
+//
+// const App = () => {
+//
+//     return (
+//         <div>
+//             <div>==app==</div>
+//             <RouterProvider router={router} />
+//             <Button>===Button==</Button>
+//         </div>
+//     );
+//
+// };
+//
+//
+// export default App;
 
 
 
