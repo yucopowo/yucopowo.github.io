@@ -3,8 +3,8 @@ import queryString from 'query-string';
 import CodeHighlight from '/src/components/code-highlight/index.jsx';
 import Loading from "../loading/index.jsx";
 import { uuid } from "../../utils/util.js";
-import './index.less';
-
+// import style from './index.less?web-component';
+import './index.less?web-component';
 
 // const CodeHighlight = React.lazy(() => import('/src/components/code-highlight/index.jsx'));
 
@@ -13,14 +13,17 @@ function getUUID() {
     return new Date().getTime() + Math.floor((Math.random() * 10000000));
 }
 // const cache = new Map();
-function getDemoUrl(lang) {
+function getDemoUrl(lang, demo) {
+    if(demo==='react') {
+        return '/api/html/demo/react';
+    }
     switch (lang) {
         case 'vue':
         case 'vue2':
         case 'vue3':
             return '/api/html/demo/vue';
         case 'jsx':
-            return '/api/html/demo/react';
+            return '/api/html/demo/jsx';
         case 'js':
         case 'javascript':
             return '/api/html/demo/js';
@@ -35,6 +38,7 @@ const CodeDemo = (props) => {
 
     const { node } = props;
     const attributes = node.attributes || {};
+    const demo = attributes['demo'];
     const iframeRef = useRef();
     const [loading, setLoading] = useState(true);
     const [showCode, setShowCode] = useState(false);
@@ -48,7 +52,7 @@ const CodeDemo = (props) => {
         // return getDemoUrl(node.lang, node.value);
 
         return queryString.stringifyUrl({
-            url: getDemoUrl(node.lang),
+            url: getDemoUrl(node.lang, demo),
             query: {
                 attributes: JSON.stringify(node.attributes),
                 code: node.value
@@ -87,6 +91,7 @@ const CodeDemo = (props) => {
 
     return (
         <div className="code-demo">
+
             <div className="markdown-code-browser-window">
                 <div className="markdown-code-browser-window-header">
                     <div className="markdown-code-browser-window-buttons">
@@ -137,15 +142,16 @@ const CodeDemo = (props) => {
 
 };
 
-export default (props) => {
-    const { node } = props;
-    const attributes = node.attributes || {};
-    const demo = attributes['demo'] || 'demo' in attributes;
-    if(!demo) {
-        return <CodeHighlight node={node} />;
-    }
-    return (
-        <CodeDemo {...props} />
-    )
-};
+export default CodeDemo;
+// export default (props) => {
+//     const { node } = props;
+//     const attributes = node.attributes || {};
+//     const demo = attributes['demo'] || 'demo' in attributes;
+//     if(!demo) {
+//         return <CodeHighlight node={node} />;
+//     }
+//     return (
+//         <CodeDemo {...props} />
+//     )
+// };
 

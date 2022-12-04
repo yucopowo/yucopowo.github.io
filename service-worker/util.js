@@ -3,6 +3,9 @@ export function getContentType(type) {
         case 'text': {
             return 'text/plain; charset=utf-8';
         }
+        case 'css': {
+            return 'text/css; charset=utf-8';
+        }
         case 'js': {
             return 'text/javascript; charset=utf-8';
         }

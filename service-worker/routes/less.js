@@ -14,19 +14,36 @@ function compile(source) {
 
 router.get('/src/(.*).less', async (ctx) => {
     const { request, response } = ctx;
-    const isRaw = request.url.endsWith('?raw');
 
+    const url = request.url;
     const source = response.body;
-
     const code = await compile(source);
 
-    const id = hashCode(request.url);
+    if(request.destination === 'style') {
+        response.type = 'css';
+        ctx.response.body = code;
+        return;
+    }
+
     response.type = 'js';
-    const body = isRaw
-        ?
-        `export default \`${escapeTemplateString(code)}\``
-        :
-        `import css from '/public/assets/libs/css.js';\ncss(\`${escapeTemplateString(code)}\`, '${id}'); `;
+    const isRaw = url.endsWith('?raw');
+    if(isRaw) {
+        ctx.response.body = `export default \`${escapeTemplateString(code)}\``;
+        return;
+    }
+
+    const isWebComponent = url.endsWith('?web-component');
+
+    const id = hashCode(url);
+    if(isWebComponent) {
+        ctx.response.body = `import {webComponentStyle} from '/public/assets/libs/css.js';
+webComponentStyle(\`${escapeTemplateString(code)}\`, '${id}'); 
+`;
+        return;
+    }
+
+    const body = `import {style} from '/public/assets/libs/css.js';\n
+style(\`${escapeTemplateString(code)}\`, '${id}'); `;
     ctx.response.body = body;
 });
 

@@ -1,8 +1,7 @@
 function main() {
     const s = document.createElement('script');
     s.type = 'module';
-    s.src = '/src/main.js';
-    // s.src = '/src/test.jsx';
+    s.src = '/src/main.jsx';
     document.body.appendChild(s);
 }
 

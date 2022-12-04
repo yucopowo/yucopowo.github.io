@@ -1,5 +1,7 @@
 - 自动升级的缓存系统
-- [x] 自建 esm cdn （备用容灾方案 ）
 - 代码浏览器
+- 优化markdown编译成html和web component 根据crc缓存编译结果
+- 
+- [x] 自建 esm cdn （备用容灾方案 ）
 - [x] 博客搜索功能
-- 支持mdx
+- [x] 支持 mdx

@@ -1,5 +1,5 @@
 import preload from './preload.js';
-import javascript from './javascript.js';
+import jsx from './jsx.js';
 import css from './css.js';
 import less from './less.js';
 import ok from './ok.js';
@@ -11,7 +11,7 @@ import handlebars from './handlebars.js';
 
 const routes = [
     preload,
-    javascript,
+    jsx,
     css,
     less,
     ok,

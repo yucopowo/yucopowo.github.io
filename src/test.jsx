@@ -1,5 +1,11 @@
-import a from './a.js';
-console.log(a);
+
+// import path from 'path';
+
+// path.relative(opts.cwd, opts.filename)
+
+
+// import a from './a.js';
+// console.log(a);
 // import React from 'react';
 // import {
 //     createBrowserRouter,

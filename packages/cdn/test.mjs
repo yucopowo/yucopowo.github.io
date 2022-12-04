@@ -82,12 +82,16 @@ function runLibTask(lib){
 }
 
 
-await runLibTask('@babel/core');
 
 
+await runLibTask('@mapbox/rehype-prism');
 
-
-
+// await runLibTask('react-dom/server');
+// await runLibTask('@ebay/nice-modal-react');
+// await runLibTask('path');
+// await runLibTask('@babel/register');
+// await runLibTask('@babel/preset-react');
+// await runLibTask('@babel/core');
 // await runLibTask('lokijs');
 // await runLibTask('babel-standalone');
 // await runLibTask('handlebars');

@@ -17,12 +17,12 @@ ReactDOM.render(
 
 #### demo演示模式
 ```markdown
-    ```javascript | demo
+    ```javascript {demo}
     代码  
     ```
 ```
 
-```javascript | demo
+```javascript {demo}
 
 const container = document.createElement('div');
 container.style.color = 'red';

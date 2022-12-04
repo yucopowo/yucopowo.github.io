@@ -4,11 +4,13 @@ const libs = [
     'react',
     'react-dom',
     'react-dom/client',
+    'react-dom/server',
     'react-router-dom',
     'react-in-viewport',
     'react-use',
     'react-syntax-highlighter',
     'react-syntax-highlighter/dist/esm/styles/prism',
+    'react-web-component',
 
     // ui
     'antd', '@antv/g2',
@@ -27,6 +29,9 @@ const libs = [
     'rebass',
     '@rebass/preset',
     'styled-components',
+
+    '@ebay/nice-modal-react',
+
 
 ];
 

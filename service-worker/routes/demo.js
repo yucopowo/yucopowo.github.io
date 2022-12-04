@@ -1,5 +1,7 @@
 import { ServiceWorkerRouter } from '../index.js';
-import Babel from '../utils/babel.js';
+// import Babel from '../utils/babel.js';
+import { transformSync } from '/cdn/@babel/core.js';
+import presetReact from '/cdn/@babel/preset-react.js';
 
 const router = new ServiceWorkerRouter();
 
@@ -25,28 +27,69 @@ router.get('/api/html/demo/js', async (ctx) => {
     });
 });
 
+router.get('/api/html/demo/jsx', async (ctx) => {
+    const { request } = ctx;
+    const url = new URL(request.url);
+    const source = url.searchParams.get('code');
+    const attributes = JSON.parse(url.searchParams.get('attributes'));
+
+    try {
+        const { code } = transformSync(source, {
+            presets: [
+                [
+                    presetReact, {}
+                ]
+            ],
+            plugins: [
+            ],
+        });
+
+        await ctx.render('js', {
+            code,
+            attributes
+        });
+
+    } catch (e) {
+        console.log(request);
+        console.error(e);
+        ctx.response.body = e.message;
+    }
+
+
+});
+
+
 router.get('/api/html/demo/react', async (ctx) => {
     const { request } = ctx;
 
     const url = new URL(request.url);
     const source = url.searchParams.get('code');
 
-    const demo = `
+    const moduleSource = source.replace(/export[ ]+default[ ]+/, `const __MODULE__ = `)
 
-import { createRoot as __createRoot__ } from 'react-dom/client';
+
+
+    const demo =
+`import { createRoot as __createRoot__ } from 'react-dom/client';
 function render(App) {
     const container = document.getElementById('root');
     const root = __createRoot__(container);
     root.render(<App />);
 }
 
-${source}
+${moduleSource}
+
+
+render(__MODULE__);
 
 `;
 
     try {
-        const { code } = Babel.transform(demo, {
-            presets: ['react-demo'],
+        const { code } = transformSync(demo, {
+            presets: [
+                presetReact
+                // 'react-demo'
+            ],
         });
 
         await ctx.render('react', {
