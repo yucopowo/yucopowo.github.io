@@ -12,6 +12,11 @@ const libs = [
     'react-syntax-highlighter/dist/esm/styles/prism',
     'react-web-component',
 
+    // cssinjs
+    '@emotion/css',
+    '@emotion/react',
+    '@emotion/styled',
+
     // ui
     'antd', '@antv/g2',
 

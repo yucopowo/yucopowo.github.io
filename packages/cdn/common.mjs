@@ -336,7 +336,7 @@ export async function downloadFileAndSave(url) {
 
 }
 
-export function replaceUrl(originFileAbsolutePath, fileAbsolutePath) {
+export function replaceUrl(name, originFileAbsolutePath, fileAbsolutePath, dev = false) {
 
     const content = fs.readFileSync(originFileAbsolutePath, 'utf-8');
 
@@ -395,17 +395,33 @@ export function replaceUrl(originFileAbsolutePath, fileAbsolutePath) {
         ],
     });
 
-    const { code: code1 } = transformSync(code, {
-        plugins: [
-            babelPluginGeneratorPrettier,
-        ],
-        "generatorOpts": {
-            "printWidth": 120,
-            "semi": true,
-            "singleQuote": true
-        }
-    });
+    const { code: code1, map } = transformSync(code, {
 
+        ...(dev?{
+            plugins: [
+                babelPluginGeneratorPrettier,
+            ],
+            generatorOpts: {
+                "printWidth": 120,
+                "semi": true,
+                "singleQuote": true
+            }
+        }:{
+            sourceMaps: true,
+            // sourceRoot: originFileAbsolutePath,
+            // sourceFileName: originFileAbsolutePath,
+            minified: true,
+        }),
+
+
+
+    });
+    let code2 = '';
+    if(map && !dev) {
+        code2 = code1 + '\n' + `//# sourceMappingURL=${name}.map`;
+    } else {
+        code2 = code1;
+    }
     // console.log(code);
 
     // fs.writeFileSync(f+'.cdn.js', code1);
@@ -416,8 +432,13 @@ export function replaceUrl(originFileAbsolutePath, fileAbsolutePath) {
     // }
     const p = path.parse(fileAbsolutePath);
     mkdirp.sync(p.dir);
-    fs.writeFileSync(fileAbsolutePath, code1);
 
+    fs.writeFileSync(fileAbsolutePath, code2);
+    if(map && !dev) {
+        // console.log(map);
+        //
+        fs.writeFileSync(fileAbsolutePath+'.map', JSON.stringify(map));
+    }
 }
 
 async function downloadLib(lib, dev = false) {

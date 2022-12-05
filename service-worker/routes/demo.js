@@ -70,11 +70,13 @@ router.get('/api/html/demo/react', async (ctx) => {
 
 
     const demo =
-`import { createRoot as __createRoot__ } from 'react-dom/client';
+`
+import __React__ from 'react';
+import { createRoot as __createRoot__ } from 'react-dom/client';
 function render(App) {
     const container = document.getElementById('root');
     const root = __createRoot__(container);
-    root.render(<App />);
+    root.render(__React__.createElement(App));
 }
 
 ${moduleSource}

@@ -18,7 +18,7 @@ import {
 
 const tasks = new Map();
 
-async function createTask(_url) {
+async function createTask(_url, dev) {
     const id = stringHash(_url);
 
     if(tasks.has(id)) {
@@ -45,7 +45,7 @@ async function createTask(_url) {
     const deps = getFileDeps(originFileAbsolutePath, baseUrl);
     // console.log(deps);
 
-    replaceUrl(originFileAbsolutePath, fileAbsolutePath);
+    replaceUrl(name, originFileAbsolutePath, fileAbsolutePath, dev);
 
     return {
         id,
@@ -61,9 +61,9 @@ async function createTask(_url) {
 
 
 
-async function runTask(url) {
+async function runTask(url, dev) {
 
-    const task = await createTask(url);
+    const task = await createTask(url, dev);
     if(!task) return;
     tasks.set(task.id, task);
 
@@ -73,18 +73,23 @@ async function runTask(url) {
     for (let i = 0;i < deps.length;i++) {
             const u = deps[i];
             await sleep(10);
-            await runTask(u);
+            await runTask(u, dev);
     }
 }
 
-function runLibTask(lib){
-    return runTask(getLibUrl(lib, true))
+function runLibTask(lib, dev = false){
+    return runTask(getLibUrl(lib, dev))
 }
 
+await runLibTask('@emotion/react', true);
+await runLibTask('@emotion/styled', true);
 
 
 
-await runLibTask('@mapbox/rehype-prism');
+// await runLibTask('@emotion/css', true);
+
+
+// await runLibTask('@mapbox/rehype-prism');
 
 // await runLibTask('react-dom/server');
 // await runLibTask('@ebay/nice-modal-react');

@@ -136,30 +136,63 @@ async function ready(tryCount = 0) {
 //         console.error(e);
 //     });
 // });
+console.log('======worker======');
+console.log(worker);
+
+
+function fallback(callback) {
+    ready().then((res) => {
+        console.log('ok=====');
+        console.log(res);
+        // main();
+        // window.location.reload();
+        callback();
+    }).catch((e) => {
+        console.log('error=====');
+        console.error(e);
+    }).finally(() => {
+        // window.location.reload();
+    });
+}
 
 if(worker) {
-
-    // import('promise-worker').then((m) => {
-    //     console.log(m);
-    // });
-
-    main();
+    fallback(() => {
+        main();
+    });
 } else {
-    console.log('======worker======');
-    console.log(worker);
-
-    // ready().then((res) => {
-    //     console.log('ok=====');
-    //     console.log(res);
-    //     // main();
-    //     // window.location.reload();
-    // }).catch((e) => {
-    //     console.log('error=====');
-    //     console.error(e);
-    // }).finally(() => {
-    //     // window.location.reload();
-    // });
+    setTimeout(() => {
+        window.location.reload();
+    }, 1000);
 }
+
+// if(worker) {
+//
+//     // import('promise-worker').then((m) => {
+//     //     console.log(m);
+//     // });
+//
+//     //
+//
+//     // try {
+//     //     const ok = await (await fetch('/src/main.jsx')).text();
+//     //     console.log('======ok======');
+//     //     console.log(ok);
+//     // } catch (e) {
+//     //     console.error(e);
+//     // }
+//
+//     fallback(() => {
+//         main();
+//     });
+//
+//
+// } else {
+//
+//     fallback(() => {
+//         main();
+//     });
+//
+// }
 
 
 
