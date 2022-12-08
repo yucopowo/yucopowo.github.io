@@ -15,7 +15,7 @@ export default () => {
         // }
 
         if(
-            !url.startsWith('/cdn/')
+            !/\/cdn\//.test(url)
         ) {
             await next();
             return;

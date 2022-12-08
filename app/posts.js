@@ -21,7 +21,15 @@ const rootPath = path.resolve(__dirname, '../posts');
 const rootPathLength = rootPath.length;
 const postsPath = rootPath;
 
-
+function getFormat(ext) {
+    switch (ext) {
+        case 'md':
+        case 'mdx':
+            return 'markdown'
+        default:
+            return ext;
+    }
+}
 
 function save(tree) {
 
@@ -49,9 +57,12 @@ function save(tree) {
             posts.insert(n);
         }
         if(node.type === "file") {
-            if(node.ext === 'md' || node.ext === 'mdx') {
+            if(/(mdx?|html)$/.test(node.ext)) {
                 posts.insert(node);
             }
+            // if(node.ext === 'md' || node.ext === 'mdx') {
+            //
+            // }
         }
     }
     travelNodes(tree);
@@ -105,7 +116,7 @@ function update() {
                 newNode.type = 'file';
                 newNode.name = nodePath.base;
                 newNode.ext = nodePath.ext.substring(1);
-                newNode.format = newNode.ext;
+                newNode.format = getFormat(newNode.ext);
                 newNode.summary = summary;
                 newNode.path = p;
                 newNode.crc = crc32(content).toString(16);

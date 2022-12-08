@@ -30,7 +30,9 @@ export function link(url, id) {
 // selector,
 export function webComponentStyle(source, id) {
 
-    const e = document.querySelector('.post-detail-component');
+    // console.log(document.currentScript);
+
+    const e = document.querySelector('.markdown-renderer');
     console.log(e);
     const shadowRoot = e.shadowRoot;
     // console.log(shadowRoot.firstChild);

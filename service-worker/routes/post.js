@@ -1,5 +1,11 @@
 import { ServiceWorkerRouter } from '../index.js';
 import past from '/public/assets/libs/past/past.esm.js';
+import { evaluate } from '/service-worker/libs/mdx.js';
+import React from '/cdn/react.js';
+import * as runtime from '/cdn/react/jsx-runtime.js'
+import { renderToReadableStream, renderToString } from '/cdn/react-dom/server.js';
+
+import PostDetail from './components/post-detail.js';
 
 const router = new ServiceWorkerRouter();
 
@@ -113,28 +119,28 @@ router.get('/api/posts/folders/tree', async (ctx) => {
 
 //
 
-router.get('/api/post/content/:id', async (ctx) => {
-    const { response, db, params } = ctx;
-
-    const { id } = params;
-    const posts = db.getCollection("posts");
-
-    const result = posts.findOne({
-        id
-    });
-    if(!result) {
-        response.body= {code: -1, message: '文章未找到或已删除！'};
-        return;
-    }
-
-    const p = result.path;
-    const _response = await fetch(`/posts/${p}`);
-
-    const content = await _response.text();
-
-    response.body= {code: 0, message: 'ok', data: { content }};
-
-});
+// router.get('/api/post/content/:id', async (ctx) => {
+//     const { response, db, params } = ctx;
+//
+//     const { id } = params;
+//     const posts = db.getCollection("posts");
+//
+//     const result = posts.findOne({
+//         id
+//     });
+//     if(!result) {
+//         response.body= {code: -1, message: '文章未找到或已删除！'};
+//         return;
+//     }
+//
+//     const p = result.path;
+//     const _response = await fetch(`/posts/${p}`);
+//
+//     const content = await _response.text();
+//
+//     response.body= {code: 0, message: 'ok', data: { content }};
+//
+// });
 
 router.get('/api/post/content/past/:id', async (ctx) => {
     const { request, response, db, params } = ctx;
@@ -167,6 +173,84 @@ router.get('/api/post/content/past/:id', async (ctx) => {
 
 
 });
+
+router.get('/api/post/:id', async (ctx) => {
+    const { response, db, params } = ctx;
+
+    const { id } = params;
+    const posts = db.getCollection('posts');
+
+    const post = posts.findOne({
+        id
+    });
+
+    if(!post) {
+        response.body = {code: -1, message: '文章未找到或已删除！'};
+        return;
+    }
+
+    try {
+
+        response.body = {
+            code: 0,
+            message: 'ok',
+            data: post
+        };
+
+    } catch (e) {
+        console.error(e);
+        response.type = 'html';
+        response.status = 500;
+        response.body = e.message;
+    }
+
+
+});
+
+router.get('/api/post/content/:id', async (ctx) => {
+    const { response, db, params } = ctx;
+
+    const { id } = params;
+    const posts = db.getCollection('posts');
+
+    const post = posts.findOne({
+        id
+    });
+
+    response.type = 'html';
+
+    if(!post) {
+        response.body= '文章未找到或已删除';
+        return;
+    }
+
+    try {
+
+        const content = await (await fetch(`/posts/${post.path}`)).text();
+
+        if(post.format === 'html') {
+            response.body = content;
+            return;
+        }
+
+        const { default: Content } = await evaluate(content, {
+            ...runtime,
+            format: post.format,
+        });
+
+        const html = renderToString(React.createElement(PostDetail, {Content}));
+        response.body = html;
+
+    } catch (e) {
+        console.error(e);
+        response.type = 'html';
+        response.status = 500;
+        response.body = e.message;
+    }
+
+
+});
+
 
 export default router;
 

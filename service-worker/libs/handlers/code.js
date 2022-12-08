@@ -16,6 +16,7 @@ export default function code(h, node) {
     }
 
     const data = {
+        code: value,
         attributes: {
             lang
         }

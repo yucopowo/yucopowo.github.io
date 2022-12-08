@@ -10,47 +10,6 @@ import merge from '../utils/merge.js';
 import {removePosition} from "/cdn/unist-util-remove-position.js"
 import code from './handlers/code.js';
 
-export function compile(file, options = {}) {
-
-    const compileOptions = {
-        remarkPlugins: [
-            [remarkBreaks],
-            [remarkGfm],
-
-            // [() => {return (tree) => {
-            //     console.log('remark tree start=============');
-            //     const _tree = JSON.parse( JSON.stringify(tree) );
-            //     console.log(
-            //         JSON.stringify(removePosition(_tree, true), null, 2)
-            //     );
-            //     console.log('remark tree end=============');
-            // };}]
-
-        ],
-        rehypePlugins: [
-            // [rehypeAttr],
-            // [() => {return (tree) => {
-            //     console.log('rehype tree start=============');
-            //     const _tree = JSON.parse( JSON.stringify(tree) );
-            //     console.log(
-            //         JSON.stringify(removePosition(_tree, true), null, 2)
-            //     );
-            //     console.log('rehype tree end=============');
-            // };}]
-        ],
-        remarkRehypeOptions: {
-            // passThrough: ['code']
-            handlers: {
-                code
-            }
-        }
-    };
-
-    const mergedCompileOptions = merge(compileOptions, options);
-
-    return _compile(file, mergedCompileOptions);
-}
-
 export function evaluate(file, options) {
 
     const compileOptions = {
@@ -68,7 +27,9 @@ export function evaluate(file, options) {
             // };}]
         ],
         rehypePlugins: [
-            [rehypePrism],
+            [rehypePrism, {
+                ignoreMissing: true
+            }],
             // [() => {return (tree) => {
             //     console.log('rehype tree start=============');
             //     const _tree = JSON.parse( JSON.stringify(tree) );
@@ -89,3 +50,46 @@ export function evaluate(file, options) {
 
     return _evaluate(file, mergedCompileOptions);
 }
+
+
+// export function compile(file, options = {}) {
+//
+//     const compileOptions = {
+//         remarkPlugins: [
+//             [remarkBreaks],
+//             [remarkGfm],
+//
+//             // [() => {return (tree) => {
+//             //     console.log('remark tree start=============');
+//             //     const _tree = JSON.parse( JSON.stringify(tree) );
+//             //     console.log(
+//             //         JSON.stringify(removePosition(_tree, true), null, 2)
+//             //     );
+//             //     console.log('remark tree end=============');
+//             // };}]
+//
+//         ],
+//         rehypePlugins: [
+//             // [rehypeAttr],
+//             // [() => {return (tree) => {
+//             //     console.log('rehype tree start=============');
+//             //     const _tree = JSON.parse( JSON.stringify(tree) );
+//             //     console.log(
+//             //         JSON.stringify(removePosition(_tree, true), null, 2)
+//             //     );
+//             //     console.log('rehype tree end=============');
+//             // };}]
+//         ],
+//         remarkRehypeOptions: {
+//             // passThrough: ['code']
+//             handlers: {
+//                 code
+//             }
+//         }
+//     };
+//
+//     const mergedCompileOptions = merge(compileOptions, options);
+//
+//     return _compile(file, mergedCompileOptions);
+// }
+

@@ -100,9 +100,6 @@ async function registerServiceWorker() {
 // await unregisterAllServiceWorker();
 const worker = await registerServiceWorker();
 
-
-//
-//
 function sleep() {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -110,6 +107,7 @@ function sleep() {
         }, 300);
     });
 }
+
 async function ready(tryCount = 0) {
     if(tryCount > 10) {
         throw new Error('max try count');
@@ -126,19 +124,8 @@ async function ready(tryCount = 0) {
     }
 }
 
-// setTimeout(() => {
-//     ready().then((res) => {
-//         // console.log('ok=====');
-//         // console.log(res);
-//         main();
-//     }).catch((e) => {
-//         console.log('error=====');
-//         console.error(e);
-//     });
-// });
 console.log('======worker======');
 console.log(worker);
-
 
 function fallback(callback) {
     ready().then((res) => {
@@ -164,46 +151,3 @@ if(worker) {
         window.location.reload();
     }, 1000);
 }
-
-// if(worker) {
-//
-//     // import('promise-worker').then((m) => {
-//     //     console.log(m);
-//     // });
-//
-//     //
-//
-//     // try {
-//     //     const ok = await (await fetch('/src/main.jsx')).text();
-//     //     console.log('======ok======');
-//     //     console.log(ok);
-//     // } catch (e) {
-//     //     console.error(e);
-//     // }
-//
-//     fallback(() => {
-//         main();
-//     });
-//
-//
-// } else {
-//
-//     fallback(() => {
-//         main();
-//     });
-//
-// }
-
-
-
-// ready().then((res) => {
-//     console.log('ok=====');
-//     console.log(res);
-//     // main();
-//     // window.location.reload();
-// }).catch((e) => {
-//     console.log('error=====');
-//     console.error(e);
-// }).finally(() => {
-//     // window.location.reload();
-// });

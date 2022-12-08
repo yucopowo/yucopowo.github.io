@@ -18,7 +18,7 @@ self.addEventListener("activate", (event) => {
 
 const app = new ServiceWorkerServer();
 
-// app.use(cache());
+app.use(cache());
 app.use(db());
 app.use(views());
 

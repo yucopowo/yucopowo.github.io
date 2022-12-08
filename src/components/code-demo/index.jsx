@@ -9,9 +9,9 @@ import './index.less?web-component';
 // const CodeHighlight = React.lazy(() => import('/src/components/code-highlight/index.jsx'));
 
 
-function getUUID() {
-    return new Date().getTime() + Math.floor((Math.random() * 10000000));
-}
+// function getUUID() {
+//     return new Date().getTime() + Math.floor((Math.random() * 10000000));
+// }
 // const cache = new Map();
 function getDemoUrl(lang, demo) {
     if(demo==='react') {
@@ -34,9 +34,28 @@ function getDemoUrl(lang, demo) {
     }
 }
 
+// const StyleSheet = () => {
+//     return React.createElement('link', {
+//         type: "text/css",
+//         ref: 'stylesheet',
+//         href: '/src/components/code-demo/index.less'
+//     });
+// };
+
+class StyleSheet extends React.Component {
+    render() {
+        return React.createElement('link', {
+            type: "text/css",
+            'ref1': 'stylesheet',
+            href: '/src/components/code-demo/index.less'
+        });
+    }
+}
+
 const CodeDemo = (props) => {
 
     const { node } = props;
+
     const attributes = node.attributes || {};
     const demo = attributes['demo'];
     const iframeRef = useRef();
@@ -91,7 +110,6 @@ const CodeDemo = (props) => {
 
     return (
         <div className="code-demo">
-
             <div className="markdown-code-browser-window">
                 <div className="markdown-code-browser-window-header">
                     <div className="markdown-code-browser-window-buttons">
@@ -131,9 +149,13 @@ const CodeDemo = (props) => {
                         <Loading light />
                     </div>
                 )}
+                {/*{showCode && (*/}
+                {/*    <div>*/}
+                {/*        <CodeHighlight frameless node={node} />*/}
+                {/*    </div>*/}
+                {/*)}*/}
                 {showCode && (
-                    <div>
-                        <CodeHighlight frameless node={node} />
+                    <div dangerouslySetInnerHTML={{__html: node.children}}>
                     </div>
                 )}
             </div>

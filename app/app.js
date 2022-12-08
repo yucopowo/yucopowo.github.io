@@ -24,7 +24,7 @@ app.use((req, res) => {
         return;
     }
 
-    if(/.(jsx?|css|less|hbs|html|mdx?)$/.test(req.url)){
+    if(/.(jsx?|css|less|hbs|html|map|mdx?)$/.test(req.url)){
         res.status(404);
         res.send(null);
         return;

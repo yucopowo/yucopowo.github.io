@@ -19,14 +19,22 @@ function pre(_props) {
             data[k] = props[k];
         }
     });
-    return h('post-code-component', {
-            class: 'post-code-component',
-            ...data,
-        },
-        h('pre', {className: props.className},
-            h('code',{className: props.className},props.children)
-        )
+    // console.log('====');
+    // if(data)
+    const pre = h('pre', {className: props.className},
+        h('code',{className: props.className}, props.children)
     );
+    const properties = data['data-properties'];
+    if(properties && properties.includes('demo')) {
+        return h('post-code-component', {
+                class: 'post-code-component',
+                ...data,
+            },
+            pre
+        );
+    }
+    return pre;
+
 }
 
 const components = {
@@ -35,7 +43,9 @@ const components = {
 
 const App = (props) => {
     const { Content } = props;
-    return h(Content, { key: key.id, components});
+    return h('div', {
+        className: 'markdown-body',
+    }, h(Content, { key: key.id, components}));
 };
 
 export default App;
