@@ -148,7 +148,13 @@ export function parseAttrs(infoString) {
     const start = infoString.lastIndexOf(defaultOptions.leftDelimiter);
     const attrs = getAttrs(infoString, start, defaultOptions );
     attrs.forEach((attr) => {
-        config[attr[0]] = attr[1];
+        const v = attr[1];
+        if(v === '') {
+            config[attr[0]] = true;
+        }
+        else {
+            config[attr[0]] = attr[1];
+        }
     });
     // console.log(attrs);
     // config['lang'] = removeDelimiter(infoString, defaultOptions);

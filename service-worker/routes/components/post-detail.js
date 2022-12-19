@@ -43,9 +43,7 @@ const components = {
 
 const App = (props) => {
     const { Content } = props;
-    return h('div', {
-        className: 'markdown-body',
-    }, h(Content, { key: key.id, components}));
+    return h(Content, { key: key.id, components});
 };
 
 export default App;

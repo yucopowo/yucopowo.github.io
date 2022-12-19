@@ -81,8 +81,19 @@ function runLibTask(lib, dev = false){
     return runTask(getLibUrl(lib, dev))
 }
 
-await runLibTask('@emotion/react', true);
-await runLibTask('@emotion/styled', true);
+
+
+
+await runLibTask('dom-to-image', true);
+// await runLibTask('color', true);
+
+// await runLibTask('events', true);
+
+
+// await runLibTask('react-loading-skeleton', true);
+
+// await runLibTask('@emotion/react', true);
+// await runLibTask('@emotion/styled', true);
 
 
 

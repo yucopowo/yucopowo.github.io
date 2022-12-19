@@ -119,6 +119,98 @@ router.get('/api/html/demo/vue', async (ctx) => {
 });
 
 
+
+function sleepPlugin() {
+
+    const functionParentVisitor = {
+        Identifier(path) {
+            const node = path.node;
+            if (node.name === this.functionName && path.parent.type === 'CallExpression') {
+                // console.log('path=======');
+                // console.log(path);
+                path.node.name = 'await '+ node.name;
+            }
+        }
+    };
+
+    return {
+        name: "sleep-transform",
+        visitor: {
+            Identifier(path) {
+                const node = path.node;
+                if(node.name === "captureScreen") {
+                    node.name = 'await ' + node.name;
+                }
+            },
+            ExpressionStatement (path) {
+                const node = path.node;
+                if(
+                    node.expression
+                    && node.expression.type === "CallExpression"
+                    && node.expression.callee.name === "sleep"
+                ) {
+                    // console.log(node);
+
+
+                    const expression = {
+                        "type": "AwaitExpression",
+                        "argument": node.expression
+                    };
+                    node.expression = expression;
+
+
+                    const functionParent = path.getFunctionParent();
+
+                    if(functionParent) {
+                        // console.log(functionParent);
+                        functionParent.node.async = true;
+                        // console.log(functionParent.node.id.name);
+                        functionParent.hub.file.path.traverse(functionParentVisitor, {
+                            functionName: functionParent.node.id.name
+                        });
+                    }
+
+                }
+            }
+        }
+    };
+}
+
+router.get('/api/html/demo/autojs', async (ctx) => {
+    const { request } = ctx;
+    const url = new URL(request.url);
+    const source = url.searchParams.get('code');
+    const attributes = JSON.parse(url.searchParams.get('attributes'));
+
+    try {
+        const { code } = transformSync(source, {
+            presets: [
+                [
+                    presetReact, {}
+                ]
+            ],
+            plugins: [
+                sleepPlugin
+            ],
+        });
+
+        await ctx.render('autojs', {
+            code,
+            attributes: {
+                ...attributes,
+                container: 'screen',
+            }
+        });
+
+    } catch (e) {
+        console.log(request);
+        console.error(e);
+        ctx.response.body = e.message;
+    }
+
+
+});
+
 export default router;
 
 

@@ -1,5 +1,6 @@
 <html>
 <head>
+    <title>stack</title>
     <style>
         body {
             color: white;
@@ -8,10 +9,91 @@
 </head>
 <body>
 
-<p>====</p>
-<script>
-    console.log(1111);
+<div id="root"></div>
+<script type="module">
+
+    function isObject(o) {
+        return o != null && typeof o === 'object' && Array.isArray(o) === false;
+    }
+
+    class Component {
+
+    }
+
+    function createElement(tag, props, ...children) {
+        const p = Object.assign({}, props);
+        const _children = [].concat(...children).reduce((result, item) => {
+            if(item === false || item===true || item===null) {
+                return result;
+            }
+
+            if(isObject(item)) {
+                result.push(item);
+            } else {
+                const text = createElement('text', { textContent: item});
+                result.push(text);
+            }
+            return result;
+        }, []);
+        if(tag !== 'text') {
+            p.children = _children;
+        }
+        return {
+            tag, props: p
+        }
+    }
+
+    function updateVnodeElement(element, vnode) {
+
+    }
+
+    function createVnodeElement(vnode) {
+        let vnodeElement = null;
+        if(node.tag === 'text') {
+            vnodeElement = document.createTextNode(vnode.props.textContent);
+        } else {
+            vnodeElement = document.createElement(vnode.tag);
+        }
+        vnodeElement.vnode = vnode;
+
+    }
+
+    const React = {
+        Component,
+        createElement
+    };
+
+    function mount(vnode, container, oldVnode) {
+
+        // const element =
+        if(oldVnode) {
+
+        } else {
+
+        }
+    }
+
+    function diff(vnode, container, oldVnode) {
+        if(oldVnode) {
+            mount(vnode, container, oldVnode);
+        }
+    }
+
+    function render(vnode, container, oldVnode = container.vnode) {
+        diff(vnode, container, oldVnode);
+    }
+
+    const ReactDOM = {
+
+    };
+
+    const dom = createElement('div', {}, '====');
+
+    console.log(dom);
+
 </script>
+
+https://segmentfault.com/a/1190000039195399?sort=newest
 
 </body>
 </html>

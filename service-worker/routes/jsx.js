@@ -4,7 +4,7 @@ import presetReact from '/cdn/@babel/preset-react.js';
 
 const router = new ServiceWorkerRouter();
 
-router.get('/src/(.*).jsx', async (ctx) => {
+router.get('/(src|public|packages)/(.*).jsx', async (ctx) => {
     const source = ctx.response.body;
 
     const { request } = ctx;

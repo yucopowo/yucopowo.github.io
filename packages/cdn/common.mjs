@@ -417,11 +417,12 @@ export function replaceUrl(name, originFileAbsolutePath, fileAbsolutePath, dev =
 
     });
     let code2 = '';
-    if(map && !dev) {
-        code2 = code1 + '\n' + `//# sourceMappingURL=${name}.map`;
-    } else {
-        code2 = code1;
-    }
+    // if(map && !dev) {
+    //     code2 = code1 + '\n' + `//# sourceMappingURL=${name}.map`;
+    // } else {
+    //     code2 = code1;
+    // }
+    code2 = code1;
     // console.log(code);
 
     // fs.writeFileSync(f+'.cdn.js', code1);
@@ -434,11 +435,11 @@ export function replaceUrl(name, originFileAbsolutePath, fileAbsolutePath, dev =
     mkdirp.sync(p.dir);
 
     fs.writeFileSync(fileAbsolutePath, code2);
-    if(map && !dev) {
-        // console.log(map);
-        //
-        fs.writeFileSync(fileAbsolutePath+'.map', JSON.stringify(map));
-    }
+    // if(map && !dev) {
+    //     // console.log(map);
+    //     //
+    //     fs.writeFileSync(fileAbsolutePath+'.map', JSON.stringify(map));
+    // }
 }
 
 async function downloadLib(lib, dev = false) {

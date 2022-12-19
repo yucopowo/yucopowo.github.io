@@ -4,7 +4,7 @@ import CodeHighlight from '/src/components/code-highlight/index.jsx';
 import Loading from "../loading/index.jsx";
 import { uuid } from "../../utils/util.js";
 // import style from './index.less?web-component';
-import './index.less?web-component';
+import './index.less';
 
 // const CodeHighlight = React.lazy(() => import('/src/components/code-highlight/index.jsx'));
 
@@ -16,7 +16,10 @@ import './index.less?web-component';
 function getDemoUrl(lang, demo) {
     if(demo==='react') {
         return '/api/html/demo/react';
+    } else if(demo==='autojs') {
+        return '/api/html/demo/autojs';
     }
+
     switch (lang) {
         case 'vue':
         case 'vue2':

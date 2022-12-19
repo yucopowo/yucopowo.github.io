@@ -28,6 +28,7 @@ const libs = [
     '@mdx-js/runtime',
 
     // util
+    'events',
     'axios',
     'query-string',
     'style-to-object',
@@ -36,7 +37,9 @@ const libs = [
     'styled-components',
 
     '@ebay/nice-modal-react',
+    'color',
 
+    'dom-to-image',
 
 ];
 

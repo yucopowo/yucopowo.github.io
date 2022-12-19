@@ -2,11 +2,19 @@ import {ServiceWorkerResponse, ServiceWorkerRouter} from '../index.js';
 
 const router = new ServiceWorkerRouter();
 
-router.get('/src/(.*).(jsx?|css|less|hbs)', async (ctx, next) => {
+router.get('/(src|public|packages)/(.*).(jsx?|css|less|hbs)', async (ctx, next) => {
     const { request } = ctx;
     const response = await fetch(request);
     ctx.response = await ServiceWorkerResponse.fromOriginResponse(response);
     await next();
 });
+
+// router.get('.css', async (ctx, next) => {
+//     console.log('==css======');
+//     const { request } = ctx;
+//     const response = await fetch(request);
+//     ctx.response = await ServiceWorkerResponse.fromOriginResponse(response);
+//     await next();
+// });
 
 export default router;

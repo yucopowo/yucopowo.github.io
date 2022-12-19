@@ -1,4 +1,7 @@
 import { ServiceWorkerServer } from '/service-worker/index.js';
+import preload from '/service-worker/middlewares/preload.js';
+import css from '/service-worker/middlewares/css.js';
+
 import cache from '/service-worker/middlewares/cache.js';
 import db from '/service-worker/middlewares/db.js';
 import views from '/service-worker/middlewares/views/handlebars/index.js';
@@ -18,6 +21,8 @@ self.addEventListener("activate", (event) => {
 
 const app = new ServiceWorkerServer();
 
+app.use(preload());
+app.use(css());
 app.use(cache());
 app.use(db());
 app.use(views());

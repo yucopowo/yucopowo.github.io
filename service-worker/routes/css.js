@@ -15,7 +15,7 @@ const router = new ServiceWorkerRouter();
 //     ctx.response.body = body;
 // });
 
-router.get('/src/(.*).css', async (ctx) => {
+router.get('/(src|public)/(.*).css', async (ctx) => {
     const { request, response } = ctx;
     if(request.destination === 'style') {
         response.type = 'css';

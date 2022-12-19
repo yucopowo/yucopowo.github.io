@@ -1,22 +1,15 @@
 const CACHE_NAME = 'blog';
+
+function test(url) {
+    return url.startsWith('https://esm.sh/') || /\/cdn\//.test(url);
+}
+
 export default () => {
     return async (ctx, next) => {
         const { request } = ctx;
         const url = request.url;
-        // console.log('cache match ==================');
-        // console.log(url);
 
-        // if(
-        //     !url.startsWith('https://esm.sh/') &&
-        //     !url.includes('/public/assets/libs/')
-        // ) {
-        //     await next();
-        //     return;
-        // }
-
-        if(
-            !/\/cdn\//.test(url)
-        ) {
+        if(!test(url)) {
             await next();
             return;
         }

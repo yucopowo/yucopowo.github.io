@@ -1,0 +1,136 @@
+{{#>layout}}
+
+<style>
+
+    :root {
+        {{#if landscape}}
+            --screen-width: 2160px;
+            --screen-height: 1080px;
+        {{else}}
+            --screen-width: 1080px;
+            --screen-height: 2160px;
+        {{/if}}
+    }
+    /*landscape*/
+    html, body, #screen {
+        width: var(--screen-width);
+        height: var(--screen-height);
+        overflow: hidden;
+    }
+    #screen {
+        background-color: #595959;
+        /*zoom: 0.5;*/
+        /*margin: 40px auto;*/
+        /*background-color: #fafafa;*/
+    }
+</style>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+<script>
+    (()=>{
+        const root = document.querySelector(':root');
+        window.SCREEN_WIDTH = parseInt( getComputedStyle(root).getPropertyValue('--screen-width') );
+        window.SCREEN_HEIGHT = parseInt( getComputedStyle(root).getPropertyValue('--screen-height') );
+    })();
+</script>
+
+{{#if attributes.console}}
+<script src="https://unpkg.com/vconsole@3.15.0/dist/vconsole.min.js"></script>
+<script>
+    const vConsole = new window.VConsole({
+        defaultPlugins: [],
+        // target: '#screen',
+        theme: 'dark',
+        onReady() {
+            vConsole.show();
+        }
+    });
+
+    // vConsole.hideSwitch();
+</script>
+{{/if}}
+
+
+<script type="module">
+import React from 'react';
+import app, { launch, launchApp, openAppSetting } from '/packages/autojs/app.js';
+import device from '/packages/autojs/device.js';
+import ui from '/packages/autojs/ui.jsx';
+import Paint from '/packages/autojs/paint.js';
+import colors from '/packages/autojs/colors.js';
+import { sleep, toast, random, exit, toastLog } from '/packages/autojs/globals.js';
+import { click, swipe } from '/packages/autojs/coordinate.js';
+import { home } from '/packages/autojs/keys.js';
+import { log, openConsole } from '/packages/autojs/console.js';
+import { text, textMatches } from '/packages/autojs/uiselector.js';
+import images, {
+    requestScreenCapture,
+    captureScreen,
+    findColor,
+    findColorInRegion
+} from '/packages/autojs/images.js';
+
+
+
+{{{code}}}
+
+
+
+
+
+</script>
+
+
+<script>
+    (() => {
+        // .getElementById('screen')
+        document.addEventListener('click', (e) => {
+
+            console.log(e.clientX, e.clientY);
+
+            // console.log(e.offsetX * 5, e.offsetY * 5);
+
+        });
+    })();
+</script>
+
+<script>
+    (() => {
+        // const topFrame = window.frameElement;
+        // if (topFrame) {
+        //     topFrame.style.height = 1080 + 'px';
+        //     topFrame.style.width = 2160 + 'px';
+        //     topFrame.style.transform = 'scale(0.2)';
+        //     topFrame.style.transformOrigin = '0 0';
+        // }
+    })();
+</script>
+
+<script>
+    (() => {
+        const size = '{{attributes.size}}';
+
+        const topFrame = window.frameElement;
+        if (topFrame) {
+            const scale = (() => {
+                if (size === 'small') return 0.2;
+                return 0.4;
+            })(); // 0.4
+            topFrame.style.transform = 'scale('+scale+')';
+            topFrame.style.transformOrigin = '0 0';
+            topFrame.style.width = (window.SCREEN_WIDTH) + 'px';
+            topFrame.style.height = (window.SCREEN_HEIGHT) + 'px';
+
+
+            const parentElement = topFrame.parentElement;
+            parentElement.style.width = (window.SCREEN_WIDTH * scale) + 'px';
+            parentElement.style.height = (window.SCREEN_HEIGHT * scale) + 'px';
+            parentElement.style.overflow = 'hidden';
+            parentElement.style.margin = '20px auto';
+        }
+    })();
+</script>
+
+{{/layout}}

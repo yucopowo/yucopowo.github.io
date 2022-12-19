@@ -2,7 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import {safeJSONParse} from '/src/utils/util.js';
 import InView from '/src/packages/inview/inview.js';
-
+import '/public/assets/css/prism-themes/themes/okaidia.css';
 
 class HTMLComponent extends HTMLElement {
     connectedCallback() {
@@ -13,7 +13,7 @@ class HTMLComponent extends HTMLElement {
             return;
         }
 
-        console.log(properties);
+        // console.log(properties);
 
         const el = this;
         el.style.display = 'block';

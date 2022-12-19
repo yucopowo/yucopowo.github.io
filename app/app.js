@@ -14,6 +14,10 @@ app.use(express.static(root));
 // });
 
 app.use((req, res) => {
+    // if(req.url.startsWith('/post')) {
+    //     res.sendFile(path.resolve(root, 'post.html'));
+    //     return;
+    // }
     if(req.url.startsWith('/page')) {
         res.sendFile(path.resolve(root, 'index.html'));
         return;

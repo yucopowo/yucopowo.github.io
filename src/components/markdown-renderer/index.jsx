@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { getPostContentByIdService } from '/src/services/post.js';
-import { withWebComponent } from '/src/packages/react-web-component/index.jsx';
+// import { withWebComponent } from '/src/packages/react-web-component/index.jsx';
 import './renderers/code/renderer.jsx';
+import '/public/assets/css/github-markdown-dark.css';
 
 const MarkdownRenderer = (props) => {
     const { post } = props;
@@ -22,20 +23,22 @@ const MarkdownRenderer = (props) => {
     );
 };
 
-export default withWebComponent(MarkdownRenderer,  {
-    // name: 'post-detail-web-component',
-    className: 'markdown-renderer',
-    links: [
-        {
-            rel: "stylesheet", href: '/public/assets/css/github-markdown-dark.css'
-        },
-        {
-            rel: "stylesheet", href: '/src/web-components/post-detail-component/post-detail-component.css'
-        },
-        {
-            rel: "stylesheet", href: '/public/assets/css/prism-themes/themes/okaidia.css'
-        }
-    ],
-    shadow: true
-});
+export default MarkdownRenderer;
+
+// export default withWebComponent(MarkdownRenderer,  {
+//     // name: 'post-detail-web-component',
+//     className: 'markdown-renderer',
+//     links: [
+//         {
+//             rel: "stylesheet", href: '/public/assets/css/github-markdown-dark.css'
+//         },
+//         {
+//             rel: "stylesheet", href: '/src/web-components/post-detail-component/post-detail-component.css'
+//         },
+//         {
+//             rel: "stylesheet", href: '/public/assets/css/prism-themes/themes/okaidia.css'
+//         }
+//     ],
+//     shadow: true
+// });
 
