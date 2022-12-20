@@ -1,0 +1,1 @@
+/* esm.sh - esbuild bundle(micromark@3.1.0/lib/postprocess) es2022 production */import{subtokenize as r}from"/cdn/v99/micromark-util-subtokenize@1.0.2/es2022/micromark-util-subtokenize.js";function e(o){for(;!r(o););return o}export{e as postprocess};

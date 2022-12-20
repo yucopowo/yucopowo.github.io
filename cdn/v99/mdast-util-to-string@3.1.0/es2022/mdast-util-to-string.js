@@ -1,0 +1,1 @@
+/* esm.sh - esbuild bundle(mdast-util-to-string@3.1.0) es2022 production */function l(r,t){var{includeImageAlt:i=!0}=t||{};return a(r,i)}function a(r,t){return r&&typeof r=="object"&&(r.value||(t?r.alt:"")||"children"in r&&u(r.children,t)||Array.isArray(r)&&u(r,t))||""}function u(r,t){for(var i=[],n=-1;++n<r.length;)i[n]=a(r[n],t);return i.join("")}export{l as toString};

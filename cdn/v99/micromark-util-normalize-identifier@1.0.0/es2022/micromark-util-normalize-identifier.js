@@ -1,0 +1,1 @@
+/* esm.sh - esbuild bundle(micromark-util-normalize-identifier@1.0.0) es2022 production */function r(e){return e.replace(/[\t\n\r ]+/g," ").replace(/^ | $/g,"").toLowerCase().toUpperCase()}export{r as normalizeIdentifier};

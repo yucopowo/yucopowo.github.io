@@ -1,0 +1,1 @@
+/* esm.sh - esbuild bundle(unist-util-generated@2.0.0) es2022 production */function t(i){return!i||!i.position||!i.position.start||!i.position.start.line||!i.position.start.column||!i.position.end||!i.position.end.line||!i.position.end.column}export{t as generated};

@@ -77,14 +77,14 @@ async function runTask(url, dev) {
     }
 }
 
-function runLibTask(lib, dev = false){
+function runLibTask(lib, dev = true){
     return runTask(getLibUrl(lib, dev))
 }
 
 
 
 
-await runLibTask('dom-to-image', true);
+// await runLibTask('dom-to-image', true);
 // await runLibTask('color', true);
 
 // await runLibTask('events', true);
@@ -133,7 +133,7 @@ await runLibTask('dom-to-image', true);
 
 // await runLibTask('react/jsx-runtime');
 // await runLibTask('@mdx-js/react');
-// await runLibTask('@mdx-js/mdx');
+await runLibTask('@mdx-js/mdx');
 
 // await runLibTask('rebass');
 // await runLibTask('@emotion/react');

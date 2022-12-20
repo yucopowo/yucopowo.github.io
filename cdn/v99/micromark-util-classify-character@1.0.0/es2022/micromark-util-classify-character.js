@@ -1,0 +1,1 @@
+/* esm.sh - esbuild bundle(micromark-util-classify-character@1.0.0) es2022 production */import{markdownLineEndingOrSpace as i,unicodePunctuation as r,unicodeWhitespace as t}from"/cdn/v99/micromark-util-character@1.1.0/es2022/micromark-util-character.js";function a(n){if(n===null||i(n)||t(n))return 1;if(r(n))return 2}export{a as classifyCharacter};

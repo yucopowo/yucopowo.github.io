@@ -1,0 +1,1 @@
+/* esm.sh - esbuild bundle(mdast-util-to-markdown@1.3.0/lib/util/indent-lines.js) es2022 production */var r=/\r?\n|\r/g;function h(e,l){let t=[],i=0,s=0,n;for(;n=r.exec(e);)c(e.slice(i,n.index)),t.push(n[0]),i=n.index+n[0].length,s++;return c(e.slice(i)),t.join("");function c(o){t.push(l(o,s,!o))}}export{h as indentLines};

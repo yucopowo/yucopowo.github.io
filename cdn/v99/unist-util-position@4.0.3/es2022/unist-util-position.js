@@ -1,0 +1,1 @@
+/* esm.sh - esbuild bundle(unist-util-position@4.0.3) es2022 production */var p=i("start"),s=i("end");function u(t){return{start:p(t),end:s(t)}}function i(t){return r;function r(o){let n=o&&o.position&&o.position[t]||{};return{line:n.line||null,column:n.column||null,offset:n.offset>-1?n.offset:null}}}export{s as pointEnd,p as pointStart,u as position};

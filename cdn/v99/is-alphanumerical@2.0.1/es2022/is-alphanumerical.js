@@ -1,0 +1,1 @@
+/* esm.sh - esbuild bundle(is-alphanumerical@2.0.1) es2022 production */import{isAlphabetical as m}from"/cdn/v99/is-alphabetical@2.0.1/es2022/is-alphabetical.js";import{isDecimal as o}from"/cdn/v99/is-decimal@2.0.1/es2022/is-decimal.js";function p(i){return m(i)||o(i)}export{p as isAlphanumerical};
